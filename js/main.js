@@ -15,6 +15,15 @@ $(document).ready(function(){
 	   'removeWithBackspace' : true,
 	   'placeholderColor' : '#666666'
 	});
+
+	$('#cats').tagsInput({
+	   'height':'100px',
+	   'width':'300px',
+	   'interactive':false,
+	   'defaultText':'Agregar',
+	   'removeWithBackspace' : true,
+	   'placeholderColor' : '#666666'
+	});
 });
 
 //carga el contenido
@@ -53,14 +62,13 @@ function formulario(func){
 
 //quita y pone categoria seleccionada
 function categoria(etiqueta){
-	if ($('#tags').tagExist(etiqueta)) { 
+	if ($('#cats').tagExist(etiqueta)) { 
 
-		$('#tags').removeTag(etiqueta);
+		$('#cats').removeCat(etiqueta);
 
 	}else{
 
-		$('#tags').addTag(etiqueta);
-		$('#tags span span')
+		$('#cats').addCat(etiqueta);
 	}
 }
 

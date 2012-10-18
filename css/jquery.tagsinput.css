@@ -24,6 +24,21 @@ div.tagsinput span.tag {
 	font-size:13px;
 }
 
+div.tagsinput span.cat { 
+	border: 1px solid #333; 
+	-moz-border-radius:2px; 
+	-webkit-border-radius:2px; 
+	display: block; float: left; 
+	padding: 5px; 
+	text-decoration:none; 
+	background: blue !important; 
+	color: #fff; 
+	margin-right: 5px; 
+	margin-bottom:5px;
+	font-family: helvetica;  
+	font-size:13px;
+}
+
 div.tagsinput span.tag a { 
 	font-weight: bold; 
 	color: #82ad2b; 

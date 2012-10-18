@@ -21,7 +21,7 @@ function categorias(){
 	<option></option>';
 
 	while($row = mysql_fetch_array($resultado)){
-		echo '<option value="'.$row['id'].'" onClick="etiqueta(\''.$row['nombre'].'\')">'.$row['nombre'].'</option>';
+		echo '<option value="'.$row['id'].'" onClick="categoria(\''.$row['nombre'].'\')">'.$row['nombre'].'</option>';
 	}
 
 	echo '</select>';

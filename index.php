@@ -77,6 +77,7 @@ if(loguado()){
 	</div>
 
 	<div class="bottom">
+		<input id="cats" type="text" class="tags" value="" />
 		<input id="tags" type="text" class="tags" value="" />
 		Notas<br/>
 		<textarea placeholder="Notas"></textarea>
