@@ -16,8 +16,14 @@ h1, h2, h3 {
 header{
 	width: 100%;
 	display: block;
-	height: 70px;
+	height: 80px;
 	background-color: #333;
+}
+
+.logo{
+	height: 70px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 .columnas{
@@ -63,10 +69,11 @@ footer{
 #menu ul li a{
 	padding: 10px;
 	display: block;
+	border-bottom: 1px solid #333;
 }
 
 #menu ul li a:hover{
-	background-color: blue;
+	background-color: #d99e16;
 }
 
 /* sub menu */
@@ -81,17 +88,21 @@ footer{
 }
 
 #menu ul li ul li:hover{
-	background-color: blue;
+	background-color: #d99e16;
 }
 
 /* menu seleccionado */
 .seleccionada{
-	background-color: #222;
+	background-color: #797674;
 	color: #fff;
 }
 
+.seleccionada a{
+	box-shadow: 0px 0px 5px #333;
+}
+
 .seleccionada a:hover{
-	background-color: #222 !important;
+	background-color: #797674 !important;
 }
 
 /* contenido */
