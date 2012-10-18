@@ -6,7 +6,7 @@
 <html>
 
 <head>
-	<title>Registro</title>
+	<title>Panel de control</title>
 	<meta charset="utf-8" />
 	
 	<link rel="stylesheet" href="../css/admin.css" TYPE="text/css">
@@ -40,7 +40,7 @@
 			<li id="categorias" onClick="menu('categorias')">
 				<a>Categorias</a>
 				<ul>
-					<li>
+					<li onClick="accion('agregarCategoria')">
 						Agregar Categorias
 					</li>
 					<li>
@@ -49,23 +49,16 @@
 				</ul>
 			</li>
 			<li id="clientes" onClick="menu('clientes')">
-				<a>Clientes</a>
-				<ul>
-					<li>
-						Ver Clientes
-					</li>
-				</ul>
+				<a onClick="accion('verClientes')">Clientes</a>
+				
 			</li>
 			<li id="proyectos" onClick="menu('proyectos')">
-				<a>Proyectos</a>
+				<a onClick="accion('verProyectos')">Proyectos</a>
 				<ul>
-					<li>
-						Ver Proyectos
-					</li>
-					<li>
+					<li onClick="accion('verProyectosActivos')">
 						Proyectos Activos
 					</li>
-					<li>
+					<li onClick="accion('verProyectosFinalizados')">
 						Proyectos Finalizados
 					</li>
 				</ul>
@@ -73,7 +66,7 @@
 		</ul>
 	</div>
 	<div id="contenido">
-		contenido
+		
 	</div>
 
 </div>
