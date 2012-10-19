@@ -2,10 +2,6 @@
 require_once("dbAdmin.php");
 
 switch ($_POST['func']){
-	case 'bienvenida':
-		echo 'compania/bienvenida.html';
-		break;
-		
 	//clientes
 	case 'verClientes':
 		verClientes();
@@ -41,5 +37,11 @@ switch ($_POST['func']){
 	case 'verProyectosFinalizados':
 		verProyectosFinalizados();
 		break;
+
+	//categorias
+	case 'muestraCategorias':
+		muestraCategorias();
+		break;
 }
+
 ?>

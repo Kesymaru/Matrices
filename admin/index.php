@@ -22,7 +22,7 @@
 <body>
 
 <header>
-	Admin
+	<img class="logo" src="../images/escala.png">
 </header>
 
 <div class="columnas">
@@ -38,7 +38,7 @@
 				</ul>
 			</li>
 			<li id="categorias" onClick="menu('categorias')">
-				<a>Categorias</a>
+				<a onClick="accion('muestraCategorias')">Categorias</a>
 				<ul>
 					<li onClick="accion('agregarCategoria')">
 						Agregar Categorias

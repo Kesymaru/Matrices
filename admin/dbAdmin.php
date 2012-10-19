@@ -307,3 +307,82 @@ function verProyectosFinalizados(){
 	}
 	echo '</div>';
 }
+
+/* 
+	CATEGORIAS 
+*/
+
+/* muestra todas la categorias anidadas */
+function muestraCategorias(){
+	$hijo = 0;
+	$nivel = 0;
+	$sql = 'SELECT * FROM categorias WHERE parentId = 0';
+	$result = mysql_query($sql);
+
+	echo '<h1>Categorias</h1>';
+	echo '<button>Agregar Categoria</button>';
+
+	echo '<div id="muestraCategorias">';
+
+	while( $row = mysql_fetch_array($result) ){
+		echo '<h3>'.$row['nombre'].'</h3>';
+		echo '<div>';
+
+		echo '<table class="datos">
+			<tr>';
+
+		$hijo = $row['id'];
+
+		while( tieneHijos($hijo) ){
+			$nivel++;
+			echo '
+			<td>
+				Nivel '.$nivel.'<br/>
+				'.muestraHijos($row['id']).'<br/>
+				<button>Editar</button>
+				<button>Agregar Hijo</button>
+			</td>
+			';
+			$hijo++;
+		}
+		if( !tieneHijos($row['id']) ){
+			echo '
+			<td>
+				Esta categoria no tiene Hijos<br/>
+				<button>Agregar Hijo</button>
+			</td>';
+		}
+		echo '
+				<td id>
+
+				</td>
+			</tr>
+			</table>
+		</div>';
+		$hijo = 0;
+		$nivel = 0;
+	}
+	echo '</div>';
+}
+
+//muestra hijos de un parent
+function muestraHijos($id){
+	$sql = 'SELECT * FROM categorias WHERE parentId = '.$id;
+	$result = mysql_query($sql);
+
+	while( $row = mysql_fetch_array($result) ){
+		echo '<input disabled="disabled" value="'.$row['nombre'].'"><br/>';
+	}
+}
+
+//determina si la categoria tiene hijos, return true si tiene
+function tieneHijos($id){
+	$sql = 'SELECT * FROM categorias WHERE parentId = '.$id;
+	$result = mysql_query($sql);
+
+	if( mysql_fetch_array($result) ){
+		return true; //hay hijos
+	}else{
+		return false; //no tiene hijos
+	}
+}

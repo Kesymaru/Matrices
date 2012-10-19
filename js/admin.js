@@ -27,13 +27,16 @@ function accion(func){
 	        	//cont.html(response);
 	        	cont.hide().html(response).fadeIn(1000);
 	        	//cont.hide().html(response).slideDown(1500);
-	        	
+
 	        	if(func == 'verClientes'){
 	        		$( "#muestraClientes" ).accordion();
 	        	}	 
 	        	if(func == 'verProyectos' || func == 'verProyectosActivos' || func == 'verProyectosFinalizados'){
 	        		$( "#muestraProyectos" ).accordion();
 	        	}   
+	        	if(func == 'muestraCategorias'){
+	        		$( "#muestraCategorias" ).accordion();
+	        	}
 	        }
 		});
 }
