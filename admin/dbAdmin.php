@@ -1,5 +1,7 @@
 <?php
 /* Conexion y funcionalidades de la base de datos */
+session_start();
+$_SESSION['superParent'] = 0;
 
 $host      =    "localhost";
 $user      =    "root";
@@ -335,7 +337,8 @@ function muestraCategorias(){
 			
 			echo '
 			<tr id="tabla'.$row['id'].'">	
-			<td>
+
+			<td id="categoria'.$row['id'].'">
 				<div class="hijos" id="hijos'.$row['id'].'">
 					<h3>Nivel '.$nivel.'</h3><br/>
 				';
@@ -383,6 +386,71 @@ function muestraCategorias(){
 	echo '</div>';
 }
 
+//muesta los hijos desplegados
+function categoriaHija($superParent,$parentId){
+	if( tieneHijos($parentId) ){
+
+			echo '
+			<td>
+				<div class="hijos" id="hijos'.$parentId.'">
+					<h3>
+			';
+
+			echo nombrePadre($parentId).'
+					</h3><br/>
+			';
+
+			echo subCategoria($superParent,$parentId);
+
+			echo'	
+				</div> <!-- ends hijos -->
+
+				<div class="edicion" id="agregar'.$parentId.'">
+					<input type="text" name="nuevo" id="nuevo'.$parentId.'" placeholder="Nueva categoria">
+					<button onClick="nuevoHijo('.$parentId.')">Agregar</button><br/>
+				</div> <!-- ends agregar -->
+
+				<div class="edicion" id="edicion'.$parentId.'">
+					<button onClick="">Editar Existentes</button>
+				</div> <!-- ends edicion -->
+
+			</td>
+			';
+		}else{
+			echo '
+			<tr id="'.$parentId.'">
+			<td>
+				<div class="hijos" id="hijos'.$parentId.'">
+			';
+			echo nombrePadre($parentId).' no tiene Hijos
+				</div> <!-- ends hijos -->
+
+				<div class="edicion" id="agregar'.$parentId.'">
+					<input type="text" name="nuevo" id="nuevo'.$parentId.'" placeholder="Nueva categoria">
+					<button onClick="nuevoHijo('.$parentId.')">Agregar</button><br/>
+				</div> <!-- ends agregar -->
+
+			</td>
+			';
+		}
+}
+
+//muestra hijos de para ajax
+function subCategoria($superParent,$id){
+	$sql = 'SELECT * FROM categorias WHERE parentId = '.$id;
+	$result = mysql_query($sql);
+
+	echo '<select id="'.$id.'" onChange="subCategoria('.$superParent.','.$id.')">'; //parentId
+	echo '<option></option>';
+
+	while( $row = mysql_fetch_array($result) ){
+		//id del hijo
+		echo '<option id="'.$row['id'].'">'.$row['nombre'].'</option>';
+	}
+
+	echo '</select>';
+}
+
 //muestra hijos de un parent
 function muestraHijos($id){
 	$sql = 'SELECT * FROM categorias WHERE parentId = '.$id;
@@ -406,5 +474,14 @@ function tieneHijos($id){
 		return true; //hay hijos
 	}else{
 		return false; //no tiene hijos
+	}
+}
+
+function nombrePadre($parentId){
+	$sql = 'SELECT * FROM categorias WHERE id = '.$parentId;
+	$result = mysql_query($sql);
+
+	if( $row = mysql_fetch_array($result) ){
+		echo $row['nombre'];
 	}
 }
