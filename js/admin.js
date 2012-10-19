@@ -4,6 +4,8 @@
 
 var opcionOld = 'dashboard';
 var eCliente = 0;
+var superParent = 0;
+var subCategorias = false;
 
 $(document).ready(function(){
 
@@ -57,8 +59,8 @@ function actualizar(func, id, param){
 }
 
 //ajax para consultar datos
-function consultar(func, id){
-	var queryParams = { "func" : func, 'id' : id};
+function consultar(func, superParent, id){
+	var queryParams = { "func" : func, 'superParent' : superParent, 'id' : id};
 	  	$.ajax({
 	        data:  queryParams,
 	        url:   'ajaxAdmin.php',
@@ -67,10 +69,12 @@ function consultar(func, id){
 	                cont.html('<img class="loader" src="http://77digital.com/Desarrollo/dipo/images/loader.gif" alt="cargando" />');
 	        },*/
 	        success:  function (response) {
+	        	$('#categoria'+id).hide().html(response).slideDown(1500);
 	        }
 		});
 }
 
+//menu principal
 function menu(opcion){
 
 	if( $('#'+opcion).hasClass('seleccionada') ){
@@ -125,17 +129,35 @@ function enviarCliente(id){
 	}
 }
 
-//selecciona una categoria padre
+//selecciona una categoria padre y muestra sus hijos al lado derecho
 function seleccionaCategoria(parentId) {
-    var padre = $('#'+parentId+' option:selected').val();
+    //var padre = $('#'+parentId+' option:selected').val();
 
   	//var hijo = $('#'+parentId).find('option:selected').attr('id');
+  	$('.nivel2').remove();
+
   	var hijo = $('#'+parentId+' option:selected').attr('id');
+
+	superParent = parentId;
+
+	$('#tabla'+parentId).append('<td class="nivel2" id="categoria'+hijo+'"></td>');
+
+	var consulta = consultar('muestraHijos',superParent, hijo);
+	alert(superParent);
+}
+
+//selecciona una categoria padre y muestra sus hijos al lado derecho
+function subCategoria(superId,parentId) {
+    alert(superId);
+
+  	var hijo = $('#'+parentId+' option:selected').attr('id');
+
   	alert(hijo);
-  	if( $('.nivel2').exists() ){
-		$('.nivel2').remove();
-	}
-	$('#tabla'+parentId).append('<td class="nivel2" id="'+hijo+'">Agregar '+hijo+'</td>');
+
+	$('#tabla'+superId).append('<td class="nivel2" id="categoria'+hijo+'"></td>');
+
+	var consulta = consultar('muestraHijos',superId, hijo);
+	alert(superParent);
 }
 
 function nuevoHijo(parentId){
