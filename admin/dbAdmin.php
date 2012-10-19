@@ -328,29 +328,47 @@ function muestraCategorias(){
 		echo '<h3>'.$row['nombre'].'</h3>';
 		echo '<div>';
 
-		echo '<table class="categorias">';
+		echo '<table class="categorias" id="categoria'.$row['id'].'">';
 
 		if( tieneHijos($row['id']) ){
 			$nivel++;
+			
 			echo '
-			<tr id="'.$row['id'].'">	
+			<tr id="tabla'.$row['id'].'">	
 			<td>
-				<h3>Nivel '.$nivel.'</h3><br/>
+				<div class="hijos" id="hijos'.$row['id'].'">
+					<h3>Nivel '.$nivel.'</h3><br/>
 				';
 			echo muestraHijos($row['id']);
-			echo'	<br/><br/>
-				<button>Editar</button>
-				<button>Agregar Hijo</button>
+			echo'	
+				</div> <!-- ends hijos -->
+
+				<div class="edicion" id="agregar'.$row['id'].'">
+					<input type="text" name="nuevo" id="nuevo'.$row['id'].'" placeholder="Nueva categoria">
+					<button onClick="nuevoHijo('.$row['id'].')">Agregar</button><br/>
+				</div> <!-- ends agregar -->
+
+				<div class="edicion" id="edicion'.$row['id'].'">
+					<button onClick="">Editar Existentes</button>
+				</div> <!-- ends edicion -->
+				
 			</td>
 			</tr>
 			';
+
 		}else{
 			echo '
 			<tr id="'.$row['id'].'">
 			<td>
-				Esta categoria no tiene Hijos
-				<br/>
-				<button>Agregar Hijo</button>
+				<div class="hijos" id="hijos'.$row['id'].'">
+					Esta categoria no tiene Hijos
+				</div> <!-- ends hijos -->
+
+				<div class="edicion" id="agregar'.$row['id'].'">
+					<input type="text" name="nuevo" id="nuevo'.$row['id'].'" placeholder="Nueva categoria">
+					<button onClick="nuevoHijo('.$row['id'].')">Agregar</button><br/>
+				</div> <!-- ends agregar -->
+
 			</td>
 			</tr>
 			';
@@ -370,11 +388,11 @@ function muestraHijos($id){
 	$sql = 'SELECT * FROM categorias WHERE parentId = '.$id;
 	$result = mysql_query($sql);
 
-	echo '<select>'; //parentId
+	echo '<select id="'.$id.'" onChange="seleccionaCategoria('.$id.')">'; //parentId
 	echo '<option></option>';
 	while( $row = mysql_fetch_array($result) ){
 		//id del hijo
-		echo '<option id="'.$row['id'].'" onClick="selecionaPadre(\''.$id.'\',\''.$row['id'].'\')">'.$row['nombre'].'</option>';
+		echo '<option id="'.$row['id'].'">'.$row['nombre'].'</option>';
 	}
 	echo '</select>';
 }
