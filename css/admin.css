@@ -116,3 +116,8 @@ footer{
 #muestraClientes .datos input{
 	disabled: disabled;
 }
+
+/* categorias */
+#muestraCategorias input, #muestraCategorias select{
+	margin-bottom: 15px;
+}

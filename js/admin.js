@@ -5,7 +5,8 @@
 var opcionOld = 'dashboard';
 var eCliente = 0;
 var superParent = 0;
-var subCategorias = false;
+var pasos = [];
+var paso = 0;
 
 $(document).ready(function(){
 
@@ -134,31 +135,39 @@ function seleccionaCategoria(parentId) {
     //var padre = $('#'+parentId+' option:selected').val();
 
   	//var hijo = $('#'+parentId).find('option:selected').attr('id');
-  	$('.nivel2').remove();
+  	$('.subnivel').remove();
 
   	var hijo = $('#'+parentId+' option:selected').attr('id');
 
 	superParent = parentId;
 
-	$('#tabla'+parentId).append('<td class="nivel2" id="categoria'+hijo+'"></td>');
+	$('#tabla'+parentId).append('<td class="subnivel nivel'+hijo+'" id="categoria'+hijo+'"></td>');
 
 	var consulta = consultar('muestraHijos',superParent, hijo);
-	alert(superParent);
+	
+	//resetea pasos
+	pasos = [];
+	paso = 0;
+
+	pasos[paso] = hijo;
+	paso++;
 }
 
 //selecciona una categoria padre y muestra sus hijos al lado derecho
 function subCategoria(superId,parentId) {
-    alert(superId);
 
-  	var hijo = $('#'+parentId+' option:selected').attr('id');
+	//$('.nivel'+parentId).remove();
+	
+  	var hijo = $('#categoria'+parentId+' option:selected').attr('id');
 
-  	alert(hijo);
-
-	$('#tabla'+superId).append('<td class="nivel2" id="categoria'+hijo+'"></td>');
+	$('#tabla'+superId).append('<td class="subnivel nivel'+hijo+'" id="categoria'+hijo+'"></td>');
 
 	var consulta = consultar('muestraHijos',superId, hijo);
-	alert(superParent);
+
+	pasos[paso] = hijo;
+	paso++;
 }
+
 
 function nuevoHijo(parentId){
 

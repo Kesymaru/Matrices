@@ -348,11 +348,11 @@ function muestraCategorias(){
 
 				<div class="edicion" id="agregar'.$row['id'].'">
 					<input type="text" name="nuevo" id="nuevo'.$row['id'].'" placeholder="Nueva categoria">
-					<button onClick="nuevoHijo('.$row['id'].')">Agregar</button><br/>
 				</div> <!-- ends agregar -->
 
 				<div class="edicion" id="edicion'.$row['id'].'">
-					<button onClick="">Editar Existentes</button>
+					<button onClick="">Editar</button>
+					<button onClick="nuevoHijo('.$row['id'].')">Agregar</button><br/>
 				</div> <!-- ends edicion -->
 				
 			</td>
@@ -391,7 +391,6 @@ function categoriaHija($superParent,$parentId){
 	if( tieneHijos($parentId) ){
 
 			echo '
-			<td>
 				<div class="hijos" id="hijos'.$parentId.'">
 					<h3>
 			';
@@ -400,43 +399,42 @@ function categoriaHija($superParent,$parentId){
 					</h3><br/>
 			';
 
-			echo subCategoria($superParent,$parentId);
+			echo subCategorias($superParent,$parentId);
 
 			echo'	
 				</div> <!-- ends hijos -->
 
 				<div class="edicion" id="agregar'.$parentId.'">
 					<input type="text" name="nuevo" id="nuevo'.$parentId.'" placeholder="Nueva categoria">
-					<button onClick="nuevoHijo('.$parentId.')">Agregar</button><br/>
 				</div> <!-- ends agregar -->
 
 				<div class="edicion" id="edicion'.$parentId.'">
-					<button onClick="">Editar Existentes</button>
+					<button onClick="">Editar</button>
+					<button onClick="nuevoHijo('.$parentId.')">Agregar</button><br/>
 				</div> <!-- ends edicion -->
-
-			</td>
 			';
 		}else{
 			echo '
-			<tr id="'.$parentId.'">
-			<td>
 				<div class="hijos" id="hijos'.$parentId.'">
-			';
-			echo nombrePadre($parentId).' no tiene Hijos
+				<h3>';
+			echo nombrePadre($parentId).' </h3>
+			<br/>No tiene Hijos
 				</div> <!-- ends hijos -->
 
 				<div class="edicion" id="agregar'.$parentId.'">
 					<input type="text" name="nuevo" id="nuevo'.$parentId.'" placeholder="Nueva categoria">
-					<button onClick="nuevoHijo('.$parentId.')">Agregar</button><br/>
 				</div> <!-- ends agregar -->
 
-			</td>
+				<div class="edicion" id="edicion'.$parentId.'">
+					<button onClick="">Editar</button>
+					<button onClick="nuevoHijo('.$parentId.')">Agregar</button><br/>
+				</div> <!-- ends edicion -->
 			';
 		}
 }
 
 //muestra hijos de para ajax
-function subCategoria($superParent,$id){
+function subCategorias($superParent,$id){
 	$sql = 'SELECT * FROM categorias WHERE parentId = '.$id;
 	$result = mysql_query($sql);
 
