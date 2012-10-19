@@ -110,3 +110,16 @@ function enviarCliente(id){
 		actualizar('clienteSkype', id, skype);
 	}
 }
+
+
+//funcion para seleccionar un padre y mostrar los hijos
+function selecionaPadre(parentId, id){
+	//alert('Usted selecciono: Padre: '+parentId+' Hijo:'+id);
+	if( $('.nivel2').exists() ){
+		$('.nivel2').remove();
+	}
+	$('#'+parentId).append('<td class="nivel2" id="'+id+'">Agregar '+id+'</td>');
+}
+
+//funcion que determina si existe
+jQuery.fn.exists = function(){return this.length>0;}
