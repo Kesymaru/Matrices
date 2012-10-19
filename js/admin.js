@@ -44,7 +44,21 @@ function accion(func){
 //ajax para actualizar datos
 function actualizar(func, id, param){
 	var queryParams = { "func" : func, 'id' : id, 'param' : param};
-	var cont = $("#contenido");
+	  	$.ajax({
+	        data:  queryParams,
+	        url:   'ajaxAdmin.php',
+	        type:  'post',
+	        /*beforeSend: function () {
+	                cont.html('<img class="loader" src="http://77digital.com/Desarrollo/dipo/images/loader.gif" alt="cargando" />');
+	        },*/
+	        success:  function (response) {
+	        }
+		});
+}
+
+//ajax para consultar datos
+function consultar(func, id){
+	var queryParams = { "func" : func, 'id' : id};
 	  	$.ajax({
 	        data:  queryParams,
 	        url:   'ajaxAdmin.php',
@@ -111,14 +125,39 @@ function enviarCliente(id){
 	}
 }
 
+//selecciona una categoria padre
+function seleccionaCategoria(parentId) {
+    var padre = $('#'+parentId+' option:selected').val();
 
-//funcion para seleccionar un padre y mostrar los hijos
-function selecionaPadre(parentId, id){
-	//alert('Usted selecciono: Padre: '+parentId+' Hijo:'+id);
-	if( $('.nivel2').exists() ){
+  	//var hijo = $('#'+parentId).find('option:selected').attr('id');
+  	var hijo = $('#'+parentId+' option:selected').attr('id');
+  	alert(hijo);
+  	if( $('.nivel2').exists() ){
 		$('.nivel2').remove();
 	}
-	$('#'+parentId).append('<td class="nivel2" id="'+id+'">Agregar '+id+'</td>');
+	$('#tabla'+parentId).append('<td class="nivel2" id="'+hijo+'">Agregar '+hijo+'</td>');
+}
+
+function nuevoHijo(parentId){
+
+	var nuevo = $('#nuevo'+parentId).val();
+
+	if( validarTxt(nuevo) ){
+		alert('campo valido');
+	}else{
+		//no valido
+		alert('campo no valido');
+	}
+
+}
+
+/*funciones de validacion */
+function validarTxt(txt){
+	if( txt != null && txt != ''){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 //funcion que determina si existe
