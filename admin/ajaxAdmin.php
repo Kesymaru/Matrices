@@ -42,6 +42,12 @@ switch ($_POST['func']){
 	case 'muestraCategorias':
 		muestraCategorias();
 		break;
+
+	case 'muestraHijos':
+		if(isset($_POST['id'])){
+			muestraCategorias();
+		}
+		break;
 }
 
 ?>
