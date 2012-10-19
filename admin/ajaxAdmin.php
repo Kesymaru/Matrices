@@ -44,8 +44,8 @@ switch ($_POST['func']){
 		break;
 
 	case 'muestraHijos':
-		if(isset($_POST['id'])){
-			muestraCategorias();
+		if( isset( $_POST['id']) && isset($_POST['superParent']) ){
+			categoriaHija( $_POST['superParent'], $_POST['id'] );
 		}
 		break;
 }
