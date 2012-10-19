@@ -328,36 +328,36 @@ function muestraCategorias(){
 		echo '<h3>'.$row['nombre'].'</h3>';
 		echo '<div>';
 
-		echo '<table class="datos">
-			<tr>';
+		echo '<table class="categorias">';
 
-		$hijo = $row['id'];
-
-		while( tieneHijos($hijo) ){
+		if( tieneHijos($row['id']) ){
 			$nivel++;
 			echo '
+			<tr id="'.$row['id'].'">	
 			<td>
-				Nivel '.$nivel.'<br/>
-				'.muestraHijos($row['id']).'<br/>
+				<h3>Nivel '.$nivel.'</h3><br/>
+				';
+			echo muestraHijos($row['id']);
+			echo'	<br/><br/>
 				<button>Editar</button>
 				<button>Agregar Hijo</button>
 			</td>
-			';
-			$hijo++;
-		}
-		if( !tieneHijos($row['id']) ){
-			echo '
-			<td>
-				Esta categoria no tiene Hijos<br/>
-				<button>Agregar Hijo</button>
-			</td>';
-		}
-		echo '
-				<td id>
-
-				</td>
 			</tr>
-			</table>
+			';
+		}else{
+			echo '
+			<tr id="'.$row['id'].'">
+			<td>
+				Esta categoria no tiene Hijos
+				<br/>
+				<button>Agregar Hijo</button>
+			</td>
+			</tr>
+			';
+		}
+		
+		echo '
+			</table> <!-- ends table -->
 		</div>';
 		$hijo = 0;
 		$nivel = 0;
@@ -370,9 +370,13 @@ function muestraHijos($id){
 	$sql = 'SELECT * FROM categorias WHERE parentId = '.$id;
 	$result = mysql_query($sql);
 
+	echo '<select>'; //parentId
+	echo '<option></option>';
 	while( $row = mysql_fetch_array($result) ){
-		echo '<input disabled="disabled" value="'.$row['nombre'].'"><br/>';
+		//id del hijo
+		echo '<option id="'.$row['id'].'" onClick="selecionaPadre(\''.$id.'\',\''.$row['id'].'\')">'.$row['nombre'].'</option>';
 	}
+	echo '</select>';
 }
 
 //determina si la categoria tiene hijos, return true si tiene
