@@ -121,3 +121,13 @@ footer{
 #muestraCategorias input, #muestraCategorias select{
 	margin-bottom: 15px;
 }
+
+/* boton de editar */
+.categoria-editar{
+	margin-left: 30px;
+	display: none;
+}
+
+.ui-accordion-header-active .categoria-editar{
+	display: inline-block;
+}
