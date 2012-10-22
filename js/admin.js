@@ -158,45 +158,80 @@ function seleccionaCategoria(parentId) {
 function subCategoria(superId,parentId) {
 
 	//$('.nivel'+parentId).remove();
-	
+	//alert(parentId);
+
   	var hijo = $('#categoria'+parentId+' option:selected').attr('id');
 
 	//$('#tabla'+superId).append('<td class="subnivel nivel'+hijo+'" id="categoria'+hijo+'"></td>');
-	
-	if( hijo == "null" ){
-		alert('Slecciono null');
-	}
 
 
-	if(pasos.length > 0){
-		//alert(pasos);
-		for(var i = 0; i < pasos.length-1; i++){
-			if(parentId == pasos[i]){
-				alert('MODIFICANDO RUTA');
+	for(var i = 0; i <= pasos.length-1; i++){
+			
+		if(parentId == pasos[i]){
+			
+			//alert('MODIFICANDO RUTA');
+			if(pasos[i+1] > 0){
+
+				//alert('tiene siguiente');
+				$('.nivel'+pasos[i+1]).remove();
+
+			}else if( pasos[pasos.length-1] != parentId ){
+				//var x = pasos.length-1;
+				//alert('no tiene siguiente hijo '+hijo+' padre '+parentId+' last es:'+x);
+				
+				//$('.nivel'+pasos[pasos.length-1]).remove();
+				//alert('parent es'+parentId);
+
+				$('#categoria'+parentId).removeClass('nivel'+parentId);
+
 				$('.nivel'+parentId).remove();
-				limpiaCamino(i);
+				
+				$('#categoria'+parentId).addClass('nivel'+parentId);
+				//alert( get(parentId) );
+				
 			}
+
+			/*$('.nivel'+pasos[i+1]).remove();
+			$('.nivel'+hijo).remove();*/
+
+			limpiaCamino(i+1);
+			
 		}
+
 	}
 
-	var nuevo = '<td class=" subnivel nivel'+hijo;
+	//si es valida la seleccion
+	if( !(hijo == "null") ){
 
-	for(var i = 0; i < pasos.length-1; i++){
-		nuevo += ' nivel'+pasos[i];
+		var nuevo = '<td class=" subnivel nivel'+hijo;
+
+		//pone el camino en el columna
+		for(var i = 0; i <= pasos.length-1; i++){
+			if(pasos[i] > 0 && pasos[i] != null){
+				nuevo += ' nivel'+pasos[i];
+			}
+			
+		}
+
+		nuevo += '" id="categoria'+hijo+'"></td>';
+
+		$('#tabla'+superId).append(nuevo);
+
+		consultar('muestraHijos',superId, hijo);
+		pasos[paso] = hijo;
+		paso++;
 	}
 
-	nuevo += '" id="categoria'+hijo+'"></td>';
-
-	$('#tabla'+superId).append(nuevo);
-
-	var consulta = consultar('muestraHijos',superId, hijo);
-
-	pasos[paso] = hijo;
-	paso++;
 }
 
-funtion limpiaCamino(var desde){
-	
+function limpiaCamino(hasta){
+	//alert('antes '+pasos);
+
+	for(var i = pasos.length-1; hasta <= i; i-- ){
+		pasos.splice(i); //elimina del array
+	}
+
+	//alert('depues '+pasos);
 }
 
 function nuevoHijo(parentId){
