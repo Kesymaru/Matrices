@@ -327,7 +327,7 @@ function muestraCategorias(){
 	echo '<div id="muestraCategorias">';
 
 	while( $row = mysql_fetch_array($result) ){
-		echo '<h3>'.$row['nombre'].'</h3>';
+		echo '<h3>'.$row['nombre'].'<button class="categoria-editar">Editar</button></h3>';
 		echo '<div>';
 
 		echo '<table class="categorias" id="categoria'.$row['id'].'">';
@@ -482,4 +482,15 @@ function nombrePadre($parentId){
 	if( $row = mysql_fetch_array($result) ){
 		echo $row['nombre'];
 	}
+}
+
+/* 
+	Funciones para actualiza la categorias y sus subcategorias
+*/
+
+//crea un nuevo hijo de una categoria
+function nuevoHijo($parentId, $nombre){
+	$sql = "INSERT INTO categorias (nombre, parentId) VALUES ('".$nombre."', '".$parentId."')";
+	echo $sql;
+	mysql_query($sql);
 }
