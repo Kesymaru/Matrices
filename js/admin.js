@@ -157,45 +157,27 @@ function seleccionaCategoria(parentId) {
 //selecciona una categoria padre y muestra sus hijos al lado derecho
 function subCategoria(superId,parentId) {
 
-	//$('.nivel'+parentId).remove();
-	//alert(parentId);
-
   	var hijo = $('#categoria'+parentId+' option:selected').attr('id');
-
-	//$('#tabla'+superId).append('<td class="subnivel nivel'+hijo+'" id="categoria'+hijo+'"></td>');
-
 
 	for(var i = 0; i <= pasos.length-1; i++){
 			
 		if(parentId == pasos[i]){
-			
-			//alert('MODIFICANDO RUTA');
+
 			if(pasos[i+1] > 0){
 
-				//alert('tiene siguiente');
 				$('.nivel'+pasos[i+1]).remove();
 
 			}else if( pasos[pasos.length-1] != parentId ){
-				//var x = pasos.length-1;
-				//alert('no tiene siguiente hijo '+hijo+' padre '+parentId+' last es:'+x);
-				
-				//$('.nivel'+pasos[pasos.length-1]).remove();
-				//alert('parent es'+parentId);
+
 
 				$('#categoria'+parentId).removeClass('nivel'+parentId);
 
 				$('.nivel'+parentId).remove();
 				
 				$('#categoria'+parentId).addClass('nivel'+parentId);
-				//alert( get(parentId) );
 				
 			}
-
-			/*$('.nivel'+pasos[i+1]).remove();
-			$('.nivel'+hijo).remove();*/
-
 			limpiaCamino(i+1);
-			
 		}
 
 	}
@@ -205,7 +187,7 @@ function subCategoria(superId,parentId) {
 
 		var nuevo = '<td class=" subnivel nivel'+hijo;
 
-		//pone el camino en el columna
+		//pone el camino en el columna de la tabla
 		for(var i = 0; i <= pasos.length-1; i++){
 			if(pasos[i] > 0 && pasos[i] != null){
 				nuevo += ' nivel'+pasos[i];
@@ -218,20 +200,22 @@ function subCategoria(superId,parentId) {
 		$('#tabla'+superId).append(nuevo);
 
 		consultar('muestraHijos',superId, hijo);
+
+		//registra camino nuevo
 		pasos[paso] = hijo;
 		paso++;
 	}
 
 }
 
+//limpia del array el camino modificado
 function limpiaCamino(hasta){
-	//alert('antes '+pasos);
 
 	for(var i = pasos.length-1; hasta <= i; i-- ){
-		pasos.splice(i); //elimina del array
+		//elimina del array el camnino modificado
+		pasos.splice(i); 
 	}
 
-	//alert('depues '+pasos);
 }
 
 function nuevoHijo(parentId){
