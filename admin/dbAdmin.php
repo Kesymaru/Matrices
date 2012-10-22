@@ -433,13 +433,13 @@ function categoriaHija($superParent,$parentId){
 		}
 }
 
-//muestra hijos de para ajax
+//muestra hijos de id para ajax
 function subCategorias($superParent,$id){
 	$sql = 'SELECT * FROM categorias WHERE parentId = '.$id;
 	$result = mysql_query($sql);
 
 	echo '<select id="'.$id.'" onChange="subCategoria('.$superParent.','.$id.')">'; //parentId
-	echo '<option></option>';
+	echo '<option id="null" ></option>';
 
 	while( $row = mysql_fetch_array($result) ){
 		//id del hijo

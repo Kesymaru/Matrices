@@ -135,6 +135,7 @@ function seleccionaCategoria(parentId) {
     //var padre = $('#'+parentId+' option:selected').val();
 
   	//var hijo = $('#'+parentId).find('option:selected').attr('id');
+  	//limpia anidaciones anteriores
   	$('.subnivel').remove();
 
   	var hijo = $('#'+parentId+' option:selected').attr('id');
@@ -160,7 +161,33 @@ function subCategoria(superId,parentId) {
 	
   	var hijo = $('#categoria'+parentId+' option:selected').attr('id');
 
-	$('#tabla'+superId).append('<td class="subnivel nivel'+hijo+'" id="categoria'+hijo+'"></td>');
+	//$('#tabla'+superId).append('<td class="subnivel nivel'+hijo+'" id="categoria'+hijo+'"></td>');
+	
+	if( hijo == "null" ){
+		alert('Slecciono null');
+	}
+
+
+	if(pasos.length > 0){
+		//alert(pasos);
+		for(var i = 0; i < pasos.length-1; i++){
+			if(parentId == pasos[i]){
+				alert('MODIFICANDO RUTA');
+				$('.nivel'+parentId).remove();
+				limpiaCamino(i);
+			}
+		}
+	}
+
+	var nuevo = '<td class=" subnivel nivel'+hijo;
+
+	for(var i = 0; i < pasos.length-1; i++){
+		nuevo += ' nivel'+pasos[i];
+	}
+
+	nuevo += '" id="categoria'+hijo+'"></td>';
+
+	$('#tabla'+superId).append(nuevo);
 
 	var consulta = consultar('muestraHijos',superId, hijo);
 
@@ -168,6 +195,9 @@ function subCategoria(superId,parentId) {
 	paso++;
 }
 
+funtion limpiaCamino(var desde){
+	
+}
 
 function nuevoHijo(parentId){
 
