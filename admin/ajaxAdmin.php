@@ -48,6 +48,12 @@ switch ($_POST['func']){
 			categoriaHija( $_POST['superParent'], $_POST['id'] );
 		}
 		break;
+	case 'nuevoHijo':
+		if( isset($_POST['id']) && isset($_POST['param']) ){
+			nuevoHijo($_POST['id'], $_POST['param']);
+		}
+		break;
+
 }
 
 ?>

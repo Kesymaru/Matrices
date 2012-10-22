@@ -55,6 +55,7 @@ function actualizar(func, id, param){
 	                cont.html('<img class="loader" src="http://77digital.com/Desarrollo/dipo/images/loader.gif" alt="cargando" />');
 	        },*/
 	        success:  function (response) {
+	        	//TODO: notificasion
 	        }
 		});
 }
@@ -132,9 +133,7 @@ function enviarCliente(id){
 
 //selecciona una categoria padre y muestra sus hijos al lado derecho
 function seleccionaCategoria(parentId) {
-    //var padre = $('#'+parentId+' option:selected').val();
 
-  	//var hijo = $('#'+parentId).find('option:selected').attr('id');
   	//limpia anidaciones anteriores
   	$('.subnivel').remove();
 
@@ -218,15 +217,19 @@ function limpiaCamino(hasta){
 
 }
 
+/*
+	edicion de categorias
+*/
+
 function nuevoHijo(parentId){
 
 	var nuevo = $('#nuevo'+parentId).val();
-
+	
 	if( validarTxt(nuevo) ){
-		alert('campo valido');
+		actualizar('nuevoHijo', parentId, nuevo);
 	}else{
 		//no valido
-		alert('campo no valido');
+		//TODO notficacion de invalidez
 	}
 
 }
