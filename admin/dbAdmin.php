@@ -322,12 +322,13 @@ function muestraCategorias(){
 	$result = mysql_query($sql);
 
 	echo '<h1>Categorias</h1>';
-	echo '<button>Agregar Categoria</button>';
 
 	echo '<div id="muestraCategorias">';
 
 	while( $row = mysql_fetch_array($result) ){
-		echo '<h3>'.$row['nombre'].'<button class="categoria-editar">Editar</button></h3>';
+		echo '<h3>'.$row['nombre'].'
+			<button onClick="categoriaEditar('.$row['id'].')" class="categoriaEditar">Editar</button>
+		</h3>';
 		echo '<div>';
 
 		echo '<table class="categorias" id="categoria'.$row['id'].'">';
@@ -482,6 +483,16 @@ function nombrePadre($parentId){
 	if( $row = mysql_fetch_array($result) ){
 		echo $row['nombre'];
 	}
+}
+
+//formulario para categoria nueva
+function formularioCategoriaNueva(){
+	echo 'Hola formulario';
+}
+
+//para mostrar todo el arbol de categorias
+function verCategorias(){
+	echo 'TODO: verCategorias en dbAdmin.php';
 }
 
 /* 

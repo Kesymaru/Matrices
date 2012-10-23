@@ -7,6 +7,7 @@ var eCliente = 0;
 var superParent = 0;
 var pasos = [];
 var paso = 0;
+var text;
 
 $(document).ready(function(){
 
@@ -228,7 +229,6 @@ function nuevoHijo(parentId){
 	if( validarTxt(nuevo) ){
 		actualizar('nuevoHijo', parentId, nuevo);
 	}else{
-		//no valido
 		//TODO notficacion de invalidez
 	}
 
@@ -243,5 +243,30 @@ function validarTxt(txt){
 	}
 }
 
+function categoriaEditar(parentId){
+	/*$('#categoriaNombre'+parentId).hide();
+	$('#categoriaEditar'+parentId).hide();
+	$('#categoriaNuevo'+parentId).show();
+
+	if(editando == undefined){
+
+		editando = parentId;
+
+	}else{
+
+		$('#categoriaNombre'+editando).show();
+		$('#categoriaEditar'+editando).show();
+		$('#categoriaNuevo'+editando).hide();
+
+		editando = parentId;
+	}*/
+
+}
+
 //funcion que determina si existe
 jQuery.fn.exists = function(){return this.length>0;}
+
+/*
+	NOTIFICACIONES
+*/
+

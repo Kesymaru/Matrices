@@ -24,6 +24,7 @@ header{
 	height: 70px;
 	margin-top: 5px;
 	margin-bottom: 5px;
+	margin-left: 20px;
 }
 
 .columnas{
@@ -122,12 +123,12 @@ footer{
 	margin-bottom: 15px;
 }
 
-/* boton de editar */
-.categoria-editar{
+/* edicion de loa categoria en si */
+.categoriaEditar {
 	margin-left: 30px;
 	display: none;
 }
 
-.ui-accordion-header-active .categoria-editar{
-	display: inline-block;
+.ui-accordion-header-active .categoriaEditar{
+	display: inline-block !important;
 }

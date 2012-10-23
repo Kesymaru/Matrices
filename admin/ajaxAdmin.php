@@ -53,7 +53,13 @@ switch ($_POST['func']){
 			nuevoHijo($_POST['id'], $_POST['param']);
 		}
 		break;
-
+	//para ver formulario de agregar una categoria nueva
+	case 'agregarCategoria':
+		formularioCategoriaNueva();
+		break;
+	case 'verCategorias':
+		verCategorias();
+		break;
 }
 
 ?>
