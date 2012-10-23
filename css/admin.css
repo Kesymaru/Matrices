@@ -122,3 +122,41 @@ footer{
 #muestraCategorias input, #muestraCategorias select{
 	margin-bottom: 15px;
 }
+
+
+/* EDICION DE CATEGORIAS */
+.noEditar input{
+	display: none;
+}
+
+.noEditar select{
+	display: inline-block;
+}
+
+.noEditar button:last-child{
+	display: none;
+}
+
+.noEditar .nuevo{
+	display: inline-block !important;
+}
+
+.noEditar .agregar{
+	display: none;
+}
+
+.editar input{
+	display: inline-block;
+}
+
+.editar select{
+	display: none;
+}
+
+.editar button:last-child{
+	display: inline-block;
+}
+
+.editar .agregar{
+	display: inline-block;
+}
