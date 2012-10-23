@@ -7,7 +7,7 @@ var eCliente = 0;
 var superParent = 0;
 var pasos = [];
 var paso = 0;
-var text;
+var editando;
 
 $(document).ready(function(){
 
@@ -39,7 +39,9 @@ function accion(func){
 	        		$( "#muestraProyectos" ).accordion();
 	        	}   
 	        	if(func == 'muestraCategorias'){
-	        		$( "#muestraCategorias" ).accordion();
+	        		$( "#muestraCategorias" ).accordion({
+	        			 heightStyle: "content"
+	        		});
 	        	}
 	        }
 		});
@@ -143,7 +145,7 @@ function seleccionaCategoria(parentId) {
 
 	superParent = parentId;
 
-	$('#tabla'+parentId).append('<td class="subnivel nivel'+hijo+'" id="categoria'+hijo+'"></td>');
+	$('#tabla'+parentId).append('<td class="noEditar subnivel nivel'+hijo+'" id="categoria'+hijo+'"></td>');
 
 	categoria('muestraHijos',superParent, hijo);
 	
@@ -160,6 +162,7 @@ function subCategoria(superId,parentId) {
 
   	var hijo = $('#categoria'+parentId+' option:selected').attr('id');
 
+  	//determina si el camino se modifica y borra el camino restante
 	for(var i = 0; i <= pasos.length-1; i++){
 			
 		if(parentId == pasos[i]){
@@ -170,7 +173,6 @@ function subCategoria(superId,parentId) {
 
 			}else if( pasos[pasos.length-1] != parentId ){
 
-
 				$('#categoria'+parentId).removeClass('nivel'+parentId);
 
 				$('.nivel'+parentId).remove();
@@ -178,6 +180,7 @@ function subCategoria(superId,parentId) {
 				$('#categoria'+parentId).addClass('nivel'+parentId);
 				
 			}
+
 			limpiaCamino(i+1);
 		}
 
@@ -186,17 +189,18 @@ function subCategoria(superId,parentId) {
 	//si es valida la seleccion
 	if( !(hijo == "null") ){
 
-		var nuevo = '<td class=" subnivel nivel'+hijo;
+		var nuevo = '<td id="categoria'+hijo+'" class="noEditar subnivel nivel'+hijo;
 
 		//pone el camino en el columna de la tabla
 		for(var i = 0; i <= pasos.length-1; i++){
+
 			if(pasos[i] > 0 && pasos[i] != null){
 				nuevo += ' nivel'+pasos[i];
 			}
 			
 		}
 
-		nuevo += '" id="categoria'+hijo+'"></td>';
+		nuevo += '"></td>';
 
 		$('#tabla'+superId).append(nuevo);
 
@@ -223,14 +227,57 @@ function limpiaCamino(hasta){
 	edicion de categorias
 */
 
-function nuevoHijo(parentId){
+function actualizarCategoria(parentId){
 
 	var nuevo = $('#nuevo'+parentId).val();
-	
+	var nombre = $('#nombre'+parentId).val();
+
 	if( validarTxt(nuevo) ){
 		actualizar('nuevoHijo', parentId, nuevo);
+		//TODO: notificacion
+
 	}else{
 		//TODO notficacion de invalidez
+	}
+
+	if( validarTxt(nombre)){
+		actualizar('categoriaNombre', parentId, nombre);
+		//TODO notificacion
+	}else{
+		//TODO notificacion
+	}
+
+	editarCategoria(parentId);
+
+}
+
+function nuevaCategoria(parentId){
+
+	var nueva = $('#nueva'+parentId).val();
+
+	if( validarTxt(nueva) ){
+		actualizar('nuevoHijo', parentId, nueva);
+		//TODO: notificacion
+		alert('Ingresada la nueva categoria '+nueva);
+	}else{
+		//TODO notficacion de invalidez
+	}
+}
+
+
+//toggle para editar un categoria
+function editarCategoria(parentId){
+
+	if( $('#categoria'+parentId).hasClass('editar') ){
+
+		$('#categoria'+parentId).removeClass('editar');
+		$('#categoria'+parentId).addClass('noEditar');
+
+	}else{
+
+		$('#categoria'+parentId).removeClass('noEditar');
+		$('#categoria'+parentId).addClass('editar');
+
 	}
 
 }
@@ -244,25 +291,6 @@ function validarTxt(txt){
 	}
 }
 
-function categoriaEditar(parentId){
-	/*$('#categoriaNombre'+parentId).hide();
-	$('#categoriaEditar'+parentId).hide();
-	$('#categoriaNuevo'+parentId).show();
-
-	if(editando == undefined){
-
-		editando = parentId;
-
-	}else{
-
-		$('#categoriaNombre'+editando).show();
-		$('#categoriaEditar'+editando).show();
-		$('#categoriaNuevo'+editando).hide();
-
-		editando = parentId;
-	}*/
-
-}
 
 //funcion que determina si existe
 jQuery.fn.exists = function(){return this.length>0;}
