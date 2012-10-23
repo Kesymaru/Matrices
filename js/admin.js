@@ -61,8 +61,8 @@ function actualizar(func, id, param){
 		});
 }
 
-//ajax para consultar datos
-function consultar(func, superParent, id){
+//ajax para mostrar una categoria datos
+function categoria(func, superParent, id){
 	var queryParams = { "func" : func, 'superParent' : superParent, 'id' : id};
 	  	$.ajax({
 	        data:  queryParams,
@@ -72,7 +72,8 @@ function consultar(func, superParent, id){
 	                cont.html('<img class="loader" src="http://77digital.com/Desarrollo/dipo/images/loader.gif" alt="cargando" />');
 	        },*/
 	        success:  function (response) {
-	        	$('#categoria'+id).hide().html(response).slideDown(1500);
+	        	//animacion al mostrar
+	        	$('#categoria'+id).hide().html(response).fadeToggle(1000);
 	        }
 		});
 }
@@ -144,7 +145,7 @@ function seleccionaCategoria(parentId) {
 
 	$('#tabla'+parentId).append('<td class="subnivel nivel'+hijo+'" id="categoria'+hijo+'"></td>');
 
-	var consulta = consultar('muestraHijos',superParent, hijo);
+	categoria('muestraHijos',superParent, hijo);
 	
 	//resetea pasos
 	pasos = [];
@@ -199,7 +200,7 @@ function subCategoria(superId,parentId) {
 
 		$('#tabla'+superId).append(nuevo);
 
-		consultar('muestraHijos',superId, hijo);
+		categoria('muestraHijos',superId, hijo);
 
 		//registra camino nuevo
 		pasos[paso] = hijo;
