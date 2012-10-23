@@ -326,9 +326,7 @@ function muestraCategorias(){
 	echo '<div id="muestraCategorias">';
 
 	while( $row = mysql_fetch_array($result) ){
-		echo '<h3>'.$row['nombre'].'
-			<button onClick="categoriaEditar('.$row['id'].')" class="categoriaEditar">Editar</button>
-		</h3>';
+		echo '<h3>'.$row['nombre'].'</h3>';
 		echo '<div>';
 
 		echo '<table class="categorias" id="categoria'.$row['id'].'">';
@@ -372,7 +370,7 @@ function muestraCategorias(){
 					<input type="text" name="nuevo" id="nuevo'.$row['id'].'" placeholder="Nueva categoria">
 					<button onClick="nuevoHijo('.$row['id'].')">Agregar</button><br/>
 				</div> <!-- ends agregar -->
-
+				<button>Editar</button>
 			</td>
 			</tr>
 			';

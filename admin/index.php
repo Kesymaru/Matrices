@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="../css/jquery.tagsinput.css" TYPE="text/css">
 	<link href="../css/jquery-ui-1.9.0.custom.css" rel="stylesheet">
 	
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 	<script src="../js/jquery-ui-1.9.0.custom.js"></script>
 	<script src="../js/admin.js"></script>
 	
