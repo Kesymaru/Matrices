@@ -2,6 +2,7 @@ html, body{
 	margin: 0;
 	height: 100%;
 	width: 100%;
+	background-color: #f4f4f4;
 }
 
 h1, h2, h3 {
@@ -74,7 +75,7 @@ footer{
 }
 
 #menu ul li a:hover{
-	background-color: #d99e16;
+	background-color: #6fa414;
 }
 
 /* sub menu */
@@ -89,12 +90,12 @@ footer{
 }
 
 #menu ul li ul li:hover{
-	background-color: #d99e16;
+	background-color: #6fa414;
 }
 
 /* menu seleccionado */
 .seleccionada{
-	background-color: #797674;
+	background-color: #a1ca4a;
 	color: #fff;
 }
 
@@ -103,7 +104,7 @@ footer{
 }
 
 .seleccionada a:hover{
-	background-color: #797674 !important;
+	background-color: #a1ca4a !important;
 }
 
 /* contenido */
