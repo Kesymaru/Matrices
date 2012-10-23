@@ -317,7 +317,6 @@ function verProyectosFinalizados(){
 /* muestra todas la categorias anidadas */
 function muestraCategorias(){
 	$hijo = 0;
-	$nivel = 0;
 	$sql = 'SELECT * FROM categorias WHERE parentId = 0';
 	$result = mysql_query($sql);
 
@@ -329,105 +328,111 @@ function muestraCategorias(){
 		echo '<h3>'.$row['nombre'].'</h3>';
 		echo '<div>';
 
-		echo '<table class="categorias" id="categoria'.$row['id'].'">';
+		echo '<table class="categorias" >';
 
 		if( tieneHijos($row['id']) ){
-			$nivel++;
 			
 			echo '
 			<tr id="tabla'.$row['id'].'">	
 
-			<td id="categoria'.$row['id'].'">
-				<div class="hijos" id="hijos'.$row['id'].'">
-					<h3>Nivel '.$nivel.'</h3><br/>
+			<td id="categoria'.$row['id'].'" class="noEditar">
+				<h3>'.$row['nombre'].'</h3>
+				<br/>
+
+				<input type="text" name="nombre" id="nombre'.$row['id'].'" value="'.$row['nombre'].'">
 				';
+			//muestra el select
 			echo muestraHijos($row['id']);
-			echo'	
-				</div> <!-- ends hijos -->
+			echo'<br/>	
 
-				<div class="edicion" id="agregar'.$row['id'].'">
-					<input type="text" name="nuevo" id="nuevo'.$row['id'].'" placeholder="Nueva categoria">
-				</div> <!-- ends agregar -->
+				<input type="text" name="nuevo" id="nuevo'.$row['id'].'" placeholder="Nueva categoria">
+				<br/>
 
-				<div class="edicion" id="edicion'.$row['id'].'">
-					<button onClick="">Editar</button>
-					<button onClick="nuevoHijo('.$row['id'].')">Agregar</button><br/>
-				</div> <!-- ends edicion -->
-				
+				<button onClick="editarCategoria('.$row['id'].')" >Editar</button>
+				<button class="agregar" onClick="actualizarCategoria('.$row['id'].')">Enviar</button><br/>
+
 			</td>
+
 			</tr>
 			';
 
 		}else{
 			echo '
-			<tr id="'.$row['id'].'">
-			<td>
-				<div class="hijos" id="hijos'.$row['id'].'">
-					Esta categoria no tiene Hijos
-				</div> <!-- ends hijos -->
+			<tr id="tabla'.$row['id'].'">	
 
-				<div class="edicion" id="agregar'.$row['id'].'">
-					<input type="text" name="nuevo" id="nuevo'.$row['id'].'" placeholder="Nueva categoria">
-					<button onClick="nuevoHijo('.$row['id'].')">Agregar</button><br/>
-				</div> <!-- ends agregar -->
-				<button>Editar</button>
+			<td id="categoria'.$row['id'].'" class="editar">
+				<h3>'.$row['nombre'].'</h3><br/>
+				'.$row['nombre'].' no tiene subcategorias
+				<br/>
+				<input type="text" value="'.$row['nombre'].'">
+				';
+			echo'<br/>	
+
+				<input type="text" name="nuevo" id="nuevo'.$row['id'].'" placeholder="Nueva categoria">
+				<br/>
+
+				<!-- <button onClick="editarCategoria('.$row['id'].')" >Editar</button> -->
+				<button onClick="actualizarCategoria('.$row['id'].')">Enviar</button><br/>
+
 			</td>
+
 			</tr>
 			';
 		}
 		
 		echo '
-			</table> <!-- ends table -->
+			</table> 
+			<!-- ends table -->
 		</div>';
 		$hijo = 0;
-		$nivel = 0;
 	}
 	echo '</div>';
 }
 
-//muesta los hijos desplegados
+//muesta los hijos desplegados, esto va con ajax y dentro del tr de la tabla
 function categoriaHija($superParent,$parentId){
 	if( tieneHijos($parentId) ){
 
-			echo '
-				<div class="hijos" id="hijos'.$parentId.'">
-					<h3>
-			';
+			echo '<h3>';
 
 			echo nombrePadre($parentId).'
-					</h3><br/>
+				  </h3>
+			      <br/>
+
+			      <input type="text" name="nombre" id="nombre'.$parentId.'" value="';
+			echo nombrePadre($parentId).'">
 			';
 
+			//muestra selects
 			echo subCategorias($superParent,$parentId);
 
 			echo'	
-				</div> <!-- ends hijos -->
+				<br/>
 
-				<div class="edicion" id="agregar'.$parentId.'">
-					<input type="text" name="nuevo" id="nuevo'.$parentId.'" placeholder="Nueva categoria">
-				</div> <!-- ends agregar -->
+				<input type="text" name="nuevo" id="nuevo'.$parentId.'" placeholder="Nueva categoria">
+				<br/>
 
-				<div class="edicion" id="edicion'.$parentId.'">
-					<button onClick="">Editar</button>
-					<button onClick="nuevoHijo('.$parentId.')">Agregar</button><br/>
-				</div> <!-- ends edicion -->
+				<button onClick="editarCategoria('.$parentId.')">Editar</button>
+				<button class="agregar" onClick="actualizarCategoria('.$parentId.')">Enviar</button><br/>
 			';
 		}else{
-			echo '
-				<div class="hijos" id="hijos'.$parentId.'">
-				<h3>';
-			echo nombrePadre($parentId).' </h3>
-			<br/>No tiene Hijos
-				</div> <!-- ends hijos -->
+			echo '<h3>';
 
-				<div class="edicion" id="agregar'.$parentId.'">
-					<input type="text" name="nuevo" id="nuevo'.$parentId.'" placeholder="Nueva categoria">
-				</div> <!-- ends agregar -->
+			echo nombrePadre($parentId).' 
+				</h3>
 
-				<div class="edicion" id="edicion'.$parentId.'">
-					<button onClick="">Editar</button>
-					<button onClick="nuevoHijo('.$parentId.')">Agregar</button><br/>
-				</div> <!-- ends edicion -->
+				No tiene Hijos
+				<br/>
+
+				<input class="nuevo" type="text" name="nombre" id="nombre'.$parentId.'" value="';
+			echo nombrePadre($parentId).'">
+				<br/>
+
+				<input class="nuevo" type="text" name="nuevo" id="nuevo'.$parentId.'" placeholder="Nueva categoria">
+				<br/>
+
+				<!-- <button onClick="editarCategoria('.$parentId.')">Editar</button> -->
+				<button onClick="actualizarCategoria('.$parentId.')">Enviar</button><br/>
 			';
 		}
 }
@@ -485,12 +490,9 @@ function nombrePadre($parentId){
 
 //formulario para categoria nueva
 function formularioCategoriaNueva(){
-	echo 'Hola formulario';
-}
-
-//para mostrar todo el arbol de categorias
-function verCategorias(){
-	echo 'TODO: verCategorias en dbAdmin.php';
+	echo '<h1>Agregar Categoria</h1>';
+	echo '<input type="text" name="nueva" id="nueva0">';
+	echo '<button onClick="nuevaCategoria(0)">Enviar</button>';
 }
 
 /* 
@@ -500,6 +502,11 @@ function verCategorias(){
 //crea un nuevo hijo de una categoria
 function nuevoHijo($parentId, $nombre){
 	$sql = "INSERT INTO categorias (nombre, parentId) VALUES ('".$nombre."', '".$parentId."')";
-	echo $sql;
+	mysql_query($sql);
+}
+
+//actualiza el nombre de la categoria
+function categoriaNombre($parentId, $nombre){
+	$sql = 'UPDATE categorias SET nombre =\''.$nombre.'\' WHERE id ='.$parentId;
 	mysql_query($sql);
 }
