@@ -53,6 +53,12 @@ switch ($_POST['func']){
 			nuevoHijo($_POST['id'], $_POST['param']);
 		}
 		break;
+	//actualiza nombre categoria
+	case 'categoriaNombre':
+		if( isset($_POST['id']) && isset($_POST['param']) ){
+			categoriaNombre($_POST['id'], $_POST['param']);
+		}
+		break;
 	//para ver formulario de agregar una categoria nueva
 	case 'agregarCategoria':
 		formularioCategoriaNueva();
