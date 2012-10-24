@@ -134,13 +134,25 @@ header{
 
 #search input{
 	width: 200px;
-	border: 0 solid transparent;
+	border: 0 solid transparent !important;
 	padding: 0;
 	margin-right: 0;
 	color: #fff;
 	background-color: #a1ca4a;
-	border: 0 solid #a1ca4a;
 	font-size: 20px;
+	box-shadow: none;
+}
+
+::-webkit-input-placeholder {
+   color: #fff !important;  
+   border: 0 !important;
+   box-shadow: none;
+}
+
+input:-moz-placeholder {  
+   color: #fff !important;  
+   border: 0 !important;
+   box-shadow: none;
 }
 
 #search button{
