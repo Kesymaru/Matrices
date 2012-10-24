@@ -12,7 +12,6 @@
 	<link href="css/jquery-ui-1.9.0.custom.css" rel="stylesheet">
 
 	<script src="js/jquery-1.8.2.js"></script>
-	<script src="/js/jquery.masonry.min.js"></script>
 	<!-- <script src="js/jquery-ui-1.9.0.custom.js"></script> -->
 	<script src="js/main.js"></script>
 </head>
@@ -69,14 +68,34 @@
 							TODO descripcion
 						</div>
 					</div>
-				</div>
+				</div> <!-- end columna1-->
 
 				<div id="columna2">
-					<div>
+
+					<div class="box">
 						TODO ajax para mostrar informacion de subcategorias<br/>
 						TODO mansory para acomodar las columnas
 					</div>
-				</div>
+					<div class="box">
+						TODO ajax para mostrar informacion de subcategorias<br/>
+						TODO mansory para acomodar las columnas
+						<br/>
+						<br/>
+					</div>
+					<div class="box">
+						TODO ajax para mostrar informacion de subcategorias<br/>
+						TODO mansory para acomodar las columnas
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+					</div>
+					<div class="box">
+						TODO ajax para mostrar informacion de subcategorias<br/>
+						TODO mansory para acomodar las columnas
+					</div>
+
+				</div><!--end columna2 -->
 
 			</div><!-- end nivel 2-->
 

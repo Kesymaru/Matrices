@@ -234,9 +234,15 @@ header{
 }
 
 #columna2 div{
-	width: 100%;
 	margin: 0 auto;
 	border: 1px solid #dedede;
 	border-radius: 5px;
 	padding: 10px 0;
+}
+
+.box{
+	width: 45%;
+	margin-right: 2% !important;
+	float: left;
+	margin-bottom: 20px !important;
 }
