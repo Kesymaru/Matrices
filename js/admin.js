@@ -8,6 +8,7 @@ var superParent = 0;
 var pasos = [];
 var paso = 0;
 var editando;
+var disponibles;
 
 $(document).ready(function(){
 
@@ -18,6 +19,7 @@ $(document).ready(function(){
 
 //Ajax para admin
 function accion(func){
+	var c = [];
 	var queryParams = { "func" : func};
 	var cont = $("#contenido");
 	  	$.ajax({
@@ -42,6 +44,25 @@ function accion(func){
 	        		$( "#muestraCategorias" ).accordion({
 	        			 heightStyle: "content"
 	        		});
+	        	}
+
+	        	if(func == 'agregarCategoria'){
+	        		//mustra auto completado para mostrar categorias que ya existen
+	        		//$('#nueva0').change( noDisponibles() );
+
+	        		var params = { "func" : "listaCategorias"};
+				  	$.ajax({
+				        data:  params,
+				        url:   'ajaxAdmin.php',
+				        type:  'post',
+
+				        success:  function (result) {
+				        	disponibles = $.parseJSON(result);
+				        	/*$('#nueva0').autocomplete({
+			            		source: disponibles
+			        		});*/
+				        }
+					});
 	        	}
 	        }
 		});
@@ -280,6 +301,22 @@ function editarCategoria(parentId){
 
 	}
 
+}
+
+//muestra un mensaje de advertencia si una categoria ya existe
+function noDisponibles(){
+	var nueva = $('#nueva0').val();
+	var status = false;
+
+	for(var i = 0; i <= disponibles.length-1; i++){
+		if( nueva == disponibles[i]){
+			status = true;
+		}
+	}
+
+	if(status){
+		//TODO dialogo para notificar que ya existe
+	}
 }
 
 /*funciones de validacion */

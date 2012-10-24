@@ -228,7 +228,7 @@ body .ui-tooltip { border-width:2px; }
 .ui-widget { font-family: Lucida Grande,Lucida Sans,Arial,sans-serif; font-size: 1.1em; }
 .ui-widget .ui-widget { font-size: 1em; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Lucida Grande,Lucida Sans,Arial,sans-serif; font-size: 1em; }
-.ui-widget-content { border: 1px solid #f4f4f4; background: #f4f4f4 url(images/ui-bg_gloss-wave_30_f4f4f4_500x100.png) 50% top repeat-x; color: #000; }
+.ui-widget-content { border: 1px solid #737172; background: #f4f4f4 url(images/ui-bg_gloss-wave_30_f4f4f4_500x100.png) 50% top repeat-x; color: #000; }
 .ui-widget-content a { color: #000; }
 .ui-widget-header { border: 1px solid #ed9a22; background: #ed9a22 url(images/ui-bg_highlight-soft_25_ed9a22_1x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
 .ui-widget-header a { color: #ffffff; }

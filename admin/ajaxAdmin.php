@@ -66,6 +66,11 @@ switch ($_POST['func']){
 	case 'verCategorias':
 		verCategorias();
 		break;
+
+	//consultas
+	case 'listaCategorias':
+		listaCategorias();
+		break;
 }
 
 ?>

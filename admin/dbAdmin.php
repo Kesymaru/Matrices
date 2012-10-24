@@ -458,7 +458,7 @@ function muestraHijos($id){
 	$sql = 'SELECT * FROM categorias WHERE parentId = '.$id;
 	$result = mysql_query($sql);
 
-	echo '<select id="'.$id.'" onChange="seleccionaCategoria('.$id.')">'; //parentId
+	echo '<select id="'.$id.'" onChange="seleccionaCategoria('.$id.')">'; //paren`tId
 	echo '<option></option>';
 	while( $row = mysql_fetch_array($result) ){
 		//id del hijo
@@ -490,9 +490,20 @@ function nombrePadre($parentId){
 
 //formulario para categoria nueva
 function formularioCategoriaNueva(){
-	echo '<h1>Agregar Categoria</h1>';
-	echo '<input type="text" name="nueva" id="nueva0">';
-	echo '<button onClick="nuevaCategoria(0)">Enviar</button>';
+	echo '
+		<h1>Agregar Categoria</h1>
+		<div class="categoriaNueva">
+			<input class="nuevo"  type="text" name="nueva" id="nueva0" onChange="noDisponibles()">
+
+			<br/>
+			<button onClick="nuevaCategoria(0)">Enviar</button>
+		</div>
+	';
+}
+
+//muestra categorias padres
+function verCategorias(){
+	echo 'TODO ver categorias';
 }
 
 /* 
@@ -509,4 +520,23 @@ function nuevoHijo($parentId, $nombre){
 function categoriaNombre($parentId, $nombre){
 	$sql = 'UPDATE categorias SET nombre =\''.$nombre.'\' WHERE id ='.$parentId;
 	mysql_query($sql);
+}
+
+/* 
+	CONSULTAS DE DATOS AJAX
+*/
+
+//da una lista con todos los nombres de todas las categorias
+function listaCategorias(){
+	$array = array();
+	$sql= 'SELECT * FROM categorias';
+	$result = mysql_query($sql);
+
+	$i = 0;
+	while($row = mysql_fetch_array($result)){
+		$array[$i] = $row['nombre']; 
+		$i++;
+	}
+
+	echo json_encode($array);
 }

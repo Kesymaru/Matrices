@@ -17,14 +17,13 @@ h1, h2, h3 {
 header{
 	width: 100%;
 	display: block;
-	height: 80px;
-	background-color: #333;
+	background-color: #747273;
 }
 
 .logo{
-	height: 70px;
-	margin-top: 5px;
-	margin-bottom: 5px;
+	height: 80px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	margin-left: 20px;
 }
 
@@ -108,7 +107,9 @@ footer{
 }
 
 /* contenido */
-
+#contenido{
+	background-color: #fff;
+}
 
 /* clientes */
 #muestraClientes, #muestraProyectos, #muestraCategorias{
@@ -160,4 +161,22 @@ footer{
 
 .editar .agregar{
 	display: inline-block;
+}
+
+/* 
+	categoriaNueva
+*/
+
+.categoriaNueva .ui-corner-all{
+	background-color: red !important;
+}
+
+#advertencia {
+	z-index: 10;
+	position: absolute;
+	border: 1px solid red;
+	color: #fff;
+	display: inline-block;
+	float: left;
+	background-color: red;
 }
