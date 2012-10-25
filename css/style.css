@@ -345,7 +345,6 @@ header{
 }
 
 .loginbox input[type="text"], .loginbox input[type="password"], .loginbox input[type="email"]{
-	width: 40%;
 	width: 50%;
 	border: 0 solid transparent !important;
 	padding: 0;

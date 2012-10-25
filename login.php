@@ -27,17 +27,29 @@
             .click(function( event ) {
                 event.preventDefault();
             });
+        $('#nuevoUsuario').hide();
     });
 
-	function loginbox(){
+	function loginbox(cambio){
 
 		
-		if( $('#nuevoUsuario').hasClass('oculto') ){
+		/*if( $('#nuevoUsuario').hasClass('oculto') ){
 			$('#nuevoUsuario').removeClass('oculto');
-			$('#usuarios').addClass('oculto').fade();
+			$('#usuarios').addClass('oculto').fadeIn();
 		}else{
-			$('#usuarios').removeClass('oculto');
-			$('#nuevoUsuario').addClass('oculto').fade();
+			$('#usuarios').fadeOut(1000,function(){
+				$('#nuevoUsuario').addClass('oculto').fadeIn();
+			});
+		}*/
+
+		if( cambio == 2 ){
+			$('#nuevoUsuario').fadeOut(1000,function(){
+				$('#usuarios').fadeIn();
+			});
+		}else{
+			$('#usuarios').fadeOut(1000,function(){
+				$('#nuevoUsuario').fadeIn();
+			});
 		}
 		
 	}
@@ -63,12 +75,12 @@
 			<div>
 				<input type="text" placeholder="Usuario" name="usuario"><br/>
 				<input type="password" placeholder="Password" name="password"><br/>
-				<button onClick="loginbox()">Registrarse</button>
+				<button onClick="loginbox(1)">Registrarse</button>
 				<input type="submit" value="Entrar" name="entrar"><br/>
 			</div>
 		</div>
 
-		<div id="nuevoUsuario" class="oculto">
+		<div id="nuevoUsuario" >
 			<div class="titulo">
 				Regristro
 			</div>
@@ -76,8 +88,8 @@
 				<input type="text" placeholder="Usuario" name="nuevoUsuario"><br/>
 				<input type="email" placeholder="Email" name="nuevoEmail"><br/>
 				<input type="password" placeholder="Password" name="nuevoPassword1"><br/>
-				<input type="password" placeholde="Repita el password" name="nuevoPassword2"><br/>
-				<button onClick="loginbox()">Usuarios</button>
+				<input type="password" placeholder="Confirmar password" name="nuevoPassword2"><br/>
+				<button onClick="loginbox(2)">Usuarios</button>
 				<input type="submit" value="Registrarse" name="registrar"><br/>
 			</div>
 		</div>
