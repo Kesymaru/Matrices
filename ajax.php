@@ -9,10 +9,21 @@ switch ($_POST['func']){
 			listaNormas($_POST['id']);
 		}
 		break;
+
 	case 'generalidades':
 		generalidades();
 		break;
-		
+
+	case 'descripcionNorma':
+		if(isset($_POST['id'])){
+			descripcionNorma($_POST['id']);
+		}
+		break;
+	case 'seleccionaGeneralidad':
+		if( isset($_POST['superId']) && isset($_POST['id'])){
+			seleccionaGeneralidad( $_POST['superId'], $_POST['id'] );
+		}
+		break;
 }
 
 ?>
