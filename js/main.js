@@ -1,3 +1,5 @@
+var Categoria;
+var Norma;
 
 $(document).ready(function(){
 
@@ -15,25 +17,53 @@ function menu(id){
 		'opacity':1,
 	},1000);
 
+	Categoria = id;
 	listaNormas(id);
-	generalidades();
+	reset();
 }
 
 /*
 	carga de datos
 */
+
 //normas de la categoria
 function listaNormas(parentId){
 	accion1('listaNormas','listaNormas',parentId);
 }
 
-function generalidades(){
-	accion2('generalidades','generalidades')
+//carga la descripcion de la norma seleccionada
+function descripcionNorma(normaId){
+	accion1('descripcionNorma','descripcionNorma', normaId);
 }
 
-function cargaNorma(){
-	var seleccion = $('#cargaNorma option:selected').attr('id');
-	alert(seleccion);
+//carga generalidades
+function generalidades(){
+	accion1('generalidades','generalidades');
+}
+
+//para seleccionar una norma
+function seleccionaNorma(){
+	var normaId = $('#seleccionaNorma option:selected').attr('id');
+	
+	Norma = normaId;
+
+	descripcionNorma(normaId);
+
+	reset();
+}
+
+function seleccionaGeneralidad(id){
+	if( $('#box'+id).length > 0){
+		$('#box'+id).remove();
+	}else{
+		accion2('columna2','seleccionaGeneralidad',Norma,id);
+	}
+}
+
+//limpia y resetea muestras de ajax
+function reset(){
+	generalidades();
+	$('.box').remove();
 }
 
 /*
@@ -59,23 +89,30 @@ function accion1(lugarCarga, func, id){
 	        success:  function (response) { 
 	        	//cont.html(response);
 	        	cont.hide().html(response).fadeIn(1000);
+	        	
+	        	if(func == 'listaNormas'){
+	        		var normaId = $('#seleccionaNorma :first').attr('id');
+	        		Norma = normaId;
+					descripcionNorma(normaId);
+	        	}
+	        	if(func == 'generalidades'){
+	        		 $( ".opciones" ).buttonset();
+	        		 //$( "#opcion" ).click(seleccionaGeneralidad());
+	        	}
 	        }
 		});
 }
 
-function accion2(lugarCarga, func){
-	var queryParams = { "func" : func};
+function accion2(lugarCarga, func, superId, id){
+	var queryParams = { "func" : func, "superId" : superId, "id" : id};
 	var cont = $("#"+lugarCarga);
 	  	$.ajax({
 	        data:  queryParams,
 	        url:   'ajax.php',
 	        type:  'post',
-	        beforeSend: function () {
-	                cont.html('<img class="loader" src="http://77digital.com/Desarrollo/dipo/images/loader.gif" alt="cargando" />');
-	        },
 	        success:  function (response) { 
 	        	//cont.html(response);
-	        	cont.hide().html(response).fadeIn(1000);
+	        	cont.append(response).fadeIn(1000);
 	        }
 		});
 }
