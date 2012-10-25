@@ -24,4 +24,31 @@ function menu(){
 	echo '</ul>';
 }
 
+//MUESTRA LA LISTA DE NORMAS
+function listaNormas($id){
+	$sql = 'SELECT * FROM categorias WHERE parentId = '.$id;
+	$result = mysql_query($sql) or die( $sql.mysql_error() );
+
+	echo '<div class="norma">
+	<select id="cargaNorma" onChange="cargaNorma()">';
+
+	while( $row = mysql_fetch_array($result) ){
+		echo '<option id="'.$row['id'].'">'.$row['nombre'].'</option>';	
+	}
+
+	echo '</select>
+	</div>';
+}
+
+function generalidades(){
+	$sql = 'SELECT * FROM generalidades';
+	$result = mysql_query($sql);
+	
+	echo '<div>';
+	while($row = mysql_fetch_array($result)){
+		echo '<span>'.$row['nombre'].'</span>';
+	}
+	echo '</div>';
+}
+
 ?>

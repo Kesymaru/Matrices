@@ -174,33 +174,36 @@ input:-moz-placeholder {
 	display: block;
 	width: 100%;
 	margin-top: 20px;
-}
-
-#nivel2{
 	margin-bottom: 20px;
 }
 
-#categoriaTitulo{
+#listaNormas{
 	width: 30%;
 	background-color: #fff;
 	float: left;
 }
 
-#categoriaTitulo div{
+#listaNormas .norma{
 	width: 90%;
+	max-width: 90%;
 	margin: 0 auto;
 	border: 1px solid #dedede;
 	border-radius: 5px;
 	padding: 10px 0;
 }
 
-#subCategorias{
+.norma select{
+	width: 80%;
+	border: 0;
+}
+
+#generalidades{
 	margin-left: 30%;
 	margin-right: 3%;
 	display: block;
 }
 
-#subCategorias div{
+#generalidades div{
 	width: 100%;
 	margin: 0 auto;
 	border: 1px solid #dedede;

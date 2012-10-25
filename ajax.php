@@ -1,16 +1,18 @@
 <?php
 //base de datos
-require_once("bd.php");
+require_once("db.php");
 
 switch ($_POST['func']){
-	case 'loginbox':
-		echo 'login.php';
-		break;
-	case 'subcategorias':
-		if( isset($_POST['categoria']) ){
-			subcategorias($_POST['categoria']);
+
+	case 'listaNormas':
+		if( isset($_POST['id']) ){
+			listaNormas($_POST['id']);
 		}
 		break;
+	case 'generalidades':
+		generalidades();
+		break;
+		
 }
 
 ?>

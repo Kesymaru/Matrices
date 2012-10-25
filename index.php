@@ -7,12 +7,13 @@
 <head>
 	<title>Escala</title>
 	<meta charset="utf-8" />
-	
+	<link rel="shortcut icon" href="/favicon.ico"> 
+
 	<link rel="stylesheet" href="css/style.css" TYPE="text/css">
 	<link href="css/jquery-ui-1.9.0.custom.css" rel="stylesheet">
 
 	<script src="js/jquery-1.8.2.js"></script>
-	<!-- <script src="js/jquery-ui-1.9.0.custom.js"></script> -->
+	<script src="js/jquery-ui-1.9.0.custom.js"></script>
 	<script src="js/main.js"></script>
 </head>
 
@@ -50,12 +51,14 @@
 		<div id="content">
 
 			<div id="nivel1">
-				<div id="categoriaTitulo">
-					<div>TODO categoria Titulo</div>
+
+				<div id="listaNormas">
+					<div class="norma"></div>
 				</div>
-				<div id="subCategorias">
-					<div>TODO ajac para subcategorias de Categoria</div>
+				<div id="generalidades">
+					<div>TODO ajac para generalidades de Categoria</div>
 				</div>
+
 			</div><!-- end nivel 1-->
 
 			<div id="nivel2">
@@ -71,7 +74,7 @@
 				</div> <!-- end columna1-->
 
 				<div id="columna2">
-
+					<!--
 					<div class="box">
 						TODO ajax para mostrar informacion de subcategorias<br/>
 						TODO mansory para acomodar las columnas
@@ -94,7 +97,7 @@
 						TODO ajax para mostrar informacion de subcategorias<br/>
 						TODO mansory para acomodar las columnas
 					</div>
-
+					MODELO PARA BOX -->
 				</div><!--end columna2 -->
 
 			</div><!-- end nivel 2-->
