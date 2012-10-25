@@ -1,12 +1,17 @@
 <?php 
-	require_once("db.php");
+	require_once("db.php"); 
 ?>
-<!DOCTYPE html>
+<!doctype html public>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
 <html>
 
 <head>
 	<title>Escala</title>
-	<meta charset="utf-8" />
+	
+	<meta charset="utf-8">
 	<link rel="shortcut icon" href="/favicon.ico"> 
 
 	<link rel="stylesheet" href="css/style.css" TYPE="text/css">
@@ -63,13 +68,15 @@
 
 			<div id="nivel2">
 				<div id="columna1">
-					<div id="descripcion">
-						<div class="titulo">
+					<div id="descripcionNorma">
+						<!--
+						<div class="nombreNorma">
 							TODO titulo ajax categoria
 						</div>
 						<div>
 							TODO descripcion
 						</div>
+						end estructura ejemplo-->
 					</div>
 				</div> <!-- end columna1-->
 
