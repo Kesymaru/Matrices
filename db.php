@@ -1,5 +1,6 @@
 <?php
 /* Conexion y funcionalidades de la base de datos */
+session_start();
 
 $host      =    "localhost";
 $user      =    "root";
@@ -159,6 +160,8 @@ function buscar($buscar){
 		$contador = 0;
 	}*/
 	echo buscarNormas($buscar);
+	echo buscarCategorias($buscar);
+	echo buscarProyectos($buscar);
 }
 
 //realiza busqueda en normas
@@ -177,7 +180,17 @@ function buscarNormas($busqueda){
 		$c = 0;
 		while( $row = mysql_fetch_array($result)){
 			$resultadoTemp .= '<div class="resultado">
-			<ul class="etiqueta"><li><a href="#">'.$consultas[$key].'</a></li></ul>
+			<ul class="etiqueta"><li><a href="#">';
+			
+			if($consultas[$key] == 'nombre'){
+				$resultadoTemp .= 'Norma';
+			} else if($consultas[$key] == 'numero'){
+				$resultadoTemp .= 'N° Norma';
+			}else{
+				$resultadoTemp .= $consultas[$key];
+			}
+
+			$resultadoTemp .= '</a></li></ul>
 			 '.$row[$consultas[$key]].'</div>';
 			$contador++;
 		}
@@ -186,13 +199,88 @@ function buscarNormas($busqueda){
 		$resultado .= '<div class="resultados">
 					<div class="titulo">'.$contador.' Resultado';
 		if($contador > 1){
-			$resultado .='s';
+			$resultado .='s'; //plural para resultados
 		}
-		$resultado .= ' en Normas</div>'.$resultadoTemp.'</div>';
+		$resultado .= ' para Normas</div>'.$resultadoTemp.'</div>';
 	}
 
 	$contador = 0;
 
+	return $resultado;
+}
+
+
+//realiza busqueda en categoria
+function buscarCategorias($busqueda){
+	$resultadoTemp = '';
+	$resultado = '';
+	$contador = 0;
+
+	$sql = "SELECT * FROM categorias WHERE nombre LIKE '%".$busqueda."%' LIMIT 0, 30";
+	$result = mysql_query($sql);
+
+
+	while($row = mysql_fetch_array($result)){
+		$resultadoTemp .= '<div class="resultado"><ul class="etiqueta"><li><a href="#">';
+		
+		if($row['parentId'] > 0){
+			$resultadoTemp .= 'Seccion';
+		}else if($row['parentId'] == 0){
+			$resultadoTemp .= 'Categoria';
+		}else{
+			$resultadoTemp .= 'Categoria';
+		}
+
+		$resultadoTemp .= '</a></li></ul>'.$row['nombre'].'</div>';
+		$contador++;
+	}
+
+	if($contador > 0){
+		$resultado .= '<div class="resultados">
+					<div class="titulo">'.$contador.' Resultado';
+		if($contador > 1){
+			$resultado .='s'; //plural para resultado(s)
+		}
+		$resultado .= ' para Categoria';
+		if($contador > 1){
+			$resultado .='s'; //plural para Categoria(s)
+		}
+		$resultado .='</div>'.$resultadoTemp.'</div>';
+	}
+
+	$contador = 0;
+	return $resultado;
+}
+
+//nusca en proyectos, presenta solo los del cliente logueado
+function buscarProyectos($busqueda){
+	$contador = 0;
+	$resultadoTemp = '';
+	$resultado = '';
+
+	$sql = "SELECT * FROM proyectos WHERE cliente = ".$_SESSION['id']." AND nombre LIKE '%".$busqueda."%' LIMIT 0, 30";
+	$result = mysql_query($sql);
+
+	while($row = mysql_fetch_array($result)){
+		$resultadoTemp .= '<div class="resultado"><ul class="etiqueta"><li><a href="#">Proyecto';
+		$resultadoTemp .= '</a></li></ul>'.$row['nombre'].'</div>';
+		$contador++;
+	}
+
+	if($contador > 0){
+		$resultado .= '<div class="resultados">
+					<div class="titulo">'.$contador.' Resultado';
+		if($contador > 1){
+			$resultado .='s'; //plural para resultado(s)
+		}
+		$resultado .= ' para Proyecto';
+		if($contador > 1){
+			$resultado .='s'; //plural para Categoria(s)
+		}
+		$resultado .='</div>'.$resultadoTemp.'</div>';
+	}
+
+	$contador = 0;
 	return $resultado;
 }
 
