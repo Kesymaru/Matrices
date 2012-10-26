@@ -1,14 +1,18 @@
 var Categoria;
 var Norma;
+var box = 0;
 
 $(document).ready(function(){
-
 
 });
 
 //menu
 function menu(id){
+	$('#mensajeInicial').hide();
+	$('#resultadoBusqueda').hide();
+
 	var menu = $('#menu'+id);
+	
 	$('#menu ul').children('li').removeClass('seleccionada');
 	menu.css({
 		'opacity':'0',
@@ -33,7 +37,7 @@ function listaNormas(parentId){
 
 //carga la descripcion de la norma seleccionada
 function descripcionNorma(normaId){
-	accion1('descripcionNorma','descripcionNorma', normaId);
+	accion1('columna1','descripcionNorma', normaId);
 }
 
 //carga generalidades
@@ -64,6 +68,14 @@ function seleccionaGeneralidad(id){
 function reset(){
 	generalidades();
 	$('.box').remove();
+}
+
+/*
+	BUQUEDA 
+*/
+
+function buscar(busqueda){
+	accion1('resultadoBusqueda', 'buscar',busqueda);
 }
 
 /*
