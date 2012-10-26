@@ -31,6 +31,13 @@ switch ($_POST['func']){
 			buscar($_POST['id']);
 		}
 		break;
+
+	//para loguear usuarios
+	case 'logIn':
+		if(isset($_POST['usuario']) && isset($_POST['password'])){
+			//se encarga de la autentificacion del usuario
+			logIn($_POST['usuario'], $_POST['password']);
+		}
 }
 
 ?>

@@ -117,11 +117,47 @@ header{
 	text-align: left;
 	font-size: 20px;
 	vertical-align: middle;
-	padding: 13px;
 }
 
-#cliente #proyectos{
+#cliente #usuario, #cliente #menuProyectos{
+	padding: 13px;
+	vertical-align: middle;	
 	display: inline-block;
+}
+
+/* menuProyectos */
+#cliente #menuProyectos{
+	display: inline-block;
+	float: right;
+}
+
+#menuProyectos ul{
+	/*display: none;*/
+	z-index: 1;
+	position: absolute;
+	margin: 0;
+	padding: 0;
+}
+
+#menuProyectos ul:before {
+  content: '';
+  width: 0px;
+  height: 0px;
+  display: block;
+  position: relative;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 15px solid #6fa414;
+}
+
+#menuProyectos ul li{
+	margin-left: -20%;
+	margin-top: -4px;
+	border-radius: 5px;
+	width: 100px;
+	display: block;
+	padding: 10px;
+	background-color: #6fa414;
 }
 
 /* search */

@@ -141,27 +141,19 @@ function logValida($nombre,$pass){
 
 /* busca en todas las tablas y devuelve el resultado formateado en html */
 function buscar($buscar){
-	/*$consultas = array(0 => 'normas', 1 => 'categorias', 2 => 'proyectos' );
-
-	foreach ($consultas as $key => $value) {
-			
-		$sql = "SELECT * FROM ".$consultas[$key]." WHERE nombre LIKE '%".$buscar."%' LIMIT 0, 30 ";
-		$result = mysql_query($sql);
-		
-		$contador = 0;	
-		$busqueda = '';
-
-		while ($row = mysql_fetch_array($result)){
-			$busqueda .= '<div class="resultado">'.$row['nombre'].'</div>';
-			$contador++;
-		}
-		if($contador > 0){
-			echo 
-		$contador = 0;
-	}*/
-	echo buscarNormas($buscar);
-	echo buscarCategorias($buscar);
-	echo buscarProyectos($buscar);
+	$normas = buscarNormas($buscar);
+	$categorias = buscarCategorias($buscar);
+	$proyectos = buscarProyectos($buscar);
+	
+	if($normas == '' && $categorias == '' && $proyectos == ''){
+		echo '<div id="mensajeInicial">
+				No hay resultados para '.$buscar.'
+			  </div>';
+	}else{
+		echo $normas;
+		echo $categorias;
+		echo $proyectos;
+	}
 }
 
 //realiza busqueda en normas
@@ -282,6 +274,39 @@ function buscarProyectos($busqueda){
 
 	$contador = 0;
 	return $resultado;
+}
+
+/*
+	autentificaciones de usuarios
+*/
+
+function logIn($usuario, $password){
+	$sql = 'SELECT * FROM clientes WHERE nombre = \''.$usuario.'\' AND contrasena = \''.$password.'\'';
+	$result = mysql_query($sql);
+
+	if( $row = mysql_fetch_array($result) ){
+		//existe
+		echo 'Logueado!!';
+		$_SESSION['id'] = $row['id'];
+		$_SESSION['nombre'] = $row['nombre'];
+		$_SESSION['email'] = $row['email'];
+	}else{
+		//no es un usuario valido
+		echo 'El usuario '.$usuario.' o la contrasena '.$password.' no es correcta';
+	}
+}
+
+function listaProyectos(){
+	if(isset($_SESSION['id'])){
+		$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'];
+		$result = mysql_query($sql);
+		
+		while($row = mysql_fetch_array($result)){
+			//echo '<li>'.$row['nombre'].'</li>';
+			echo '<li>'.$row['nombre'].'</li>';
+		}
+
+	}
 }
 
 ?>

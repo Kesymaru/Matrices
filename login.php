@@ -28,6 +28,9 @@
 
         $('#nuevoUsuario').hide();
 
+        $('#entrar').click(function(){
+        	entrar();
+        });
    	});
 
 	function loginbox(cambio){
@@ -42,6 +45,27 @@
 			});
 		}
 		
+	}
+
+	function entrar(){
+		var usuario = $('#usuario').val();
+		var password = $('#password').val();
+		logIn(usuario,password);
+	}
+
+	function logIn(usuario, password){
+	var queryParams = { "func" : 'logIn', "usuario" : usuario, "password" : password};
+	//var cont = $("#"+lugarCarga);
+	  	$.ajax({
+	        data:  queryParams,
+	        url:   'ajax.php',
+	        type:  'post',
+	        success:  function (response) { 
+	        	//$('').html(response);
+	        	//cont.append(response).fadeIn(1000);
+	        	alert(response);
+	        }
+		});
 	}
 	</script>
 </head>
@@ -64,11 +88,11 @@
 			<div class="titulo">Ingresar</div>
 			<div>
 				<p>Usuario<p>
-				<input type="text" required="required" placeholder="Usuario" name="usuario"><br/>
+				<input type="text" required="required" placeholder="Usuario" id="usuario" name="usuario"><br/>
 				<p>Password<p>
-				<input type="password" required="required" placeholder="Password" name="password"><br/>
+				<input type="password" required="required" placeholder="Password" id="password" name="password"><br/>
 				<span class=".boton" onClick="loginbox(1)">Registrarse</span>
-				<input type="submit" value="Entrar" name="entrar"><br/>
+				<input type="submit" value="Entrar" name="entrar" id="entrar" onClick="entrar()"><br/>
 			</div>
 		</div>
 
@@ -96,15 +120,3 @@
 
 </body>
 </html>
-
-<?php
-
-function isLogged(){
-
-}
-
-function logIn(){
-
-}
-
-?>

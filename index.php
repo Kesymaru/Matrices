@@ -1,7 +1,6 @@
 <?php 
 	require_once("db.php"); 
-	
-	$_SESSION['id'] = 1;
+
 //busqueda
 if(isset($_GET['buscar'])){
 	$_SESSION['accion'] = 'buscar';
@@ -31,16 +30,25 @@ if(isset($_GET['buscar'])){
 <body>
 
 	<header>
-		<img src="images/logo.png" class="logo">
+		<a href="index.php">
+			<img src="images/logo.png" class="logo">
+		</a>
 
 		<div class="toolbar">
 			<div id="cliente">
-				<span>Cliente Nombre</span>
-				<ul id="proyectos">
-					<li>
-						Proyectos
-					</li>
-				</ul>
+				<div id="usuario">
+					<?php
+					echo $_SESSION['nombre'];
+					?>
+				</div id="usuario">
+				<div id="menuProyectos">
+					Proyectos
+					<ul>
+						<?php
+							listaProyectos();
+						?>
+					</ul>
+				</div>
 			</div>
 			<div id="search">
 				<form method="get" action="index.php">
