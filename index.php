@@ -1,7 +1,7 @@
 <?php 
 	require_once("db.php"); 
-	session_start();
-
+	
+	$_SESSION['id'] = 1;
 //busqueda
 if(isset($_GET['buscar'])){
 	$_SESSION['accion'] = 'buscar';
