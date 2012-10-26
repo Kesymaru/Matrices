@@ -370,7 +370,3 @@ header{
    border: 0 !important;
    box-shadow: none;
 }
-
-.oculto, .oculto input, .oculto div{
-	display: none !important;
-}
