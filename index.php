@@ -1,5 +1,11 @@
 <?php 
 	require_once("db.php"); 
+	session_start();
+
+//busqueda
+if(isset($_GET['buscar'])){
+	$_SESSION['accion'] = 'buscar';
+}
 ?>
 <!doctype html public>
 <!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -37,8 +43,10 @@
 				</ul>
 			</div>
 			<div id="search">
-				<input type="text" placeholder="hacer busqueda" required="requiered">
-				<button>Send</button>
+				<form method="get" action="index.php">
+					<input type="text" placeholder="hacer busqueda" required="requiered" name="buscar">
+					<input type="submit" name="accion">
+				</form>
 			</div>
 		</div>
 
@@ -54,30 +62,49 @@
 		</div><!-- end menu -->
 
 		<div id="content">
-
+			
+				<?php
+				if(isset($_GET['buscar'])){
+				?>
+					<div id="resultadoBusqueda">
+						<?php
+							echo "<script language=javascript>buscar('".$_GET['buscar']."')</script>";
+						?>
+					</div>
+				<?php
+				}else{
+				?>
+					<div id="mensajeInicial">
+						Seleccione una opcion.
+					</div>
+				<?php 
+				}
+				?>
 			<div id="nivel1">
 
 				<div id="listaNormas">
-					<div class="norma"></div>
+					
 				</div>
 				<div id="generalidades">
-					<div>TODO ajac para generalidades de Categoria</div>
+					
 				</div>
 
 			</div><!-- end nivel 1-->
 
 			<div id="nivel2">
 				<div id="columna1">
+					<!--
 					<div id="descripcionNorma">
-						<!--
+						
 						<div class="nombreNorma">
 							TODO titulo ajax categoria
 						</div>
 						<div>
 							TODO descripcion
 						</div>
-						end estructura ejemplo-->
+						
 					</div>
+					-->
 				</div> <!-- end columna1-->
 
 				<div id="columna2">
@@ -105,6 +132,7 @@
 						TODO mansory para acomodar las columnas
 					</div>
 					MODELO PARA BOX -->
+					
 				</div><!--end columna2 -->
 
 			</div><!-- end nivel 2-->
