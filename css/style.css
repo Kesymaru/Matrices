@@ -69,6 +69,7 @@ html, body{
 	float: left;
 	background-color: #fff;
 	border: 1px solid #dedede;
+	min-height: 500px;
 }
 
 /* header */
@@ -95,6 +96,16 @@ header{
 	margin-right: 6%;
 	margin-top: 30px;
 	float: right;
+}
+
+/* mensaje inicial */
+#mensajeInicial{
+	width: 100%;
+	vertical-align: middle;
+	margin-top: 200px;
+	font-size: 30px;
+	font-weight: bold;
+	color: #747273;
 }
 
 /* clientes */
@@ -131,7 +142,7 @@ header{
 	display: inline-block;
 }
 
-#search input{
+#search input[type="text"]{
 	width: 200px;
 	border: 0 solid transparent !important;
 	padding: 0;
@@ -154,7 +165,8 @@ header{
    box-shadow: none;
 }
 
-#search button{
+#search input[type="submit"]{
+	width: 40px;
 	height: 20px;
 	border: 0 solid transparent;
 	border-left: 1px solid #fff;
@@ -192,7 +204,7 @@ header{
 }
 
 .norma select{
-	width: 80%;
+	width: 95%;
 	border: 0;
 	box-shadow: 0;
 	text-align: center;
@@ -249,7 +261,6 @@ header{
 	margin: 0 auto;
 	border: 1px solid #dedede;
 	border-radius: 5px;
-	padding: 10px 15px;
 	width: 40%;
 	margin-right: 10px !important;
 	float: left;
@@ -258,20 +269,23 @@ header{
 
 #columna2 .box div{
 	width: 100%;
-	padding-top: 10px;
-	padding-bottom: 10px;
 	text-align: left;
 	word-wrap: break-word;
 }
 
+#columna2 .box .content{
+	width: 90%;
+	margin: 10px auto;
+	position: none !important;
+}
+
 #columna2 .box .titulo{
-	width: 100%;
 	border-bottom: 1px solid #dedede;
-	padding-top: 10px;
-	padding-bottom: 10px;
 	color: #757374;
 	text-align: center;
 	font-weight: bold;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .box p{
@@ -359,7 +373,7 @@ header{
 	text-align: center;
 }
 
-#loginbox :-webkit-input-placeholder {
+#loginbox ::-webkit-input-placeholder {
    color: #fff !important;  
    border: 0 !important;
    box-shadow: none;
@@ -370,3 +384,113 @@ header{
    border: 0 !important;
    box-shadow: none;
 }
+
+#loginbox input:hover, #loginbox:active, #loginbox:focus{
+	border: 0 solid transparent !important;
+	box-shadow: 0;
+}
+
+/* RESULTADOS BUSQUEDA */
+#resultadoBusqueda {
+	width: 80%;
+	vertical-align: middle;
+	margin: 0 auto;
+	margin-top: 20px;
+	font-size: 20px;
+	font-weight: bold;
+	color: #747273;
+}
+
+#resultadoBusqueda .resultados{
+	width: 100%;
+	border: 1px solid #dedede;
+	border-radius: 5px;
+	text-align: left;
+}
+
+#resultadoBusqueda .resultado{
+	width: 90%;
+	margin: 0 auto;
+	padding-bottom: 20px;
+	padding-top: 20px;
+	border-bottom: 1px solid #dedede;
+}
+
+#resultadoBusqueda .resultados .titulo{
+	background-color: #a1ca4a;
+	color: #fff;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+/* 
+	ETIQUETAS	
+*/
+.etiqueta{
+	right:30px;
+	bottom:-20px;
+	list-style:none;
+	float: right;
+	margin-right: -11%;
+	transform:rotate(-15deg);
+	-ms-transform:rotate(-15deg); /* IE 9 */
+	-moz-transform:rotate(-15deg); /* Firefox */
+	-webkit-transform:rotate(-15deg); /* Safari and Chrome */
+	-o-transform:rotate(-15deg); /* Opera */
+}
+
+.etiqueta li, .etiqueta a{
+	float:left;
+	height:30px;
+	line-height:25px;
+	position:relative;
+	font-size:15px;
+}
+
+.etiqueta a{
+	margin-left:20px;
+	padding:0 10px 0 15px;
+	background:#6fa414;
+	color:#fff;
+	text-decoration:none;
+	-moz-border-radius-bottomright:7px;
+	-webkit-border-bottom-right-radius:7px;	
+		border-bottom-right-radius:7px;
+	-moz-border-radius-topright:7px;
+	-webkit-border-top-right-radius:7px;	
+		border-top-right-radius:7px;	
+} 
+
+.etiqueta a:before{
+	content:"";
+	float:left;
+	position:absolute;
+	top:0;
+	left:-14px;
+	width:0;
+	height:0;
+	border-color:transparent #6fa414 transparent transparent;
+	border-style:solid;
+	border-width:15px 15px 15px 0;		
+}
+.etiqueta a:after{
+	content:"";
+	position:absolute;
+	top:13px;
+	left:0;
+	float:left;
+	width:5px;
+	height:5px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+	background:#fff;
+	-moz-box-shadow:-1px -1px 2px #004977;
+	-webkit-box-shadow:-1px -1px 2px #004977;
+	box-shadow:-1px -1px 2px #004977;
+}
+
+.etiqueta a:hover{background:#a1ca4a;}	
+
+.etiqueta a:hover:before{border-color:transparent #a1ca4a transparent transparent;}
