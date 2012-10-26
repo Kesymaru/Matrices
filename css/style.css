@@ -406,6 +406,7 @@ header{
 	border: 1px solid #dedede;
 	border-radius: 5px;
 	text-align: left;
+	margin-bottom: 20px;
 }
 
 #resultadoBusqueda .resultado{
@@ -454,6 +455,7 @@ header{
 	background:#6fa414;
 	color:#fff;
 	text-decoration:none;
+	text-transform: capitalize;
 	-moz-border-radius-bottomright:7px;
 	-webkit-border-bottom-right-radius:7px;	
 		border-bottom-right-radius:7px;
