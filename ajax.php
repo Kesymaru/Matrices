@@ -24,6 +24,13 @@ switch ($_POST['func']){
 			seleccionaGeneralidad( $_POST['superId'], $_POST['id'] );
 		}
 		break;
+
+	//busqueda
+	case 'buscar':
+		if( isset($_POST['id'])){
+			buscar($_POST['id']);
+		}
+		break;
 }
 
 ?>

@@ -74,13 +74,15 @@ function descripcionNorma($id){
 	$result = mysql_query($sql);
 	$row = mysql_fetch_array($result);
 
-	echo '<div class="nombreNorma">';
+	echo '<div id="descripcionNorma">
+	<div class="nombreNorma">';
 	echo normaDato($row['normaId'],'nombre');
 	echo '</div>';
 
 	echo '<div class="numeroNorma">';
 	echo normaDato($row['normaId'],'numero');
-	echo '</div>';
+	echo '</div>
+	</div>';
 
 }
 
@@ -91,11 +93,12 @@ function seleccionaGeneralidad($normaId, $generalidadId){
 	$row = mysql_fetch_array($result);
 
 	echo '<div class="box" id="box'.$generalidadId.'">
+
 		<div class="titulo">';
 	echo generalidadDato($generalidadId,'nombre');
 	echo '</div>';
 
-	echo '<div>';
+	echo '<div class="content">';
 	echo normaDato( $row['normaId'], generalidadDato($generalidadId,'consulta') );
 	echo '</div>
 		</div><!-- end box -->';
@@ -115,6 +118,82 @@ function generalidadDato($id, $consulta){
 	$result = mysql_query($sql);
 	$row = mysql_fetch_array($result);
 	return $row[$consulta];
+}
+
+/*
+	funciones para usuarios
+*/
+
+function logValida($nombre,$pass){
+	$sql = 'SELECT * FROM clientes WHERE nombre ='.$nombre.' AND password = '.$pass;
+	$result = mysql_query($sql);
+
+	if(mysql_fetch_array($result)){
+		//existe
+		echo 'true';
+	}else{
+		echo 'false';
+	}
+}
+
+
+
+/* busca en todas las tablas y devuelve el resultado formateado en html */
+function buscar($buscar){
+	/*$consultas = array(0 => 'normas', 1 => 'categorias', 2 => 'proyectos' );
+
+	foreach ($consultas as $key => $value) {
+			
+		$sql = "SELECT * FROM ".$consultas[$key]." WHERE nombre LIKE '%".$buscar."%' LIMIT 0, 30 ";
+		$result = mysql_query($sql);
+		
+		$contador = 0;	
+		$busqueda = '';
+
+		while ($row = mysql_fetch_array($result)){
+			$busqueda .= '<div class="resultado">'.$row['nombre'].'</div>';
+			$contador++;
+		}
+		if($contador > 0){
+			echo 
+		$contador = 0;
+	}*/
+	echo buscarNormas($buscar);
+}
+
+//realiza busqueda en normas
+function buscarNormas($busqueda){
+
+	$consultas = array( 0 => 'nombre', 1 => 'numero', 2 => 'requisito', 3 => 'permisos', 4 => 'entidad', 5 => 'resumen');
+	$resultadoTemp = '';
+	$resultado = '';
+	$contador = 0;
+
+	foreach ($consultas as $key => $value) {
+
+		$sql = "SELECT * FROM normas WHERE ".$consultas[$key]." LIKE '%".$busqueda."%' LIMIT 0, 30";
+		$result = mysql_query($sql);
+
+		$c = 0;
+		while( $row = mysql_fetch_array($result)){
+			$resultadoTemp .= '<div class="resultado">
+			<ul class="etiqueta"><li><a href="#">'.$consultas[$key].'</a></li></ul>
+			 '.$row[$consultas[$key]].'</div>';
+			$contador++;
+		}
+	}
+	if($contador > 0){
+		$resultado .= '<div class="resultados">
+					<div class="titulo">'.$contador.' Resultado';
+		if($contador > 1){
+			$resultado .='s';
+		}
+		$resultado .= ' en Normas</div>'.$resultadoTemp.'</div>';
+	}
+
+	$contador = 0;
+
+	return $resultado;
 }
 
 ?>
