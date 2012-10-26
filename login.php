@@ -21,26 +21,16 @@
 	<script src="js/jquery-ui-1.9.0.custom.js"></script>
 	<script src="js/main.js"></script>
 	<script type="text/javascript">
-	$(function() {
-        $( "input[type=submit], a, button" )
-            .button()
-            .click(function( event ) {
-                event.preventDefault();
-            });
+
+    $(document).ready(function(){
+
+    	$( "input[type=submit], button, span" ).button();
+
         $('#nuevoUsuario').hide();
-    });
+
+   	});
 
 	function loginbox(cambio){
-
-		
-		/*if( $('#nuevoUsuario').hasClass('oculto') ){
-			$('#nuevoUsuario').removeClass('oculto');
-			$('#usuarios').addClass('oculto').fadeIn();
-		}else{
-			$('#usuarios').fadeOut(1000,function(){
-				$('#nuevoUsuario').addClass('oculto').fadeIn();
-			});
-		}*/
 
 		if( cambio == 2 ){
 			$('#nuevoUsuario').fadeOut(1000,function(){
@@ -68,14 +58,16 @@
 	</header>
 
 	<div class="loginbox">
-	<form method="post">
+	<form method="post" id="formulario">
 
 		<div id="usuarios">
 			<div class="titulo">Ingresar</div>
 			<div>
-				<input type="text" placeholder="Usuario" name="usuario"><br/>
-				<input type="password" placeholder="Password" name="password"><br/>
-				<button onClick="loginbox(1)">Registrarse</button>
+				<p>Usuario<p>
+				<input type="text" required="required" placeholder="Usuario" name="usuario"><br/>
+				<p>Password<p>
+				<input type="password" required="required" placeholder="Password" name="password"><br/>
+				<span class=".boton" onClick="loginbox(1)">Registrarse</span>
 				<input type="submit" value="Entrar" name="entrar"><br/>
 			</div>
 		</div>
@@ -85,11 +77,15 @@
 				Regristro
 			</div>
 			<div>
-				<input type="text" placeholder="Usuario" name="nuevoUsuario"><br/>
-				<input type="email" placeholder="Email" name="nuevoEmail"><br/>
-				<input type="password" placeholder="Password" name="nuevoPassword1"><br/>
-				<input type="password" placeholder="Confirmar password" name="nuevoPassword2"><br/>
-				<button onClick="loginbox(2)">Usuarios</button>
+				<p>Usuario<p>
+				<input type="text" required="required" placeholder="Usuario" name="nuevoUsuario"><br/>
+				<p>Email<p>
+				<input type="email" required="required" placeholder="Email" name="nuevoEmail"><br/>
+				<p>Password<p>
+				<input type="password" required="required" placeholder="Password" name="nuevoPassword1"><br/>
+				<p>Confirme password<p>
+				<input type="password" required="required" placeholder="Confirmar password" name="nuevoPassword2"><br/>
+				<span class=".boton" onClick="loginbox(2)">Usuarios</span>
 				<input type="submit" value="Registrarse" name="registrar"><br/>
 			</div>
 		</div>
@@ -100,3 +96,15 @@
 
 </body>
 </html>
+
+<?php
+
+function isLogged(){
+
+}
+
+function logIn(){
+
+}
+
+?>
