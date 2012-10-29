@@ -29,7 +29,7 @@
         $('#nuevoUsuario').hide();
 
         $('#entrar').click(function(){
-        	entrar();
+        	logIn();
         });
    	});
 
@@ -47,13 +47,11 @@
 		
 	}
 
-	function entrar(){
-		var usuario = $('#usuario').val();
-		var password = $('#password').val();
-		logIn(usuario,password);
-	}
+	function logIn(){
 
-	function logIn(usuario, password){
+	var usuario = $('#usuario').val();
+	var password = $('#password').val();
+
 	var queryParams = { "func" : 'logIn', "usuario" : usuario, "password" : password};
 	//var cont = $("#"+lugarCarga);
 	  	$.ajax({
@@ -61,9 +59,13 @@
 	        url:   'ajax.php',
 	        type:  'post',
 	        success:  function (response) { 
-	        	//$('').html(response);
-	        	//cont.append(response).fadeIn(1000);
-	        	alert(response);
+	        	
+	        	if(response.length > 0){
+	        		alert(response);
+	        		//TODO nice notification
+	        	}else{
+	        		top.location.href = 'index.php';
+	        	}
 	        }
 		});
 	}
@@ -92,7 +94,7 @@
 				<p>Password<p>
 				<input type="password" required="required" placeholder="Password" id="password" name="password"><br/>
 				<span class=".boton" onClick="loginbox(1)">Registrarse</span>
-				<input type="submit" value="Entrar" name="entrar" id="entrar" onClick="entrar()"><br/>
+				<input type="submit" value="Entrar" name="entrar" id="entrar"><br/>
 			</div>
 		</div>
 

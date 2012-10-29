@@ -1,10 +1,14 @@
 <?php 
 	require_once("db.php"); 
 
-//busqueda
-if(isset($_GET['buscar'])){
-	$_SESSION['accion'] = 'buscar';
+
+//logueo
+if( !isset($_SESSION['logueado']) ){
+	$home = "login.php";
+	echo "<script type='text/javascript'>top.location.href = '$home';</script>";
+	exit;
 }
+
 ?>
 <!doctype html public>
 <!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -40,12 +44,17 @@ if(isset($_GET['buscar'])){
 					<?php
 					echo $_SESSION['nombre'];
 					?>
-				</div id="usuario">
-				<div id="menuProyectos">
-					Proyectos
-					<ul>
+					<ul class="dropMenu" id="menuUsuario">
 						<?php
-							listaProyectos();
+							menuUsuario();
+						?>
+					</ul>
+				</div id="usuario">
+				<div id="proyectos">
+					Proyectos
+					<ul class="dropMenu" id="menuProyectos">
+						<?php
+							menuProyectos();
 						?>
 					</ul>
 				</div>
