@@ -286,17 +286,19 @@ function logIn($usuario, $password){
 
 	if( $row = mysql_fetch_array($result) ){
 		//existe
-		echo 'Logueado!!';
 		$_SESSION['id'] = $row['id'];
 		$_SESSION['nombre'] = $row['nombre'];
 		$_SESSION['email'] = $row['email'];
+		$_SESSION['logueado'] = true;
+		
 	}else{
 		//no es un usuario valido
 		echo 'El usuario '.$usuario.' o la contrasena '.$password.' no es correcta';
 	}
 }
 
-function listaProyectos(){
+//para el menu de proyectos del usuario
+function menuProyectos(){
 	if(isset($_SESSION['id'])){
 		$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'];
 		$result = mysql_query($sql);
@@ -305,8 +307,15 @@ function listaProyectos(){
 			//echo '<li>'.$row['nombre'].'</li>';
 			echo '<li>'.$row['nombre'].'</li>';
 		}
+		echo '<li><button>Crear Nuevo</button>';
 
 	}
+}
+
+function menuUsuario(){
+	echo '<li><img src="images/es.png"></li>';
+	echo '<li><button onClick="alert(\'Editar\');">Editar</button>';
+	echo '<button onClick="logOut();">Salir</button></li>';
 }
 
 ?>
