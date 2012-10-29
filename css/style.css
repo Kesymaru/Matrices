@@ -110,13 +110,14 @@ header{
 
 /* clientes */
 #cliente{
-	width: 270px;
 	display: inline-block;
 	background-color: #fff;
 	border: 1px solid #dedede;
 	text-align: left;
 	font-size: 20px;
 	vertical-align: middle;
+	border-radius: 5px;
+	cursor: pointer;
 }
 
 #cliente #usuario, #cliente #proyectos{
@@ -125,7 +126,7 @@ header{
 	display: inline-block;
 	text-align: center;
 	float: left;
-	width: 100px;
+	width: 120px;
 }
 
 /* menuProyectos */
@@ -137,11 +138,13 @@ header{
 .dropMenu{
 	z-index: 1;
 	position: absolute;
-	margin: 0 auto;
 	padding: 0;
-	min-width: 120px;
+	min-width: 100px;
+	border: 1px solid #dedede;
+	margin-top: 20px;
+	background-color: #fff;
 }
-
+/*
 .dropMenu:before {
   content: '';
   width: 0px;
@@ -151,22 +154,35 @@ header{
   position: relative;
   border-left: 25px solid transparent;
   border-right: 25px solid transparent;
-  border-bottom: 15px solid #6fa414;
-}
+  border-bottom: 15px solid #aaa8a9;
+}*/
 
 .dropMenu li{
-	margin-top: -5px;
-	border-radius: 5px;
 	width: 120px;
 	display: block;
 	padding: 10px;
-	background-color: #6fa414;
+	background-color: #fff;
+	border-bottom: 1px solid #dedede;
+	color: #747273;
 }
 
+.dropMenu li:hover{
+	background-color: #a1ca4a; 
+}
+
+.dropMenu li:last-child:hover{
+	background-color: transparent !important; 
+}
 
 /* imagen del usuario */
 .dropMenu img{
 	width: 100px;
+}
+
+.dropMenu button{
+	font-size: 12px;
+	border: 0;
+	box-shadow: 0;
 }
 
 /* search */
