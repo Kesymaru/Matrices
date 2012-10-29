@@ -387,7 +387,7 @@ header{
 	border: 1px solid rgba(117, 114, 115,.5);
 }
 
-#usuarios div, #nuevoUsuario div{
+#usuarios .contenido, #nuevoUsuario .contenido{
 	display: block;
 	width: 100%;
 	padding-bottom: 10px;
@@ -401,6 +401,10 @@ header{
 	font-weight: bold;
 	color: #fff;
 	font-size: 25px;
+	display: block;
+	width: 100%;
+	padding-bottom: 10px;
+	padding-top: 10px;
 }
 
 .loginbox input[type="text"], .loginbox input[type="password"], .loginbox input[type="email"]{
