@@ -3,6 +3,23 @@ var Norma;
 var box = 0;
 
 $(document).ready(function(){
+	$('.dropMenu').hide();
+
+	$('#proyectos').click(function(){
+		if($('#menuProyectos').is(':visible')){
+			$('#menuProyectos').slideUp();
+		}else{
+			$('#menuProyectos').slideDown();
+		}
+	});
+
+	$('#usuario').click(function(){
+		if($('#menuUsuario').is(':visible')){
+			$('#menuUsuario').slideUp();
+		}else{
+			$('#menuUsuario').slideDown();
+		}
+	});
 
 });
 
@@ -76,6 +93,14 @@ function reset(){
 
 function buscar(busqueda){
 	accion1('resultadoBusqueda', 'buscar',busqueda);
+}
+
+/*
+	LOGUEO y DESLOGUEO
+*/
+
+function logOut(){
+	alert('desloguear');
 }
 
 /*
