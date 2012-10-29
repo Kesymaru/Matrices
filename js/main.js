@@ -3,12 +3,21 @@ var Norma;
 var box = 0;
 
 $(document).ready(function(){
+	$('.dropMenu button').button();
 	$('.dropMenu').hide();
 
 	$('#proyectos').click(function(){
 		if($('#menuProyectos').is(':visible')){
 			$('#menuProyectos').slideUp();
+			$('#proyectos').css({
+				'background-color' : '#fff',
+				'color' : '#000'
+			});
 		}else{
+			$('#proyectos').css({
+				'background-color' : '#a1ca4a',
+				'color' : '#fff'
+			});
 			$('#menuProyectos').slideDown();
 		}
 	});
@@ -16,7 +25,15 @@ $(document).ready(function(){
 	$('#usuario').click(function(){
 		if($('#menuUsuario').is(':visible')){
 			$('#menuUsuario').slideUp();
+			$('#usuario').css({
+				'background-color' : '#fff',
+				'color' : '#000'
+			});
 		}else{
+			$('#usuario').css({
+				'background-color' : '#a1ca4a',
+				'color' : '#fff'
+			});
 			$('#menuUsuario').slideDown();
 		}
 	});
