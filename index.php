@@ -23,12 +23,17 @@ if( !isset($_SESSION['logueado']) ){
 	<meta charset="utf-8">
 	<link rel="shortcut icon" href="/favicon.ico"> 
 
-	<link rel="stylesheet" href="css/style.css" TYPE="text/css">
-	<link href="css/jquery-ui-1.9.0.custom.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<link rel="stylesheet" href="css/jquery-ui-1.9.0.custom.css" type="text/css">
+	<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css">
 
 	<script src="js/jquery-1.8.2.js"></script>
 	<script src="js/jquery-ui-1.9.0.custom.js"></script>
 	<script src="js/main.js"></script>
+
+	<script src="js/languages/jquery.validationEngine-es.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery.placeholder.js"></script>
 </head>
 
 <body>
@@ -60,8 +65,8 @@ if( !isset($_SESSION['logueado']) ){
 				</div>
 			</div>
 			<div id="search">
-				<form method="get" action="index.php">
-					<input type="text" placeholder="hacer busqueda" required="requiered" name="buscar">
+				<form id="searchForm" method="get" action="index.php">
+					<input type="text" class="validate[required]" placeholder="hacer busqueda" required="requiered" name="buscar">
 					<input type="submit" name="accion">
 				</form>
 			</div>
