@@ -297,6 +297,17 @@ function logIn($usuario, $password){
 	}
 }
 
+//cierra session
+function logOut(){
+	session_unset();
+	session_destroy();
+	echo 'true';
+}
+
+/*
+	MENUS
+*/
+
 //para el menu de proyectos del usuario
 function menuProyectos(){
 	if(isset($_SESSION['id'])){
@@ -312,7 +323,9 @@ function menuProyectos(){
 	}
 }
 
+//menu usuario
 function menuUsuario(){
+	//TODO imagen del usuario
 	echo '<li><img src="images/es.png"></li>';
 	echo '<li><button onClick="alert(\'Editar\');">Editar</button>';
 	echo '<button onClick="logOut();">Salir</button></li>';
