@@ -21,7 +21,6 @@
 	<!-- <script src="js/jquery-1.8.2.js"></script> -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 	<script src="js/jquery-ui-1.9.0.custom.js"></script>
-	<script src="js/main.js"></script>
 
 	<script src="js/languages/jquery.validationEngine-es.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
