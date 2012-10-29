@@ -21,6 +21,9 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#searchForm").validationEngine();
+    $('input[placeholder]').placeholder();
+
 });
 
 //menu
@@ -96,14 +99,6 @@ function buscar(busqueda){
 }
 
 /*
-	LOGUEO y DESLOGUEO
-*/
-
-function logOut(){
-	alert('desloguear');
-}
-
-/*
 	AJAX
 */
 
@@ -150,6 +145,19 @@ function accion2(lugarCarga, func, superId, id){
 	        success:  function (response) { 
 	        	//cont.html(response);
 	        	cont.append(response).fadeIn(1000);
+	        }
+		});
+}
+
+//logOut
+function logOut(){
+	var queryParams = { "func" : 'logOut'};
+	  	$.ajax({
+	        data:  queryParams,
+	        url:   'ajax.php',
+	        type:  'post',
+	        success:  function (response) { 
+	        	top.location.href = 'login.php';
 	        }
 		});
 }
