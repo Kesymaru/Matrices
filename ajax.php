@@ -38,6 +38,12 @@ switch ($_POST['func']){
 			//se encarga de la autentificacion del usuario
 			logIn($_POST['usuario'], $_POST['password']);
 		}
+		break;
+
+	//desloguear
+	case 'logOut':
+		logOut();
+		break;
 }
 
 ?>
