@@ -289,6 +289,7 @@ function logIn($usuario, $password){
 		$_SESSION['id'] = $row['id'];
 		$_SESSION['nombre'] = $row['nombre'];
 		$_SESSION['email'] = $row['email'];
+		$_SESSION['skype'] = $row['skype'];
 		$_SESSION['logueado'] = true;
 		
 	}else{
@@ -318,7 +319,7 @@ function menuProyectos(){
 			//echo '<li>'.$row['nombre'].'</li>';
 			echo '<li>'.$row['nombre'].'</li>';
 		}
-		echo '<li><button>Crear Nuevo</button>';
+		echo '<li><button onClick="proyectos();">Crear Nuevo</button>';
 
 	}
 }
@@ -327,7 +328,7 @@ function menuProyectos(){
 function menuUsuario(){
 	//TODO imagen del usuario
 	echo '<li><img src="images/es.png"></li>';
-	echo '<li><button onClick="alert(\'Editar\');">Editar</button>';
+	echo '<li><button onClick="editar();">Editar</button>';
 	echo '<button onClick="logOut();">Salir</button></li>';
 }
 
