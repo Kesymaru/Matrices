@@ -561,3 +561,101 @@ header{
 .etiqueta a:hover{background:#a1ca4a;}	
 
 .etiqueta a:hover:before{border-color:transparent #a1ca4a transparent transparent;}
+
+
+/*
+	DIALOG
+*/
+
+#dialogo{
+	width: 100%;
+	display: block;
+	z-index: 1;
+	position: absolute;
+	top: 120px;
+	background-color: transparent !important;
+}
+
+#dialogo #dialogoPrincipal{
+	width: 600px;
+	display: block;
+	margin: 0 auto;
+	border: 1px solid #dedede;
+	background-color: #fff;
+	border-radius: 5px;
+	font-size: 20px;
+	margin-top: 20px;
+}
+
+#dialogoPrincipal #closeDialogo{
+	float: right;
+	margin-right: -15px;
+	margin-top: -10px;
+}
+
+#dialogo .titulo{
+	width: 100%;
+	background-color: #a1ca4a;
+	text-align: center; 
+	font-weight: bold;
+	color: #fff;
+	font-size: 20px;
+	display: block;
+	width: 100%;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	margin-bottom: 20px;
+}
+
+#dialogo button, input[type="reset"]{
+	font-size: 15px !important;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+
+#dialogo input[type="text"], 
+#dialogo input[type="password"], 
+#dialogo input[type="email"]
+{
+	width: 200px;
+	border: 0 solid transparent !important;
+	padding: 0;
+	margin: 0;
+	margin-bottom: 10px;
+	color: #fff;
+	background-color: #747273;
+	font-size: 20px;
+	box-shadow: none;
+	padding: 5px;
+	border-radius: 5px;
+	text-align: center;
+}
+
+#dialogo .dialogoLeft{
+	float: left;
+	width: 200px;
+		text-align: center;
+}
+
+#dialogo .dialogoLeft #userImage{
+	width: 150px;
+}
+
+#dialogo .dialogoRight{
+	display: inline-block;
+	width: 400px;
+}
+
+#dialogo .dialogoRight table{
+	margin: 0 auto;
+	border: 0;
+	border-collapse: collapse;
+}
+
+#dialogo .controls{
+	width: 100%;
+	display: block;
+	margin-bottom: 20px;
+	text-align: center;
+}

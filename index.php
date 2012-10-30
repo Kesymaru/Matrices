@@ -26,17 +26,38 @@ if( !isset($_SESSION['logueado']) ){
 	<link rel="stylesheet" href="css/style.css" type="text/css">
 	<link rel="stylesheet" href="css/jquery-ui-1.9.0.custom.css" type="text/css">
 	<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css">
+	<link rel="stylesheet" href="js/fancybox/jquery.fancybox.css?v=2.1.2" type="text/css" media="screen" />
 
 	<script src="js/jquery-1.8.2.js"></script>
 	<script src="js/jquery-ui-1.9.0.custom.js"></script>
-	<script src="js/main.js"></script>
 
+	<!-- fancy box -->
+	<script type="text/javascript" src="js/fancybox/jquery.fancybox.js?v=2.1.3"></script>
+	
+	<!-- validacion de form -->
 	<script src="js/languages/jquery.validationEngine-es.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+
+	<!-- placeholder para ie -->
 	<script src="js/jquery.placeholder.js"></script>
+
+	<script src="js/main.js"></script>
 </head>
 
 <body>
+	<!-- dialogo emerjente -->
+	<div id="dialogo">
+		<div id="dialogoPrincipal">
+			<a href="#" id="closeDialogo" onClick="closeDialogo()">
+				<img src="images/close.png">
+			</a>
+			<!-- close button -->
+			<div id="dialogoContenido">
+				<!-- contenido AJAX -->
+				contenido
+			</div>
+		</div>
+	</div>
 
 	<header>
 		<a href="index.php">

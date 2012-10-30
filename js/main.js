@@ -41,6 +41,9 @@ $(document).ready(function(){
 	$("#searchForm").validationEngine();
     $('input[placeholder]').placeholder();
 
+    //oculta dialogo
+    $('#dialogo').hide();
+
 });
 
 //menu
@@ -116,6 +119,26 @@ function buscar(busqueda){
 }
 
 /*
+	EDITAR DATOS usuarios
+*/
+
+function editar(){
+	dialogo('editarDatos');
+}
+
+function closeDialogo(){
+	$('#dialogo').slideUp();
+}
+
+/*
+	EDITAR proyectos
+*/
+function proyectos(){
+
+}
+
+
+/*
 	AJAX
 */
 
@@ -166,6 +189,21 @@ function accion2(lugarCarga, func, superId, id){
 		});
 }
 
+//formulario
+function dialogo(func){
+	var queryParams = { "func" : func};
+	  	$.ajax({
+	        data:  queryParams,
+	        url:   'ajax.php',
+	        type:  'post',
+	        success:  function (response) { 
+	        	$( "#dialogoContenido" ).load(response);
+	        	$('#dialogo').hide();
+	        	$('#dialogo').slideDown();
+	        }
+		});
+}
+
 //logOut
 function logOut(){
 	var queryParams = { "func" : 'logOut'};
@@ -178,3 +216,4 @@ function logOut(){
 	        }
 		});
 }
+
