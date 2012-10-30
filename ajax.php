@@ -44,6 +44,11 @@ switch ($_POST['func']){
 	case 'logOut':
 		logOut();
 		break;
+
+	//devuelve el formulario de editar datos
+	case 'editarDatos':
+		echo 'ajax/user.php';
+		break;
 }
 
 ?>
