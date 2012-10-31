@@ -86,6 +86,10 @@ switch ($_POST['func']){
 			nuevoProyecto($_POST['nombre'], $_POST['descripcion']);
 		}
 		break;
+
+	case 'menuProyectos':
+		echo menuProyectos();
+		break;
 }
 
 ?>
