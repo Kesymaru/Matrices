@@ -320,7 +320,7 @@ function menuProyectos(){
 			//echo '<li>'.$row['nombre'].'</li>';
 			echo '<li>'.$row['nombre'].'</li>';
 		}
-		echo '<li><button onClick="nuevoProyecto();">Crear Nuevo</button>';
+		echo '<li><button onClick="proyecto();">Crear Nuevo</button>';
 
 	}
 }
@@ -396,6 +396,35 @@ function getSkype(){
 	$result = mysql_query($sql);
 	$row = mysql_fetch_array($result);
 	return $row['skype'];
+}
+
+/*
+	DATOS PROYECTOS
+*/
+
+//regresa los proyectos del usuario
+//r@param eturn array
+function getProyectos(){
+	$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'];
+	$result =  mysql_query($sql);
+
+	$nombres = array();
+	$c = 0;
+
+	while($row = mysql_fetch_array($result)){
+		$nombres[$c] = $row['nombre'];
+		$c++;
+	}
+
+	return $nombres;
+}
+
+//registra nuevo proyecto
+function nuevoProyecto($proyecto, $descripcion){
+	$fecha = date("d-m-Y");
+	$sql = "INSERT INTO proyectos (nombre, descripcion, fecha, cliente, status) VALUES ('".$proyecto."','".$descripcion."', '".$fecha."', '".$_SESSION['id']."', 1 )";
+
+	mysql_query($sql);
 }
 
 /*

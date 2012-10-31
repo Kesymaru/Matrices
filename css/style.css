@@ -337,7 +337,6 @@ header{
 #columna2 .box .content{
 	width: 90%;
 	margin: 10px auto;
-	position: none !important;
 }
 
 #columna2 .box .titulo{
@@ -618,7 +617,8 @@ header{
 #dialogo input[type="text"], 
 #dialogo input[type="number"], 
 #dialogo input[type="password"], 
-#dialogo input[type="email"]
+#dialogo input[type="email"],
+#dialogo textarea
 {
 	width: 200px;
 	border: 0 solid transparent !important;
@@ -634,25 +634,45 @@ header{
 	text-align: center;
 }
 
+#dialogo textarea{
+	width: 90% !important;
+	margin: 0 auto; 
+	height: 150px;
+	min-height: 150px;
+	max-height: 300px;
+	text-align: left !important;
+}
+
 #dialogo .dialogoLeft{
 	float: left;
-	width: 200px;
-		text-align: center;
+	width: 150px;
+	text-align: center;
 }
 
 #dialogo .dialogoLeft #userImage{
-	width: 150px;
+	width: 120px;
 }
 
 #dialogo .dialogoRight{
 	display: inline-block;
-	width: 400px;
+	width: 450px;
 }
 
 #dialogo .dialogoRight table{
+	border-collapse: separate !important;
+	border-spacing: 20px 0px;
 	margin: 0 auto;
 	border: 0;
-	border-collapse: collapse;
+}
+
+#dialogo .dialogoRight table .muestra{
+	text-align: center;
+}
+
+#dialogo .center{
+	display: block;
+	border: 0;
+	text-align: center;
 }
 
 #dialogo .controls{

@@ -90,15 +90,9 @@ if( !isset($_SESSION['logueado']) ){
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">
+			<td colspan="2" class="muestra">
 				<button id="cambiar">Cambiar Password</button>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
 				<div id="cambiarPassword">
-					Cambiar Password
-					<br/>
 					<input class="validate[required,minSize[4]]" type="password" id="nuevoPassword1" placeholder="Nuevo Password">
 					<br/>
 					<input class="validate[required,equals[nuevoPassword1],minSize[4]]"  id="nuevoPassword2" type="password" placeholder="Confirmar Password">

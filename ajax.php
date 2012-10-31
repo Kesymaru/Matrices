@@ -75,6 +75,17 @@ switch ($_POST['func']){
 			setPassword($_POST['nuevo']);
 		}
 		break;
+
+	//proyectos\
+	case 'getProyectos':
+		echo json_encode(getProyectos());
+		break;
+
+	case 'nuevoProyecto':
+		if(isset($_POST['nombre']) && isset($_POST['descripcion'])){
+			nuevoProyecto($_POST['nombre'], $_POST['descripcion']);
+		}
+		break;
 }
 
 ?>
