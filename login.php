@@ -1,5 +1,13 @@
 <?php 
 	require_once("db.php"); 
+
+//logueo
+if( isset($_SESSION['logueado']) ){
+	$home = "index.php";
+	echo "<script type='text/javascript'>top.location.href = '$home';</script>";
+	exit;
+}
+
 ?>
 <!doctype html public>
 <!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
