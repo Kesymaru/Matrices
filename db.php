@@ -281,7 +281,8 @@ function buscarProyectos($busqueda){
 */
 
 function logIn($usuario, $password){
-	$sql = 'SELECT * FROM clientes WHERE nombre = \''.$usuario.'\' AND contrasena = \''.$password.'\'';
+	$password = encripta($password);
+	$sql = 'SELECT * FROM clientes WHERE usuario = \''.$usuario.'\' AND contrasena = \''.$password.'\'';
 	$result = mysql_query($sql);
 
 	if( $row = mysql_fetch_array($result) ){
@@ -319,7 +320,7 @@ function menuProyectos(){
 			//echo '<li>'.$row['nombre'].'</li>';
 			echo '<li>'.$row['nombre'].'</li>';
 		}
-		echo '<li><button onClick="proyectos();">Crear Nuevo</button>';
+		echo '<li><button onClick="nuevoProyecto();">Crear Nuevo</button>';
 
 	}
 }
@@ -330,6 +331,87 @@ function menuUsuario(){
 	echo '<li><img src="images/es.png"></li>';
 	echo '<li><button onClick="editar();">Editar</button>';
 	echo '<button onClick="logOut();">Salir</button></li>';
+}
+
+
+/*
+	ACTUALIZAN DATOS USUARIO
+*/
+
+function setNombre($nombre){
+	$sql = 'UPDATE clientes SET nombre = \''.$nombre.'\' WHERE id = '.$_SESSION['id'];
+	mysql_query($sql);
+}
+
+function setEmail($email){
+	$sql = 'UPDATE clientes SET email = \''.$email.'\' WHERE id = '.$_SESSION['id'];
+	mysql_query($sql);
+}
+
+function setTelefono($telefono){
+	$sql = 'UPDATE clientes SET telefono = '.$telefono.' WHERE id = '.$_SESSION['id'];
+	mysql_query($sql);
+}
+
+function setSkype($skype){
+	$sql = 'UPDATE clientes SET skype = \''.$skype.'\' WHERE id = '.$_SESSION['id'];
+	mysql_query($sql);
+}
+
+function setPassword($password){
+	$password = encripta($password);
+	$sql = 'UPDATE clientes SET contrasena = \''.$password.'\' WHERE id = '.$_SESSION['id'];
+	if(mysql_query($sql)){
+		echo 'pass actualizado';
+	}
+}
+
+/*
+	ACCESO A DATOS DEL USUARIO
+*/
+
+function getNombre(){
+	$sql = 'SELECT * FROM clientes WHERE id = '.$_SESSION['id'];
+	$result = mysql_query($sql);
+	$row = mysql_fetch_array($result);
+	return $row['nombre'];
+}
+
+function getEmail(){
+	$sql = 'SELECT * FROM clientes WHERE id = '.$_SESSION['id'];
+	$result = mysql_query($sql);
+	$row = mysql_fetch_array($result);
+	return $row['email'];
+}
+
+function getTelefono(){
+	$sql = 'SELECT * FROM clientes WHERE id = '.$_SESSION['id'];
+	$result = mysql_query($sql);
+	$row = mysql_fetch_array($result);
+	return $row['telefono'];
+}
+
+function getSkype(){
+	$sql = 'SELECT * FROM clientes WHERE id = '.$_SESSION['id'];
+	$result = mysql_query($sql);
+	$row = mysql_fetch_array($result);
+	return $row['skype'];
+}
+
+/*
+	ENCRIPTA EL PASSWORD
+*/
+
+//encrita o desencrita password
+function encripta($text){
+	//quita / y etiquetas html
+	$text = stripcslashes($text);
+	$text = strip_tags($text);
+	$text = md5 ($text); 
+	$text = crc32($text);
+	$text = crypt($text, "xtemp"); 
+	$text = sha1("xtemp".$text);
+	return $text;
 }
 
 ?>

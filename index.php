@@ -39,9 +39,10 @@ if( !isset($_SESSION['logueado']) ){
 	<script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
 
 	<!-- placeholder para ie -->
-	<script src="js/jquery.placeholder.js"></script>
+	<script src="js/jquery.placeholder.js" type="text/javascript"></script>
 
-	<script src="js/main.js"></script>
+	<script src="js/main.js" type="text/javascript"></script>
+	
 </head>
 
 <body>
@@ -87,7 +88,7 @@ if( !isset($_SESSION['logueado']) ){
 			</div>
 			<div id="search">
 				<form id="searchForm" method="get" action="index.php">
-					<input type="text" class="validate[required]" placeholder="hacer busqueda" required="requiered" name="buscar">
+					<input type="text" class="validate[required]" data-prompt-position="bottomRight" placeholder="hacer busqueda" required="requiered" name="buscar">
 					<input type="submit" name="accion">
 				</form>
 			</div>

@@ -123,20 +123,57 @@ function buscar(busqueda){
 */
 
 function editar(){
-	dialogo('editarDatos');
+	$( "#dialogoContenido" ).load('ajax/user.php');
+	$('#dialogo').hide();
+	$('#dialogo').slideDown();
+}
+
+//solo es para el formulario de cambio de datos del usuario
+function editarUsuario(){
+
+	if ($('#formularioUsuario').validationEngine('validate'))   
+    { 
+		nombre   = $('#nombre').val();
+		email    = $('#email').val();
+		telefono = $('#telefono').val();
+		skype    = $('#skype').val();
+		
+		alert(nombre+' '+email+' '+telefono);
+		cambiar = 0;
+		if( $('#cambiarPassword').is(':visible')){
+			cambiar = 1;
+			password    = $('#nuevoPassword1').val();
+			actualizar('password',password);
+		}
+
+		actualizar('nombre',nombre);
+		actualizar('email',email);
+		actualizar('telefono',telefono);
+		actualizar('skype',skype);
+
+		if(cambiar == 1){
+			//TODO notifcacion del password
+		}else{
+			//TODO notificacion normal
+		}
+    }else{
+    	//TODO notificacion de error, algun dato es invalido
+    }
+}
+
+
+/*
+	EDITAR proyectos
+*/
+function nuevoProyecto(){
+	$( "#dialogoContenido" ).load('ajax/nuevoProyecto.php');
+	$('#dialogo').hide();
+	$('#dialogo').slideDown();
 }
 
 function closeDialogo(){
 	$('#dialogo').slideUp();
 }
-
-/*
-	EDITAR proyectos
-*/
-function proyectos(){
-
-}
-
 
 /*
 	AJAX
@@ -189,17 +226,14 @@ function accion2(lugarCarga, func, superId, id){
 		});
 }
 
-//formulario
-function dialogo(func){
-	var queryParams = { "func" : func};
+function actualizar(func, nuevo){
+	var queryParams = { "func" : func, "nuevo" : nuevo};
 	  	$.ajax({
 	        data:  queryParams,
 	        url:   'ajax.php',
 	        type:  'post',
 	        success:  function (response) { 
-	        	$( "#dialogoContenido" ).load(response);
-	        	$('#dialogo').hide();
-	        	$('#dialogo').slideDown();
+	        	//TODO notificacion
 	        }
 		});
 }

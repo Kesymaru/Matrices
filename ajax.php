@@ -45,9 +45,35 @@ switch ($_POST['func']){
 		logOut();
 		break;
 
-	//devuelve el formulario de editar datos
-	case 'editarDatos':
-		echo 'ajax/user.php';
+	//actualizaciones datos de usuario
+	case 'nombre':
+		if(isset($_POST['nuevo'])){
+			setNombre($_POST['nuevo']);
+		}
+		break;
+
+	case 'email':
+		if(isset($_POST['nuevo'])){
+			setEmail($_POST['nuevo']);
+		}
+		break;
+
+	case 'telefono':
+		if(isset($_POST['nuevo'])){
+			setTelefono($_POST['nuevo']);
+		}
+		break;
+
+	case 'skype':
+		if(isset($_POST['nuevo'])){
+			setSkype($_POST['nuevo']);
+		}
+		break;
+
+	case 'password':
+		if(isset($_POST['nuevo'])){
+			setPassword($_POST['nuevo']);
+		}
 		break;
 }
 

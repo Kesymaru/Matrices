@@ -581,6 +581,7 @@ header{
 	display: block;
 	margin: 0 auto;
 	border: 1px solid #dedede;
+	box-shadow: 0 0 20px #dedede;
 	background-color: #fff;
 	border-radius: 5px;
 	font-size: 20px;
@@ -615,6 +616,7 @@ header{
 
 
 #dialogo input[type="text"], 
+#dialogo input[type="number"], 
 #dialogo input[type="password"], 
 #dialogo input[type="email"]
 {

@@ -11,7 +11,7 @@
 				e.preventDefault();
 				$('#SubmitButton').attr('disabled', ''); // disable upload button
 				//show uploading message
-				$("#output").html('<div style="padding:10px"><img src="images/ajax-loader.gif" alt="Please Wait"/> <span>Uploading...</span></div>');
+				$("#output").html('<div style="padding:10px"><img src="../images/ajax-loader.gif" alt="Please Wait"/> <span>Uploading...</span></div>');
 				
 				$(this).ajaxSubmit({
 					target: '#output',
@@ -27,8 +27,6 @@
 
 		} 
     </script> 
-
- <link href="style/style.css" rel="stylesheet" type="text/css" />
  
 </head>
 
@@ -40,9 +38,13 @@
 <input name="ImageFile" type="file" />
 <input type="submit"  id="SubmitButton" value="Upload" />
 </form>
+
 <div id="output"></div>
+
 </div>
 </div>
+
+
 </body>
 </html>
 

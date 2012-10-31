@@ -1,6 +1,5 @@
 <?php 
-
-	session_start();
+	require_once("../db.php"); 
 /*
 	para que el usuario edite sus datos
 */
@@ -24,15 +23,18 @@ if( !isset($_SESSION['logueado']) ){
 		}else{
 			$('#cambiarPassword').slideDown();
 		}
-		//$('input[placeholder]').placeholder();
 	});
 
 	$("#formularioUsuario").validationEngine();
 	$('input[placeholder]').placeholder();
 
-	$('#formularioUsuario').submit(function() {
+	/*$('#formularioUsuario').submit(function() {
 		//return false;
 	});
+	*/
+	function resetForm(){
+		$('#formularioUsuario')[0].reset();
+	}
 
 </script>
 
@@ -47,7 +49,8 @@ if( !isset($_SESSION['logueado']) ){
 		<!-- TODO user image -->
 		<img id="userImage" src="images/es.png">
 		<br/>
-		<button onClick="alert('alerta');"> Cambiar Imagen</button>
+		<div id="imagenLoad">
+		</div>
 
 	</div>
 
@@ -59,7 +62,7 @@ if( !isset($_SESSION['logueado']) ){
 				Nombre:
 			</td>
 			<td>
-				<input type="text" class="validate[required]" name="nombre" value="<?php echo $_SESSION['nombre']; ?>">
+				<input type="text" class="validate[required]" id="nombre" title="[*no]" name="nombre" value="<?php echo getNombre(); ?>">
 			</td>
 		</tr>
 		<tr>
@@ -67,7 +70,7 @@ if( !isset($_SESSION['logueado']) ){
 				Email:
 			</td>
 			<td>
-				<input type="text" class="validate[required]" name="email" value="<?php echo $_SESSION['email']; ?>">
+				<input type="text" class="validate[required,custom[email]]" id="email" name="email" value="<?php echo getEmail(); ?>">
 			</td>
 		</tr>
 		<tr>
@@ -75,7 +78,7 @@ if( !isset($_SESSION['logueado']) ){
 				Tel:
 			</td>
 			<td>
-				<input type="text" name="telefono" value="<?php echo 123;?>">
+				<input type="number" class="validate[custom[number]]" id="telefono" name="telefono" value="<?php echo getTelefono();?>">
 			</td>
 		</tr>
 		<tr>
@@ -83,7 +86,7 @@ if( !isset($_SESSION['logueado']) ){
 				Skype:
 			</td>
 			<td>
-				<input type="text" name="telefono" value="<?php echo $_SESSION['skype'];?>">
+				<input type="text" name="skype" id="skype" value="<?php echo getSkype();?>">
 			</td>
 		</tr>
 		<tr>
@@ -96,9 +99,9 @@ if( !isset($_SESSION['logueado']) ){
 				<div id="cambiarPassword">
 					Cambiar Password
 					<br/>
-					<input class="validate[required]" type="password" id="nuevoPassword1" placeholder="Nuevo Password">
+					<input class="validate[required,minSize[4]]" type="password" id="nuevoPassword1" placeholder="Nuevo Password">
 					<br/>
-					<input class="validate[required,equals[nuevoPassword1]]"  id="nuevoPassword2" type="password" placeholder="Confirmar Password">
+					<input class="validate[required,equals[nuevoPassword1],minSize[4]]"  id="nuevoPassword2" type="password" placeholder="Confirmar Password">
 				</div>
 			</td>
 		</tr>
@@ -108,6 +111,6 @@ if( !isset($_SESSION['logueado']) ){
 
 </form> 
 <div class="controls">
-	<input type="reset" value="Limpiar">
-	<button>Enviar</button>
+	<input type="reset" value="Limpiar" onClick="resetForm()">
+	<button onclick="editarUsuario();">Enviar</button>
 </div>
