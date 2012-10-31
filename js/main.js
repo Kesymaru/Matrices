@@ -197,6 +197,7 @@ function nuevoProyecto(){
 				        type:  'post',
 				        success:  function (response) { 
 				        	alert('Se ha creado tu proyecto.')
+				        	resetMenuProyectos();
 				        	//TODO notificacion
 				        }
 					});
@@ -221,6 +222,25 @@ function validaProyectos(proyectos){
 		}
 	}
 	return true;
+}
+
+//refresca el menu de proyectos con la lista actualizada
+function resetMenuProyectos(){
+	$('#menuProyectos li').remove();
+
+	var queryParams = { "func" : 'menuProyectos' };
+	$.ajax({
+		data:  queryParams,
+		url:   'ajax.php',
+		type:  'post',
+		success:  function (response) { 
+			$('.dropMenu button').button();
+			$('#menuProyectos').append(response, function(){
+				$('.dropMenu button').button();
+				alert('listo');
+			});
+		}
+	});
 }
 
 function closeDialogo(){
