@@ -131,8 +131,7 @@ function editar(){
 //solo es para el formulario de cambio de datos del usuario
 function editarUsuario(){
 
-	if ($('#formularioUsuario').validationEngine('validate'))   
-    { 
+	if ($('#formularioUsuario').validationEngine('validate')){ 
 		nombre   = $('#nombre').val();
 		email    = $('#email').val();
 		telefono = $('#telefono').val();
@@ -165,10 +164,63 @@ function editarUsuario(){
 /*
 	EDITAR proyectos
 */
-function nuevoProyecto(){
+function proyecto(){
 	$( "#dialogoContenido" ).load('ajax/nuevoProyecto.php');
 	$('#dialogo').hide();
 	$('#dialogo').slideDown();
+}
+
+function nuevoProyecto(){
+	//validacion datos
+	if ($('#formularioNuevoProyecto').validationEngine('validate')){
+		nombre = $('#proyecto').val();
+		descripcion = $('#descripcion').val();
+
+		//consulta proyectos del usuario
+		proyectos = [];
+		valido = false;
+
+		var queryParams = { "func" : 'getProyectos'};
+	  	$.ajax({
+	        data:  queryParams,
+	        url:   'ajax.php',
+	        type:  'post',
+	        success:  function (response) { 
+	        	proyectos = jQuery.parseJSON(response);
+	        	valido = validaProyectos(proyectos);
+
+	        	if(valido){
+					var queryParams = { "func" : 'nuevoProyecto', "nombre" : nombre, "descripcion" : descripcion};
+				  	$.ajax({
+				        data:  queryParams,
+				        url:   'ajax.php',
+				        type:  'post',
+				        success:  function (response) { 
+				        	alert('Se ha creado tu proyecto.')
+				        	//TODO notificacion
+				        }
+					});
+				}else{
+					alert('Este proyecto ya existe.');
+					//TODO nice notification
+				}
+	        } 
+		});
+
+	}else{
+		//TODO notificacion
+	}
+}
+
+//si el proyecto no esta registrado ya
+//@param return true si no existe
+function validaProyectos(proyectos){
+	for(c = 0; c <= proyectos.length; c++){
+		if( proyectos[c] == nombre){
+			return false;
+		}
+	}
+	return true;
 }
 
 function closeDialogo(){
@@ -226,6 +278,7 @@ function accion2(lugarCarga, func, superId, id){
 		});
 }
 
+//para actualizar datos
 function actualizar(func, nuevo){
 	var queryParams = { "func" : func, "nuevo" : nuevo};
 	  	$.ajax({
