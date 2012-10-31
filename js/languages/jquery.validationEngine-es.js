@@ -115,6 +115,15 @@
                     "alertTextLoad": "* Cargando, espere por favor",
                     "alertText": "* Este nombre de usuario ya se encuentra usado"
                 },
+                // Para validar nombre de proyectos
+                "ajaxProjectCallPhp": {
+                    "url": "../ajax/ajaxProjectCallPhp.php",
+                    // you may want to pass extra data on the ajax call
+                    //"extraData": "name=eric",
+                    "alertTextLoad": "* Cargando, espere por favor",
+                    "alertText": "* Este proyecto ya existe",
+                    "alertTextOk": "* Nombre disponible"
+                },
                 "ajaxNameCall": {
 					// remote json service location
                     "url": "ajaxValidateFieldName",
