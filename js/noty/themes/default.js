@@ -45,8 +45,7 @@
 			});
 
 			this.$message.css({
-				fontSize: '13px',
-				lineHeight: '16px',
+				fontSize: '20px',
 				textAlign: 'center',
 				padding: '8px 10px 9px',
 				width: 'auto',
@@ -95,10 +94,10 @@
 				case 'topCenter': case 'center': case 'bottomCenter': case 'inline':
 					this.$bar.css({
 						borderRadius: '5px',
-						border: '1px solid #eee',
-						boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+						border: '1px solid #dedede',
+						boxShadow: "0 0px 5px rgba(0, 0, 0, .3)"
 					});
-					this.$message.css({fontSize: '13px', textAlign: 'center'});
+					this.$message.css({fontSize: '20px', textAlign: 'center'});
 				break;
 				case 'topLeft': case 'topRight':
 				case 'bottomLeft': case 'bottomRight':
