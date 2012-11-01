@@ -74,7 +74,7 @@ function resetar(){
 
 	var usuario = $('#usuarioRecuperacion').val();
 	var email = $('#emailRecuperacion').val();
-			
+
 	if(usuario != ''){
 
 			var queryParams = { "func" : 'resetPasswordUsuario', "usuario" : usuario};
@@ -83,14 +83,9 @@ function resetar(){
 				url:   'ajax.php',
 				type:  'post',
 				success:  function (response) { 
-
-					if(response.length == 0){
-
-						notifica('Se ha enviado un email con el password temporal.');
+					if(response.length > 0){
+						notifica(response);
 						return;
-
-					}else{
-					    notificaError(response);
 					}
 				}
 			});
@@ -104,19 +99,21 @@ function resetar(){
 			url:   'ajax.php',
 			type:  'post',
 			success:  function (response) { 
-
-				if(response.length == 0){
-
-				    notifica('Se ha enviado un email con el password temporal.');
-				    return;
-				}else{
-				    notificaError(response);
+				if(response.length > 0){
+					notifica(response);
+					return;  
 				}
-				        
 			}
 		});
 	}
 
+	if(usuario != '' && email != ''){
+		notificaError('Error usuario y email no registrados.');
+	}else if(usuario != ''){
+		notificaError('Error usuario no registrado.');
+	}else if(email != ''){
+		notificaError('Error email no registrado.');
+	}
 }
 
 /*
@@ -125,14 +122,11 @@ function resetar(){
 function registro(){
 	//si los datos son validos
 	if( $('#formID').validationEngine('validate') ){
-		notifica('Agregando');
 
 		//ya estan validadas
 		var usuario = $('#registroUsuario').val();
 		var email = $('#registroEmail').val();
 		var password = $('#registroPassword1').val();
-
-		notifica(usuario+' '+email+' '+password);
 		
 		//AJAX
 		var queryParams = { "func" : 'registro', "usuario" : usuario, "email" : email, "password" : password};
@@ -144,17 +138,20 @@ function registro(){
 
 				if(response.length == 0){
 
-				    notifica('Se ha registrado exitosamente.');
+				    
 				    setTimeout(function() {
   						window.location.href = "login.php?usuario="+usuario;
 					}, 4000);
+
+					notifica('Se ha registrado exitosamente.');
 				}else{
 				    notificaError(response);
-				    $('html').append(response);
 				}
 				        
 			}
 		});
+	}else{
+		notificaError('Error datos invalidos.')
 	}
 }
 
