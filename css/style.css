@@ -437,21 +437,23 @@ header{
 	text-align: center;
 }
 
-#loginbox ::-webkit-input-placeholder {
+.loginbox ::-webkit-input-placeholder {
    color: #fff !important;  
    border: 0 !important;
    box-shadow: none;
 }
 
-#loginbox input:-moz-placeholder {  
+.loginbox input:-moz-placeholder {  
    color: #fff !important;  
    border: 0 !important;
    box-shadow: none;
 }
 
-#loginbox input:hover, #loginbox:active, #loginbox:focus{
-	border: 0 solid transparent !important;
-	box-shadow: 0;
+.loginbox .controls{
+	display: block;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 20px;
 }
 
 /* RESULTADOS BUSQUEDA */
