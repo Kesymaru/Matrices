@@ -45,6 +45,20 @@ switch ($_POST['func']){
 		logOut();
 		break;
 
+	//resetPassword -> via usuario
+	case 'resetPasswordUsuario':
+		if(isset($_POST['usuario'])){
+			resetPasswordUsuario($_POST['usuario']);
+		}
+		break;
+
+	//resetPassword -> via email
+	case 'resetPasswordEmail':
+		if(isset($_POST['email'])){
+			resetPasswordEmail($_POST['email']);
+		}
+		break;
+
 	//actualizaciones datos de usuario
 	case 'nombre':
 		if(isset($_POST['nuevo'])){
