@@ -26,7 +26,9 @@ if( isset($_SESSION['logueado']) ){
 	<link rel="stylesheet" href="css/jquery-ui-1.9.0.custom.css" type="text/css">
 	<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css">
 
-	<script src="js/jquery-1.8.2.js"></script>
+	<!-- jquery -->
+	<script src="js/jquery-1.8.2.js"></script> 
+	<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
 	<script src="js/jquery-ui-1.9.0.custom.js"></script>
 	
 	<!-- validacion de form -->
@@ -40,170 +42,10 @@ if( isset($_SESSION['logueado']) ){
 	<script src="js/noty/jquery.noty.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/noty/layouts/topCenter.js"></script>
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
+	
+	<!-- login -->
+	<script src="js/login.js" type="text/javascript"></script>
 
-	<script type="text/javascript">
-
-    $(document).ready(function(){
-    	
-    	$( "input[type=submit], button, span" ).button();
-
-        $('#nuevoUsuario').hide();
-        $('#formRecuperacion').hide();
-        $('#resetear').hide();
-
-        $("#formID").validationEngine();
-        $('input[placeholder]').placeholder();
-
-        /*$('#entrar').click(function(){
-        	logIn();
-        });*/
-
-        /*$('#recuperacion').submit(function() {
-			return false;
-		});*/
-
-   	});
-
-	function loginbox(cambio){
-
-		if(cambio == 2){
-			$('#nuevoUsuario').fadeOut(1000,function(){$('#usuarios').fadeIn();});
-		}else{
-			$('#usuarios').fadeOut(1000,function(){$('#nuevoUsuario').fadeIn();});
-		}
-		
-	}
-
-	function formRecuperacion(){
-
-		if( $('#formRecuperacion').is(':visible')){
-			$('#formRecuperacion').slideUp(500);
-			$('#login').slideDown(500);
-
-			$('#resetear').fadeOut(500, function(){ $('#entrar').fadeIn(500); });
-		}else{
-			$('#formRecuperacion').slideDown(500);
-			$('#login').slideUp(500,function(){ $('#login').hide();});
-
-			$('#entrar').fadeOut(500, function(){ $('#resetear').fadeIn(500); });
-		}
-
-	}
-
-	function logIn(){
-
-		if ( $('#formID').validationEngine('validate') ){
-
-			var usuario = $('#usuario').val();
-			var password = $('#password').val();
-
-			var queryParams = { "func" : 'logIn', "usuario" : usuario, "password" : password};
-				$.ajax({
-				data:  queryParams,
-				url:   'ajax.php',
-				type:  'post',
-				success:  function (response) { 
-
-				        if(response.length > 0){
-				        		notificaError(response);
-				        }else{
-				        		top.location.href = 'index.php';
-				        }
-				    }
-				});
-			}
-
-	}
-
-	//resetea password
-	function resetar(){
-
-		var usuario = $('#usuarioRecuperacion').val();
-		var email = $('#emailRecuperacion').val();
-			
-		if(usuario != ''){
-
-			var queryParams = { "func" : 'resetPasswordUsuario', "usuario" : usuario};
-			$.ajax({
-				data:  queryParams,
-				url:   'ajax.php',
-				type:  'post',
-				success:  function (response) { 
-
-					if(response.length == 0){
-
-						notifica('Se ha enviado un email con el password temporal.');
-						return;
-
-					}else{
-					    notificaError(response);
-					}
-				}
-			});
-
-		}
-		if(email != ''){
-			
-			var queryParams = { "func" : 'resetPasswordEmail', "email" : email};
-			$.ajax({
-				data:  queryParams,
-				url:   'ajax.php',
-				type:  'post',
-				success:  function (response) { 
-
-				    if(response.length == 0){
-
-				        notifica('Se ha enviado un email con el password temporal.');
-				        return;
-				    }else{
-				        notificaError(response);
-				    }
-				        
-				}
-			});
-		}
-
-	}
-
-	/*
-		NOTIFICACIONES
-	*/
-
-	//usa noty (jquery plugin) para notificar 
-	function notifica(text) {
-	  	var n = noty({
-	  		text: text,
-	  		type: 'alert',
-	    	dismissQueue: true,
-	  		layout: 'topCenter',
-	  		closeWith: ['click'], // ['click', 'button', 'hover']
-	  	});
-	  	console.log('html: '+n.options.id);
-	  	
-	  	//tiempo para desaparecerlo solo 
-	  	setTimeout(function (){
-			n.close();
-		},3000);
-	}
-
-	//notifica errores
-	function notificaError(text) {
-	  	var n = noty({
-	  		text: text,
-	  		type: 'error',
-	    	dismissQueue: true,
-	  		layout: 'topCenter',
-	  		closeWith: ['click'], // ['click', 'button', 'hover']
-	  	});
-	  	console.log('html: '+n.options.id);
-	  	
-	  	//tiempo para desaparecerlo solo 
-	  	setTimeout(function (){
-			n.close();
-		},3000);
-	}
-
-	</script>
 </head>
 
 <body>
@@ -248,7 +90,7 @@ if( isset($_SESSION['logueado']) ){
 
 			<div class="controls">
 
-				<input type="submit" style="margin-right:-140px;" onClick="logIn()" id="entrar" value="Entrar">
+				<input type="submit" style="margin-right:-140px;" onClick="logIn()" id="entrar" value="Entrar"></input>
 
 				<span style="margin-right:-140px;" onClick="resetar()" id="resetear">Resetear</span>
 
