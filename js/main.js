@@ -151,12 +151,11 @@ function editarUsuario(){
 		actualizar('skype',skype);
 
 		if(cambiar == 1){
-			//TODO notifcacion del password
-		}else{
-			//TODO notificacion normal
+			notifica('Se ha cambiado el password exitosamente.');
 		}
+		notifica('Datos actualizados exitosamente.');
     }else{
-    	//TODO notificacion de error, algun dato es invalido
+    	notificaError('Error datos invalidos.')
     }
 }
 
@@ -196,20 +195,18 @@ function nuevoProyecto(){
 				        url:   'ajax.php',
 				        type:  'post',
 				        success:  function (response) { 
-				        	alert('Se ha creado tu proyecto.')
 				        	resetMenuProyectos();
-				        	//TODO notificacion
+				        	notifica('Proyecto creado exitosamente.');
 				        }
 					});
 				}else{
-					alert('Este proyecto ya existe.');
-					//TODO nice notification
+					notificaError('Error el proyecto ya existe.');
 				}
 	        } 
 		});
 
 	}else{
-		//TODO notificacion
+		notificaError('Error datos invalidos.');
 	}
 }
 
@@ -237,7 +234,7 @@ function resetMenuProyectos(){
 			$('.dropMenu button').button();
 			$('#menuProyectos').append(response, function(){
 				$('.dropMenu button').button();
-				alert('listo');
+				//alert('listo');
 			});
 		}
 	});
@@ -245,6 +242,44 @@ function resetMenuProyectos(){
 
 function closeDialogo(){
 	$('#dialogo').slideUp();
+}
+
+/*
+	NOTIFICACIONES
+*/
+
+//usa noty (jquery plugin) para notificar 
+function notifica(text) {
+  	var n = noty({
+  		text: text,
+  		type: 'alert',
+    	dismissQueue: true,
+  		layout: 'topCenter',
+  		closeWith: ['click'], // ['click', 'button', 'hover']
+  	});
+  	console.log('html: '+n.options.id);
+  	
+  	//tiempo para desaparecerlo solo 
+  	setTimeout(function (){
+		n.close();
+	},3000);
+}
+
+//notifica errores
+function notificaError(text) {
+  	var n = noty({
+  		text: text,
+  		type: 'error',
+    	dismissQueue: true,
+  		layout: 'topCenter',
+  		closeWith: ['click'], // ['click', 'button', 'hover']
+  	});
+  	console.log('html: '+n.options.id);
+  	
+  	//tiempo para desaparecerlo solo 
+  	setTimeout(function (){
+		n.close();
+	},3000);
 }
 
 /*
@@ -306,7 +341,6 @@ function actualizar(func, nuevo){
 	        url:   'ajax.php',
 	        type:  'post',
 	        success:  function (response) { 
-	        	//TODO notificacion
 	        }
 		});
 }
