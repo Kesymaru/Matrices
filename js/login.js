@@ -2,21 +2,27 @@ $(document).ready(function(){
     	
     $( "input[type=submit], button, span" ).button();
 
-    $('#nuevoUsuario').hide();
+    $('#registroUsuarios').hide();
     $('#formRecuperacion').hide();
     $('#resetear').hide();
+    $('.etiquetas').hide();
 
     $("#formID").validationEngine();
     $('input[placeholder]').placeholder();
+
+    //compatibilidad opera -> es el unico browser que no permite color en placeholder
+    if($.browser.opera){
+    	$('.etiquetas').show();
+    }
 
 });
 
 function loginbox(cambio){
 
 	if(cambio == 2){
-		$('#nuevoUsuario').fadeOut(1000,function(){$('#usuarios').fadeIn();});
+		$('#registroUsuarios').fadeOut(1000,function(){$('#usuarios').fadeIn();});
 	}else{
-		$('#usuarios').fadeOut(1000,function(){$('#nuevoUsuario').fadeIn();});
+		$('#usuarios').fadeOut(1000,function(){$('#registroUsuarios').fadeIn();});
 	}
 
 }
@@ -37,39 +43,39 @@ function formRecuperacion(){
 
 }
 
-	//loguear
-	function logIn(){
+//loguear
+function logIn(){
+	//si son validos los datos
+	if ( $('#formID').validationEngine('validate') ){
 
-		if ( $('#formID').validationEngine('validate') ){
+		var usuario = $('#usuario').val();
+		var password = $('#password').val();
 
-			var usuario = $('#usuario').val();
-			var password = $('#password').val();
+		var queryParams = { "func" : 'logIn', "usuario" : usuario, "password" : password};
+			$.ajax({
+			data:  queryParams,
+			url:   'ajax.php',
+			type:  'post',
+			success:  function (response) { 
 
-			var queryParams = { "func" : 'logIn', "usuario" : usuario, "password" : password};
-				$.ajax({
-				data:  queryParams,
-				url:   'ajax.php',
-				type:  'post',
-				success:  function (response) { 
-
-				        if(response.length > 0){
-				        		notificaError(response);
-				        }else{
-				        		top.location.href = 'index.php';
-				        }
-				    }
-				});
+				if(response.length > 0){
+					notificaError(response);
+				}else{
+				    top.location.href = 'index.php';
+				}
 			}
-
+		});
 	}
 
-	//resetea password
-	function resetar(){
+}
 
-		var usuario = $('#usuarioRecuperacion').val();
-		var email = $('#emailRecuperacion').val();
+//resetea password
+function resetar(){
+
+	var usuario = $('#usuarioRecuperacion').val();
+	var email = $('#emailRecuperacion').val();
 			
-		if(usuario != ''){
+	if(usuario != ''){
 
 			var queryParams = { "func" : 'resetPasswordUsuario', "usuario" : usuario};
 			$.ajax({
@@ -88,34 +94,73 @@ function formRecuperacion(){
 					}
 				}
 			});
-
-		}
-		if(email != ''){
-			
-			var queryParams = { "func" : 'resetPasswordEmail', "email" : email};
-			$.ajax({
-				data:  queryParams,
-				url:   'ajax.php',
-				type:  'post',
-				success:  function (response) { 
-
-				    if(response.length == 0){
-
-				        notifica('Se ha enviado un email con el password temporal.');
-				        return;
-				    }else{
-				        notificaError(response);
-				    }
-				        
-				}
-			});
-		}
-
 	}
 
-	/*
-		NOTIFICACIONES
-	*/
+	if(email != ''){
+			
+		var queryParams = { "func" : 'resetPasswordEmail', "email" : email};
+		$.ajax({
+			data:  queryParams,
+			url:   'ajax.php',
+			type:  'post',
+			success:  function (response) { 
+
+				if(response.length == 0){
+
+				    notifica('Se ha enviado un email con el password temporal.');
+				    return;
+				}else{
+				    notificaError(response);
+				}
+				        
+			}
+		});
+	}
+
+}
+
+/*
+	REGISTRO
+*/
+function registro(){
+	//si los datos son validos
+	if( $('#formID').validationEngine('validate') ){
+		notifica('Agregando');
+
+		//ya estan validadas
+		var usuario = $('#registroUsuario').val();
+		var email = $('#registroEmail').val();
+		var password = $('#registroPassword1').val();
+
+		notifica(usuario+' '+email+' '+password);
+		
+		//AJAX
+		var queryParams = { "func" : 'registro', "usuario" : usuario, "email" : email, "password" : password};
+		$.ajax({
+			data:  queryParams,
+			url:   'ajax.php',
+			type:  'post',
+			success:  function (response) { 
+
+				if(response.length == 0){
+
+				    notifica('Se ha registrado exitosamente.');
+				    setTimeout(function() {
+  						window.location.href = "login.php?usuario="+usuario;
+					}, 4000);
+				}else{
+				    notificaError(response);
+				    $('html').append(response);
+				}
+				        
+			}
+		});
+	}
+}
+
+/*
+	NOTIFICACIONES
+*/
 
 //usa noty (jquery plugin) para notificar 
 function notifica(text) {
@@ -150,3 +195,4 @@ function notificaError(text) {
 			n.close();
 		},3000);
 }
+

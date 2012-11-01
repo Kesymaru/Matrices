@@ -8,6 +8,7 @@ if( isset($_SESSION['logueado']) ){
 	exit;
 }
 
+
 ?>
 <!doctype html public>
 <!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -63,10 +64,21 @@ if( isset($_SESSION['logueado']) ){
 	<form method="post" id="formID">
 
 		<div id="usuarios">
-			<div class="titulo">Ingresar</div>
-			<div class="contenido" id="login">
-				<input type="text" class="validate[required,custom[onlyLetterSp]]" placeholder="Usuario" id="usuario" name="usuario"><br/>
 
+			<div class="titulo">Ingresar</div>
+
+			<div class="contenido" id="login">
+
+				<div class="etiquetas">Usuario</div>
+				<input type="text" class="validate[required,custom[onlyLetterSp]]" placeholder="Usuario" id="usuario" name="usuario"
+				<?php
+					if(isset($_GET['usuario'])){
+						echo 'value="'.$_GET['usuario'].'"';
+					}
+				?>
+				><br/>
+
+				<div class="etiquetas">Password</div>
 				<input type="password" class="validate[required]" placeholder="Password" id="password" name="password"><br/>
 				
 			</div>
@@ -78,11 +90,11 @@ if( isset($_SESSION['logueado']) ){
 			<br/>
 
 			<div id="formRecuperacion">
+				<div class="etiquetas">Usuario</div>
 				<input type="text" class="validate[optional,custom[onlyLetterSp]]" placeholder="Usuario" id="usuarioRecuperacion" name="usuarioRecuperacion">
 				
-				<br/>
-				O
-				<br/>
+				<br/><br/>
+				<div class="etiquetas">Email</div>
 
 				<input type="email" class="validate[optional,custom[email]]" placeholder="Email" id="emailRecuperacion" name="emailRecuperacion">
 			</div>
@@ -90,37 +102,43 @@ if( isset($_SESSION['logueado']) ){
 
 			<div class="controls">
 
-				<input type="submit" style="margin-right:-140px;" onClick="logIn()" id="entrar" value="Entrar"></input>
+				<input type="submit" onClick="logIn()" id="entrar" value="Entrar"></input>
 
-				<span style="margin-right:-140px;" onClick="resetar()" id="resetear">Resetear</span>
+				<span onClick="resetar()" id="resetear">Resetear</span>
 
 				<span style="float:right;" onClick="loginbox(1)">Registrarse</span>
+
 			</div>
 		</div>
 		<!-- end usuarios -->
 
-		<div id="nuevoUsuario" >
+		<div id="registroUsuarios" >
 			<div class="titulo">
 				Regristro
 			</div>
 			<div class="contenido">
 
-				<input type="text" class="validate[required]" placeholder="Usuario" name="nuevoUsuario"><br/>
+				<div class="etiquetas">Usuario</div>
 
-				<input type="email" class="validate[required,custom[email]]" placeholder="Email" name="nuevoEmail"><br/>
+				<input type="text" class="validate[required]" id="registroUsuario" placeholder="Usuario" name="registroUsuario"><br/>
 
-				<input class="validate[required]" id="nuevoPassword1" placeholder="Password" name="nuevoPassword1" type="password"><br/>
+				<div class="etiquetas">Email</div>
+				<input type="email" class="validate[required,custom[email]]" id="registroEmail" placeholder="Email" name="registroEmail"><br/>
 
-				<input class="validate[required,equals[nuevoPassword1]]" placeholder="Confirmar password" name="nuevoPassword2" type="password"><br/>
+				<div class="etiquetas">Password</div>
+				<input class="validate[required]" id="registroPassword1" placeholder="Password" name="registroPassword1" type="password"><br/>
+
+				<div class="etiquetas">Confirmar Password</div>
+				<input class="validate[required,equals[registroPassword1]]" placeholder="Confirmar password" name="registroPassword2" type="password"><br/>
 
 			</div>
 
 			<div class="controls">
-				<input style="margin-right:-112px;" type="submit" value="Registrarse" name="registrar">
-				<span style="float:right;	" onClick="loginbox(2)">Usuarios</span>
+				<span style="margin-right:-112px;" onClick="registro()" id="registrar">Registrarse</span>
+				<span style="float:right;" onClick="loginbox(2)">Usuarios</span>
 			</div>
 
-		</div><!-- end nuevoUsuario -->
+		</div><!-- end registroUsuario -->
 
 	</form>
 
