@@ -282,7 +282,7 @@ function buscarProyectos($busqueda){
 
 function logIn($usuario, $password){
 	$password = encripta($password);
-	$sql = 'SELECT * FROM clientes WHERE usuario = \''.$usuario.'\' AND contrasena = \''.$password.'\'';
+	$sql = 'SELECT * FROM clientes WHERE usuario = \''.$usuario.'\' AND contrasena = \''.$password.'\' AND status = 1';
 	$result = mysql_query($sql);
 
 	if( $row = mysql_fetch_array($result) ){
@@ -292,10 +292,10 @@ function logIn($usuario, $password){
 		$_SESSION['email'] = $row['email'];
 		$_SESSION['skype'] = $row['skype'];
 		$_SESSION['logueado'] = true;
-		
+		$_SESSION['bienvenida'] = false;
 	}else{
 		//no es un usuario valido
-		echo 'El usuario '.$usuario.' o la contrasena '.$password.' no es correcta';
+		echo 'El usuario o la contraseña es incorrecta';
 	}
 }
 
@@ -304,6 +304,40 @@ function logOut(){
 	session_unset();
 	session_destroy();
 	echo 'true';
+}
+
+//resetea password
+function resetPasswordUsuario($usuario){
+	$nuevoPassword = nuevoPassword();
+	$sql = 'SELECT * FROM clientes WHERE usuario = \''.$usuario.'\'';
+	$result = mysql_query($sql);
+
+	if($row = mysql_fetch_array($result)){
+
+	}else{
+		echo 'Error el usuario no se encuentra registrado.';
+	}
+}
+
+function resetPasswordEmail($email){
+	$nuevoPassword = nuevoPassword();
+	$sql = 'SELECT * FROM clientes WHERE email = \''.$email.'\'';
+	$result = mysql_query($sql);
+
+	if($row = mysql_fetch_array($result)){
+		
+	}else{
+		echo 'Error el email no se encuentra registarado';
+	}
+}
+
+//crea un nuevo usuario, datos minimos
+function nuevoUsuario($usuario, $email, $password){
+	$password = encripta($password);
+	$fecha = date("d-m-Y");
+
+	$sql = "INSERT INTO clientes (email, usuario, contrasena, fecha, status) VALUES ('".$email."', '".$usuario."', '".$password."', '".$fecha."', 0)";
+	mysql_query($sql) or die('Error no se pudo crear nuevo usuario '.mysql_error());
 }
 
 /*
@@ -328,7 +362,7 @@ function menuProyectos(){
 //menu usuario
 function menuUsuario(){
 	//TODO imagen del usuario
-	echo '<li><img src="images/es.png"></li>';
+	echo '<li onClick="editar();"><img src="images/es.png"></li>';
 	echo '<li><button onClick="editar();">Editar</button>';
 	echo '<button onClick="logOut();">Salir</button></li>';
 }
@@ -341,11 +375,14 @@ function menuUsuario(){
 function setNombre($nombre){
 	$sql = 'UPDATE clientes SET nombre = \''.$nombre.'\' WHERE id = '.$_SESSION['id'];
 	mysql_query($sql);
+	//actualiza en session
+	$_SESSION['nombre'] = $nombre;
 }
 
 function setEmail($email){
 	$sql = 'UPDATE clientes SET email = \''.$email.'\' WHERE id = '.$_SESSION['id'];
 	mysql_query($sql);
+	$_SESSION['email'] = $email;
 }
 
 function setTelefono($telefono){
@@ -441,6 +478,34 @@ function encripta($text){
 	$text = crypt($text, "xtemp"); 
 	$text = sha1("xtemp".$text);
 	return $text;
+}
+
+function nuevoPassword(){
+	return 'temporal';
+}
+
+/*
+	ENVIA EMAILS DEL SISTEMA
+*/
+
+function mailResetPassword($para, $password){
+
+$admin = 'andreyalfaro@gmail.com';
+$tema = "Contraseña Nueva";
+$mensaje = "Su contraseña nueva es:
+<br/>
+Contraseña: $emailpassword
+<br/><br/>
+Para incresar http://localhost/Matrices/
+<br/><br/>
+Este correo ha sido generado automaticamente."; 
+ 
+	if(!mail($para, $tema, $mensaje,  "FROM: $admin")){
+		die ("Sending Email Failed, Please Contact Site Admin! ($admin)");
+	}else{
+		error('New Password Sent!.');
+	} 
+
 }
 
 ?>
