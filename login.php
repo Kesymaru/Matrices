@@ -65,7 +65,15 @@ if( isset($_SESSION['logueado']) ){
 
 		<div id="usuarios">
 
-			<div class="titulo">Ingresar</div>
+			<div class="titulo">
+		<?php
+			if(!isset($_GET['reset'])){
+				echo 'Ingresar';
+			}else{
+				echo 'Password Reseteado';
+			}
+		?>
+			</div>
 
 			<div class="contenido" id="login">
 
@@ -85,9 +93,16 @@ if( isset($_SESSION['logueado']) ){
 
 			<!-- recuperacion -->
 			<br/>
+
+		<?php
+			if( !isset($_GET['reset'])){
+			?>
 			<span id="recuperacion" onClick="formRecuperacion()">¿Has olvidado tu contraseña?</span>
 			<br/>
 			<br/>
+		<?php
+			}
+		?>
 
 			<div id="formRecuperacion">
 				<div class="etiquetas">Usuario</div>
@@ -105,13 +120,22 @@ if( isset($_SESSION['logueado']) ){
 				<input type="submit" onClick="logIn()" id="entrar" value="Entrar"></input>
 
 				<span onClick="resetar()" id="resetear">Resetear</span>
-
-				<span style="float:right;" onClick="loginbox(1)">Registrarse</span>
-
+			
+			<?php
+			//si no esta reseteando el password
+				if( !isset($_GET['reset'])){	
+			?>
+					<span style="float:right;" onClick="loginbox(1)">Registrarse</span>
+			<?php
+				}
+			?>
 			</div>
 		</div>
 		<!-- end usuarios -->
-
+<?php
+	//si no bien de reset
+	if(!isset($_GET['reset'])){
+?>
 		<div id="registroUsuarios" >
 			<div class="titulo">
 				Regristro
@@ -139,7 +163,9 @@ if( isset($_SESSION['logueado']) ){
 			</div>
 
 		</div><!-- end registroUsuario -->
-
+<?php
+	} //fin if reset
+?>
 	</form>
 
 	</div>
