@@ -393,11 +393,73 @@ function menuProyectos(){
 		
 		while($row = mysql_fetch_array($result)){
 			//echo '<li>'.$row['nombre'].'</li>';
-			echo '<li>'.$row['nombre'].'</li>';
+			echo '<li onClick="vistaProyecto('.$row['id'].')">'.$row['nombre'].'</li>';
 		}
-		echo '<li><button onClick="proyecto();">Crear Nuevo</button>';
+		echo '<li><button id="botonNuevoProyecto" onClick="proyecto();">Crear Nuevo</button>';
 
 	}
+}
+
+/*
+	VISTA DE PROYECTOS
+*/
+function vistaProyectos(){
+	$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'];
+	$result = mysql_query($sql);
+
+	echo '<ul>';
+	while( $row = mysql_fetch_array($result)){
+		echo '<li id="menu'.$row['id'].'" onClick="muestraProyecto('.$row['id'].')"> 
+		<img src="images/es.png"><br/>'.$row['nombre'].'
+		</li>';
+	}
+	echo '</ul>';
+}
+
+//muestra la lista y selecciona el proyecto
+function vistaProyectosId($id){
+	$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'];
+	$result = mysql_query($sql);
+
+	echo '<ul>';
+	while( $row = mysql_fetch_array($result)){
+
+		if($row['id'] == $id){
+			echo '<li id="menu'.$row['id'].'" class="seleccionada" onClick="muestraProyecto('.$row['id'].')"> 
+			<img src="images/es.png"><br/>'.$row['nombre'].'
+			</li>';
+		}else{
+			echo '<li id="menu'.$row['id'].'" onClick="muestraProyecto('.$row['id'].')"> 
+			<img src="images/es.png"><br/>'.$row['nombre'].'
+			</li>';
+		}
+
+	}
+	echo '</ul>';
+}
+
+//muestra el toolbar del los proyectos
+function proyectoControls($id){
+
+	echo '<div id="proyectoControls" >';
+	
+	//editar
+	echo '<input type="radio" id="editarProyecto" name="radio"/>
+		<label for="editarProyecto" onClick="editarProyecto('.$id.')">
+		Editar
+		</label>';
+	//exportar
+	echo '<input type="radio" id="exportarProyecto" name="radio"/>
+		<label for="exportarProyecto" onClick="exportarProyecto('.$id.')">
+		Exportar
+		</label>';
+	//crear
+	echo '<input type="radio" id="nuevoProyecto" name="radio"/>
+		<label for="nuevoProyecto" onClick="proyecto()">
+		Crear
+		</label>';
+	
+	echo '</div>';
 }
 
 //menu usuario
@@ -481,7 +543,7 @@ function getSkype(){
 */
 
 //regresa los proyectos del usuario
-//r@param eturn array
+//r@param return array
 function getProyectos(){
 	$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'];
 	$result =  mysql_query($sql);
@@ -547,6 +609,36 @@ Este correo ha sido generado automaticamente.";
 		error('New Password Sent!.');
 	} 
 
+}
+
+/*
+	REGISTRA LA ACTIVIDAD DEL PROYECTO AUTOGUARDADO
+*/
+
+function actividad($proyecto, $norma, $generalidad){
+	if(actividadRegistrada($proyecto, $norma, $generalidad)){
+		//elimina la actividad
+		$sql = 'DELETE FROM registros WHERE proyecto = '.$proyecto.' AND norma = '.$norma.' AND  generalidad = '.$generalidad;
+		mysql_query($sql);
+		echo 'Eliminado';
+	}else{
+		//registra la actividad
+		$sql = "INSERT INTO registros (proyecto, norma, generalidad) VALUES ( ".$proyecto.", ".$norma.", ".$generalidad.")";
+		mysql_query($sql) or die ('Error al incresar registro de actividad.'.mysql_error());
+		echo 'Registrado';
+	}
+}
+
+//determina si ya esta la actividad registrada
+function actividadRegistrada($proyecto, $norma, $generalidad){
+	$sql = 'SELECT * FROM registros WHERE proyecto = '.$proyecto.' AND norma = '.$norma.' AND generalidad = '.$generalidad;
+	$result = mysql_query($sql);
+
+	if($row = mysql_fetch_array($result)){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 ?>

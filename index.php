@@ -78,7 +78,7 @@ if( !isset($_SESSION['logueado']) ){
 			<div id="cliente">
 				<div id="usuario">
 					<?php
-					echo $_SESSION['nombre'];
+						echo $_SESSION['nombre'];
 					?>
 					<ul class="dropMenu" id="menuUsuario">
 						<?php
@@ -110,6 +110,7 @@ if( !isset($_SESSION['logueado']) ){
 		
 		<div id="menu">
 			<?php
+				//display las normas
 				menu();
 			?>
 		</div><!-- end menu -->
@@ -125,12 +126,16 @@ if( !isset($_SESSION['logueado']) ){
 						?>
 					</div>
 				<?php
-				}else{
+				}else if(!isset($_GET['id'])){
 				?>
 					<div id="mensajeInicial">
-						Seleccione una opcion.
+						Selecione un proyecto o cree uno nuevo para empezar.
 					</div>
 				<?php 
+				}
+				//carga los datos de un proyecto
+				if(isset($_GET['id'])){
+					echo 'Datos de proyecto seleccionado para editar.';
 				}
 				?>
 			<div id="nivel1">
