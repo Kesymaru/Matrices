@@ -74,46 +74,51 @@ function resetar(){
 
 	var usuario = $('#usuarioRecuperacion').val();
 	var email = $('#emailRecuperacion').val();
+	var reseteado = false;
 
 	if(usuario != ''){
-
 			var queryParams = { "func" : 'resetPasswordUsuario', "usuario" : usuario};
 			$.ajax({
 				data:  queryParams,
+				async: false,
 				url:   'ajax.php',
 				type:  'post',
 				success:  function (response) { 
 					if(response.length > 0){
 						notifica(response);
+						reseteado = true;
 						return;
 					}
 				}
 			});
 	}
 
-	if(email != ''){
+	if(email != '' && !reseteado){
 			
 		var queryParams = { "func" : 'resetPasswordEmail', "email" : email};
 		$.ajax({
 			data:  queryParams,
+			async: false,
 			url:   'ajax.php',
 			type:  'post',
 			success:  function (response) { 
 				if(response.length > 0){
 					notifica(response);
-					return;  
+					reseteado = true;
+					return;
 				}
 			}
 		});
 	}
 
-	if(usuario != '' && email != ''){
+	if(usuario != '' && email != '' && !reseteado ){
 		notificaError('Error usuario y email no registrados.');
-	}else if(usuario != ''){
+	}else if(usuario != '' && !reseteado ){
 		notificaError('Error usuario no registrado.');
-	}else if(email != ''){
+	}else if(email != '' && !reseteado ){
 		notificaError('Error email no registrado.');
 	}
+
 }
 
 /*

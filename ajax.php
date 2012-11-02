@@ -32,6 +32,9 @@ switch ($_POST['func']){
 		}
 		break;
 
+	/*
+		USUARIOS
+	*/
 	//para loguear usuarios
 	case 'logIn':
 		if(isset($_POST['usuario']) && isset($_POST['password'])){
@@ -56,6 +59,13 @@ switch ($_POST['func']){
 	case 'resetPasswordEmail':
 		if(isset($_POST['email'])){
 			resetPasswordEmail($_POST['email']);
+		}
+		break;
+
+	//registr usuario
+	case 'registro':
+		if( isset($_POST['usuario']) && isset($_POST['email']) && isset($_POST['password'])){
+			registro($_POST['usuario'], $_POST['email'], $_POST['password']);
 		}
 		break;
 

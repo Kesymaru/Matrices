@@ -313,9 +313,13 @@ function resetPasswordUsuario($usuario){
 	$result = mysql_query($sql);
 
 	if($row = mysql_fetch_array($result)){
+		$password = resetPassword();
+		echo 'Se ha enviado el nuevo password al email. '.$password;
 
-	}else{
-		echo 'Error el usuario no se encuentra registrado.';
+		//lo guarda en la base de datos
+		$password = encripta($password);
+		$sql = 'UPDATE clientes SET contrasena = \''.$password.'\' WHERE usuario = \''.$usuario.'\'';
+		mysql_query($sql) or die('Error no se pudo resetaer el password.');
 	}
 }
 
@@ -325,19 +329,56 @@ function resetPasswordEmail($email){
 	$result = mysql_query($sql);
 
 	if($row = mysql_fetch_array($result)){
+		$password = resetPassword();
+		echo 'Se ha enviado el nuevo password al email. '.$password;
 		
-	}else{
-		echo 'Error el email no se encuentra registarado';
+		//lo guarda en la base de datos
+		$password = encripta($password);
+		$sql = 'UPDATE clientes SET contrasena = \''.$password.'\' WHERE email = \''.$email.'\'';
+		mysql_query($sql) or die('Error no se pudo resetaer el password.');
 	}
 }
 
-//crea un nuevo usuario, datos minimos
-function nuevoUsuario($usuario, $email, $password){
-	$password = encripta($password);
-	$fecha = date("d-m-Y");
+//resetea el password por uno aleatoria
+function resetPassword(){
+	$passwordAleatorio = md5(uniqid(rand()));
+ 
+	//toma los primeros 8 digitas
+	$password = substr($passwordAleatorio, 0, 8);
 
-	$sql = "INSERT INTO clientes (email, usuario, contrasena, fecha, status) VALUES ('".$email."', '".$usuario."', '".$password."', '".$fecha."', 0)";
-	mysql_query($sql) or die('Error no se pudo crear nuevo usuario '.mysql_error());
+	return $password;
+}
+
+//crea un nuevo usuario, datos minimos
+function registro($usuario, $email, $password){
+
+	if(!existeUsuario($usuario, $email)){
+		$password = encripta($password);
+		$fecha = date("d-m-Y");
+
+		$sql = "INSERT INTO clientes (email, usuario, contrasena, fecha, status) VALUES ('".$email."', '".$usuario."', '".$password."', '".$fecha."', 1)";
+		mysql_query($sql) or die('Error no se pudo crear nuevo usuario '.mysql_error());
+	}else{
+		echo 'Error el usuario o el email ya estan en usu.';
+	}
+	
+}
+
+//determina si el usuario existe, esto con el email o el usuario
+function existeUsuario($usuario, $email){
+	$sql = 'SELECT * FROM clientes WHERE usuario = \''.$usuario.'\'';
+	$result = mysql_query($sql);
+
+	if($row = mysql_fetch_array($result)){
+		return true;
+	}
+
+	$sql = 'SELECT * FROM clientes WHERE email = \''.$email.'\'';
+	$result = mysql_query($sql);
+
+	if($row = mysql_fetch_array($result)){
+		return true;
+	}
 }
 
 /*

@@ -137,7 +137,6 @@ function editarUsuario(){
 		telefono = $('#telefono').val();
 		skype    = $('#skype').val();
 		
-		alert(nombre+' '+email+' '+telefono);
 		cambiar = 0;
 		if( $('#cambiarPassword').is(':visible')){
 			cambiar = 1;
@@ -223,6 +222,7 @@ function validaProyectos(proyectos){
 
 //refresca el menu de proyectos con la lista actualizada
 function resetMenuProyectos(){
+	//limpia menu
 	$('#menuProyectos li').remove();
 
 	var queryParams = { "func" : 'menuProyectos' };
@@ -234,7 +234,7 @@ function resetMenuProyectos(){
 			$('.dropMenu button').button();
 			$('#menuProyectos').append(response, function(){
 				$('.dropMenu button').button();
-				//alert('listo');
+				
 			});
 		}
 	});
@@ -262,7 +262,7 @@ function notifica(text) {
   	//tiempo para desaparecerlo solo 
   	setTimeout(function (){
 		n.close();
-	},3000);
+	},7000);
 }
 
 //notifica errores
@@ -279,7 +279,7 @@ function notificaError(text) {
   	//tiempo para desaparecerlo solo 
   	setTimeout(function (){
 		n.close();
-	},3000);
+	},7000);
 }
 
 /*
