@@ -43,13 +43,14 @@ if( !isset($_SESSION['logueado']) ){
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 
 	<script src="js/main.js" type="text/javascript"></script>
+	<script src="js/style.js" type="text/javascript"></script>
 	
 </head>
 
-<body>
+<body >
 
 <?php
-	//muestra bienvenida una sola ves
+	//muestra bienvenida una sola ves para cada logueo
 	if(!$_SESSION['bienvenida']){
 		echo '<script type="text/javascript">notifica(\'Bienvenido '.$_SESSION['nombre'].'\')</script>';
 		$_SESSION['bienvenida'] = true;
@@ -113,7 +114,8 @@ if( !isset($_SESSION['logueado']) ){
 				//display las normas
 				menu();
 			?>
-		</div><!-- end menu -->
+		</div>
+		<!-- end menu -->
 
 		<div id="content">
 			
@@ -133,10 +135,26 @@ if( !isset($_SESSION['logueado']) ){
 					</div>
 				<?php 
 				}
+
 				//carga los datos de un proyecto
 				if(isset($_GET['id'])){
-					echo 'Datos de proyecto seleccionado para editar.';
+					echo '<div id="titulo">';
+					echo getProyectoNombre($_GET['id']);
+					echo '</div>
+					<script>
+						 muestraProyecto('.$_GET['id'].');
+					</script>';
+				?>
+					<div class="topControls" id="proyectoControls">
+					</div>
+					
+				<?php
+					//carga los datos del poroyecto
+				?>
+						<script>datos(<?php echo $_GET['id']; ?>);</script>
+				<?php
 				}
+
 				?>
 			<div id="nivel1">
 

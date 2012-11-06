@@ -97,6 +97,7 @@ function seleccionaNorma(){
 	reset();
 }
 
+//registra la seleccion o deseleccion, autoguardado en la base de datos
 function seleccionaGeneralidad(id){
 	if( $('#box'+id).length > 0){
 		$('#box'+id).remove();
@@ -105,7 +106,7 @@ function seleccionaGeneralidad(id){
 	}
 
 	//registra accion en registros del proyecto
-	var queryParams = { "func" : 'actividad', "proyecto" : Proyecto, "norma" : Norma, "id" : id };
+	var queryParams = { "func" : 'actividadRegistrar', "proyecto" : Proyecto, "categoria" : Categoria, "norma" : Norma, "id" : id };
 	$.ajax({
 		data:  queryParams,
 		url:   'ajax.php',
@@ -114,7 +115,7 @@ function seleccionaGeneralidad(id){
 			notifica(response);
 		}
 	});
-	notifica('Registrando actividad.<br/> Proyecto'+Proyecto+'<br/>Norma '+Norma+'<br/>Generalidad '+id);
+	notifica('Registrando actividad.<br/> Proyecto'+Proyecto+'<br/>Categoria: '+Categoria+'<br/>Norma '+Norma+'<br/>Generalidad '+id);
 
 }
 
@@ -122,6 +123,80 @@ function seleccionaGeneralidad(id){
 function reset(){
 	generalidades();
 	$('.box').remove();
+}
+
+/*
+	DATOS CARGADOS
+*/
+
+//se encarga de cargar los datos almacenados del proyecto seleccionado
+function datos(id){
+
+	//menu con las categorias agregadas del proyecto
+	var queryParams = { "func" : 'menuDatos', "proyecto" : id};
+	$.ajax({
+		data:  queryParams,
+		url:   'ajax.php',
+		type:  'post',
+		success:  function (response) { 
+			
+			if(response.length > 0){
+				notifica('Cargando Datos del Proyecto.');
+				$('#menu').html(response);
+				var gene = $('.seleccionada').attr('id');
+				notifica(gene);
+				menuDatos(gene);
+			}else{
+				//no tiene menu, es nuevo
+				var queryParams = { 'func' : 'menu'};
+				$.ajax({
+					data: queryParams,
+					url: 'ajax.php',
+					type: 'post',
+					success: function(response){
+						notificaAtencion('Proyecto sin datos guardados.<br/>Seleccione alguna categoria<br/>para iniciar el llenado del proyecto.');
+						$('#menu').html(response);
+					}
+				});
+			}
+		}
+	});
+
+}
+
+//muestra las generalidades, y el estado en el que se guardaron
+function menuDatos(id){
+	$('#mensajeInicial').hide();
+	$('#resultadoBusqueda').hide();
+
+	var menu = $('#'+id);
+	
+	$('#menu ul').children('li').removeClass('seleccionada');
+	menu.css({
+		'opacity':'0',
+	});
+	menu.addClass('seleccionada').animate({
+		'opacity':1,
+	},1000);
+
+	Categoria = id;
+	listaNormasDatos(id);
+	reset();
+}
+
+function listaNormasDatos(id){
+	var queryParams = {"func" : 'listaNormasDatos'};
+	$.ajax({
+		data: queryParams,
+		type: 'post',
+		url: 'index.php',
+		success: function(response){
+			var normaId = $('#seleccionaNorma :first').attr('id');
+	        Norma = normaId;
+	        //se carga la descripcion de la norma
+			descripcionNorma(normaId);
+		}
+	});
 }
 
 /*
@@ -264,7 +339,7 @@ function resetMenuProyectos(){
 function vistaProyecto(id){
 	notifica('Vista de proyectos.');
 
-	var queryParams = { "func" : 'vistaProyecto', "id": id};
+	/*var queryParams = { "func" : 'vistaProyecto', "id": id};
 	  	$.ajax({
 	        data:  queryParams,
 	        url:   'ajax.php',
@@ -272,7 +347,8 @@ function vistaProyecto(id){
 	        success:  function (response) { 
 	        	$('#main').load(response);
 	        }
-		});
+		});*/
+	top.location.href = 'index.php?id='+id;
 }
 
 function muestraProyecto(id){
@@ -354,7 +430,7 @@ function notificaAtencion(text) {
   	//tiempo para desaparecerlo solo 
   	setTimeout(function (){
 		n.close();
-	},7000);
+	},10000);
 }
 
 
@@ -384,7 +460,6 @@ function notificaError(text) {
 		   func funcion requerida
 		   id idintificador de categoria a cargar
 */
-
 function accion1(lugarCarga, func, id){
 	var queryParams = { "func" : func, "id" : id};
 	var cont = $("#"+lugarCarga);

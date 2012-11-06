@@ -14,6 +14,7 @@ html, body{
 	background-color: #f4f4f4;
 	margin: 0;
 	height: 100%;
+	overflow: hidden;
 }
 
 
@@ -21,9 +22,9 @@ html, body{
 #main{
 	border: 0;
 	width: 100%;
-	height: 100%;
 	display: block;
 	text-align: center;
+	direction:ltr;
 }
 
 /* menu */
@@ -31,17 +32,25 @@ html, body{
 	margin-left: 5%;
 	width: 14%;
 	min-width: 100px;
+	/*height: 70%;*/
 	display: block;
 	float: left;
 	border: 0;
 }
 
-#menu ul{
-	display: block;
-	width: 100%;
+#menu .menu{
+	overflow: scroll;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
-#menu ul li{
+#menu .menu ul{
+	display: block;
+	width: 100%;
+	height: 70%;
+}
+
+#menu .menu ul li{
 	margin-bottom: 10px;
 	list-style: none;
 	border-right: 0;
@@ -50,7 +59,7 @@ html, body{
 	font-size: 100%;
 }
 
-#menu ul li img{
+#menu .menu ul li img{
 	width: 70px;
 	margin-bottom: 5px;
 }
@@ -61,6 +70,44 @@ html, body{
 	background-color: #fff;
 }
 
+.super{
+	margin-left: 5%;
+	width: 100%;
+	height: 10%;
+	min-width: 100px;
+	display: block;
+	float: left;
+	border: 0;
+
+	border: solid 1px #dedede;
+	border-right: 0;
+	background-color: #fff;
+	vertical-align: middle;
+}
+
+.super div{
+	direction: block;
+	margin-top: 10%;
+	font-size:  20px;
+}
+
+.super div button{
+	font-size: 25px;
+	width: 30px;
+	background-color: #a1ca4a;
+	border-radius: 15px;
+	box-shadow: none;
+	border: none;
+}
+
+#titulo{
+	display: block;
+	text-align: center;
+	font-size: 30px;
+	color: #747273;
+	margin-top: 20px;
+}
+
 /* content */
 #content{
 	margin-right: 5%;
@@ -69,7 +116,7 @@ html, body{
 	float: left;
 	background-color: #fff;
 	border: 1px solid #dedede;
-	min-height: 500px;
+	height: 80%;
 }
 
 /* header */
@@ -270,7 +317,6 @@ header{
 
 #listaNormas{
 	width: 30%;
-	background-color: #fff;
 	float: left;
 }
 
@@ -286,12 +332,16 @@ header{
 .norma select{
 	width: 95%;
 	border: 0;
-	text-align: center;
+	text-align: center !important;
 		-ms-box-shadow: none; /* IE 9 */
 		-moz-box-shadow: none; /* Firefox */
 		-webkit-box-shadow: none; /* Safari and Chrome */
 		-o-box-shadow: none; /* Opera */
 	box-shadow: none;
+}
+
+.norma select option{
+	text-align: center;
 }
 
 #generalidades{
@@ -747,4 +797,12 @@ input::placeholder{
 
 input::-0-placeholder{
 	color: #fff !important;
+}
+
+/*
+	CONTROLES 
+*/
+.topControls {
+	display: block;
+	text-align: center;
 }

@@ -117,7 +117,7 @@ switch ($_POST['func']){
 
 	/*
 		VISTA DE PROYECTOS
-	*/
+	
 	//vista proyecto	
 	case 'vistaProyecto':
 		if(isset($_POST['id'])){
@@ -137,13 +137,38 @@ switch ($_POST['func']){
 			echo getProyectoNombre($_POST['id']);
 		}
 		break;
-
+	*/
 	/*
 		AUTOGUARDADO DE ACTIVIDAD O CONSULTA DEL PROYECTO
 	*/
-	case 'actividad':
+	case 'actividadRegistrar':
 		if(isset($_POST['proyecto']) && isset($_POST['norma']) && isset($_POST['id'])){
-			actividad($_POST['proyecto'], $_POST['norma'], $_POST['id']);
+			actividadRegistrar($_POST['proyecto'], $_POST['categoria'], $_POST['norma'], $_POST['id']);
+		}
+		break;
+
+	/*
+		CARGA DE DATOS PROYECTO SELECCIONADO
+	*/
+	case 'menuDatos':
+		if(isset($_POST['proyecto'])){
+			menuDatos($_POST['proyecto']);
+		}
+		break;
+	
+	//menu normal
+	case 'menu':
+		menu();
+		break;
+
+	case 'listaNormasDatos':
+		if(isset($_POST['id'])){
+
+		}
+		break;
+	case 'proyectoControls':
+		if(isset($_POST['id'])){
+			echo proyectoControls($_POST['id']);
 		}
 }
 

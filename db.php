@@ -20,11 +20,19 @@ function menu(){
 	$sql = 'SELECT * FROM categorias WHERE parentID = 0';
 	$result = mysql_query($sql);
 
-	echo '<ul>';
+	echo '<div class="menu"><ul>';
 	while( $row = mysql_fetch_array($result)){
 		echo '<li id="menu'.$row['id'].'" onClick="menu('.$row['id'].')"> <img src="images/es.png"><br/>'.$row['nombre'].'</li>';
 	}
-	echo '</ul>';
+	echo '</ul></div>';
+	echo '
+	<div id="super" class="super" >
+		<div>
+			Categorias<br/>
+			<button>+</button>
+			<button>-</button>
+		</div>
+	</div>';
 }
 
 //MUESTRA LA LISTA DE NORMAS
@@ -559,6 +567,13 @@ function getProyectos(){
 	return $nombres;
 }
 
+function getProyectoNombre($id){
+	$sql = 'SELECT * FROM proyectos WHERE id = '.$id;
+	$result = mysql_query($sql);
+	$row =  mysql_fetch_array($result);
+	return $row['nombre'];
+}
+
 //registra nuevo proyecto
 function nuevoProyecto($proyecto, $descripcion){
 	$fecha = date("d-m-Y");
@@ -615,23 +630,23 @@ Este correo ha sido generado automaticamente.";
 	REGISTRA LA ACTIVIDAD DEL PROYECTO AUTOGUARDADO
 */
 
-function actividad($proyecto, $norma, $generalidad){
-	if(actividadRegistrada($proyecto, $norma, $generalidad)){
+function actividadRegistrar($proyecto, $categoria, $norma, $generalidad){
+	if(actividadRegistrada($proyecto, $categoria, $norma, $generalidad)){
 		//elimina la actividad
-		$sql = 'DELETE FROM registros WHERE proyecto = '.$proyecto.' AND norma = '.$norma.' AND  generalidad = '.$generalidad;
+		$sql = 'DELETE FROM registros WHERE proyecto = '.$proyecto.' AND categoria = '.$categoria.' AND norma = '.$norma.' AND  generalidad = '.$generalidad;
 		mysql_query($sql);
 		echo 'Eliminado';
 	}else{
 		//registra la actividad
-		$sql = "INSERT INTO registros (proyecto, norma, generalidad) VALUES ( ".$proyecto.", ".$norma.", ".$generalidad.")";
+		$sql = "INSERT INTO registros (proyecto, categoria, norma, generalidad) VALUES ( ".$proyecto.", ".$categoria.", ".$norma.", ".$generalidad.")";
 		mysql_query($sql) or die ('Error al incresar registro de actividad.'.mysql_error());
 		echo 'Registrado';
 	}
 }
 
 //determina si ya esta la actividad registrada
-function actividadRegistrada($proyecto, $norma, $generalidad){
-	$sql = 'SELECT * FROM registros WHERE proyecto = '.$proyecto.' AND norma = '.$norma.' AND generalidad = '.$generalidad;
+function actividadRegistrada($proyecto, $categoria, $norma, $generalidad){
+	$sql = 'SELECT * FROM registros WHERE proyecto = '.$proyecto.' AND categoria = '.$categoria.' AND norma = '.$norma.' AND generalidad = '.$generalidad;
 	$result = mysql_query($sql);
 
 	if($row = mysql_fetch_array($result)){
@@ -639,6 +654,55 @@ function actividadRegistrada($proyecto, $norma, $generalidad){
 	}else{
 		return false;
 	}
+}
+
+
+/*
+	DATOS DE PROYECTO SELECCIONADO
+*/
+
+//muestra el menu del proyecto seleccionado con las categorias seleccionadas del proyecto
+function menuDatos($proyecto){
+	$c = 0;
+	$sql = 'SELECT DISTINCT categoria FROM registros WHERE proyecto = '.$proyecto;
+	$result = mysql_query($sql);
+ 	
+	while( $row = mysql_fetch_array($result) ){
+
+		$sql2 = 'SELECT * FROM categorias WHERE id = '.$row['categoria'];
+		$result2 = mysql_query($sql2);
+
+		echo '<ul>';
+		while( $row2 = mysql_fetch_array($result2)){
+			echo '<li id="'.$row2['id'].'" ';
+			
+			if($c == 0){
+				//mustra como seleccionada la primera
+				echo 'class="seleccionada"';
+				$c++;
+			}
+
+			echo 'onClick="menuDatos('.$row2['id'].')"> <img src="images/es.png"><br/>'.$row2['nombre'].'</li>';
+		}
+		echo '</ul>';
+	}
+}
+
+//MUESTRA LA LISTA DE NORMAS
+function listaNormasDatos($id){
+
+	$sql = 'SELECT * FROM categorias WHERE parentId = '.$id;
+	$result = mysql_query($sql) or die( $sql.mysql_error() );
+
+	echo '<div class="norma">
+	<select id="seleccionaNorma" onChange="seleccionaNorma()">';
+
+	while( $row = mysql_fetch_array($result) ){
+		echo '<option id="'.$row['id'].'">'.$row['nombre'].'</option>';	
+	}
+
+	echo '</select>
+	</div>';
 }
 
 ?>

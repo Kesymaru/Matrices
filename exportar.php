@@ -162,7 +162,7 @@ function exportarProyecto($id){
 
 	//crea detalles del proyecto
 	$detalles = detalles($id);
-
+	
 	//imprime el archivo 
 	echo $encabezado.$cuerpo.$detalles.$footer;
 
