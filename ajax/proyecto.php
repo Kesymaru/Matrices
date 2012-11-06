@@ -5,7 +5,7 @@ require_once("../db.php");
 
 //logueo
 if( !isset($_SESSION['logueado']) ){
-	$home = "login.php";
+	$home = "/Matrices/login.php";
 	echo "<script type='text/javascript'>top.location.href = '$home';</script>";
 	exit;
 }

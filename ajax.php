@@ -166,10 +166,31 @@ switch ($_POST['func']){
 
 		}
 		break;
+
 	case 'proyectoControls':
 		if(isset($_POST['id'])){
 			echo proyectoControls($_POST['id']);
 		}
+		break;
+
+	/*
+		CATEGORIAS
+	*/
+	case 'cargarCategorias':
+		if(isset($_POST['categorias'])){
+			cargarCategorias($_POST['categorias']);
+		}
+		break;
+
+	case 'buscarCategoriasSeleccion':
+	if(isset($_POST['buscar'])){
+		buscarCategoriasSeleccion($_POST['buscar']);
+	}
+	break;
+
+	case 'categorias':
+		categorias();
+		break;
 }
 
 ?>

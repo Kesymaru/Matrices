@@ -110,10 +110,30 @@ if( !isset($_SESSION['logueado']) ){
 	<div id="main">
 		
 		<div id="menu">
-			<?php
-				//display las normas
-				menu();
-			?>
+			<div class="menu">
+				<ul>
+					<?php
+						//display las normas
+					if(isset($_GET['proyecto'])){
+						menu($_GET['proyecto']);
+					}
+
+					?>
+				</ul>
+			</div>
+			<!-- menu -->
+
+			<!-- super controles para categoria, agregar y borrar -->
+			<div id="super" class="super" >
+				<div>
+					Categorias<br/>
+					<!-- agrega categoria / borrar categoria seleccionada -->
+					<button id="nuevaCategoria">+</button>
+					<button id="borrarCategoria">-</button>
+				</div>
+			</div>
+			<!-- end super -->
+
 		</div>
 		<!-- end menu -->
 
@@ -128,31 +148,39 @@ if( !isset($_SESSION['logueado']) ){
 						?>
 					</div>
 				<?php
-				}else if(!isset($_GET['id'])){
+				}else if(!isset($_GET['proyecto'])){
 				?>
 					<div id="mensajeInicial">
 						Selecione un proyecto o cree uno nuevo para empezar.
+						<br/>
+						<button onClick="proyectoNuevo()">Crear Proyecto</button>
+						<?php
+							//determina si el cliente tiene proyectos
+							$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'];
+							$result = mysql_query($sql);
+							if($row = mysql_fetch_array($result)){
+								echo '<button onClick="verProyectos()">Seleccionar Proyecto</button>';
+							}
+						?>
 					</div>
 				<?php 
 				}
 
 				//carga los datos de un proyecto
-				if(isset($_GET['id'])){
+				if(isset($_GET['proyecto'])){
 					echo '<div id="titulo">';
-					echo getProyectoNombre($_GET['id']);
-					echo '</div>
-					<script>
-						 muestraProyecto('.$_GET['id'].');
-					</script>';
-				?>
-					<div class="topControls" id="proyectoControls">
-					</div>
+					echo getProyectoNombre($_GET['proyecto']);
 					
-				<?php
-					//carga los datos del poroyecto
-				?>
-						<script>datos(<?php echo $_GET['id']; ?>);</script>
-				<?php
+					//controles del proyecto
+					echo '</div>
+						<div class="topControls" id="proyectoControls">
+						</div>
+						<script type="text/javascript">
+							//fija el proyecto seleccionado
+							setProyecto('.$_GET['proyecto'].');
+							proyectoControls('.$_GET['proyecto'].');
+							resumenProyecto('.$_GET['proyecto'].');
+						</script>';
 				}
 
 				?>

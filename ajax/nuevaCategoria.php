@@ -6,7 +6,7 @@
 
 //logueo
 if( !isset($_SESSION['logueado']) ){
-	$home = "login.php";
+	$home = "/Matrices/login.php";
 	echo "<script type='text/javascript'>top.location.href = '$home';</script>";
 	exit;
 }
@@ -18,11 +18,10 @@ if( !isset($_SESSION['logueado']) ){
 	var selecciones = []; //seleccionadas
 	var c = 0;
 	categorias();
-	
+
 	$('#formularioNuevaCategoria button, input:reset, .controls button').button();
 
 	$('input[placeholder]').placeholder();
-	$('textarea[placeholder]').placeholder();
 
 	function categorias(){
 		//carga las categorias
@@ -33,6 +32,8 @@ if( !isset($_SESSION['logueado']) ){
 			type: 'post',
 			success: function (response){
 				$('#categorias').html(response);
+				var alto = $('#content').height() * 0.4;
+				$('#categorias').css('height' , alto);
 			}
 		});
 	}

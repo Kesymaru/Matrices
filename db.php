@@ -16,23 +16,23 @@ mysql_query("SET NAMES 'utf8'");
 
 //muestra el menu de categorias padre
 //TODO agregar imagenes en ves de texto para cada una
-function menu(){
-	$sql = 'SELECT * FROM categorias WHERE parentID = 0';
+function menu($id){
+	$sql = 'SELECT DISTINCT categoria FROM registros WHERE proyecto = '.$id;
 	$result = mysql_query($sql);
-
-	echo '<div class="menu"><ul>';
-	while( $row = mysql_fetch_array($result)){
-		echo '<li id="menu'.$row['id'].'" onClick="menu('.$row['id'].')"> <img src="images/es.png"><br/>'.$row['nombre'].'</li>';
+	$c = 0;
+	while($row = mysql_fetch_array($result)){
+		$sql2 = 'SELECT * FROM categorias WHERE id = '.$row['categoria'];
+		$result2 = mysql_query($sql2);
+		while($row2 = mysql_fetch_array($result2)){
+			echo '<li id="'.$row2['id'].'" onClick="menu('.$row2['id'].')"> <img src="images/es.png"><br/>'.$row2['nombre'].'</li>';
+			$c++;
+		}
+		$c++;
 	}
-	echo '</ul></div>';
-	echo '
-	<div id="super" class="super" >
-		<div>
-			Categorias<br/>
-			<button>+</button>
-			<button>-</button>
-		</div>
-	</div>';
+
+	if($c == 0){
+		echo '<span>Seleccione Categorias.</span>';
+	}
 }
 
 //MUESTRA LA LISTA DE NORMAS
@@ -400,24 +400,24 @@ function menuProyectos(){
 		$result = mysql_query($sql);
 		
 		while($row = mysql_fetch_array($result)){
-			//echo '<li>'.$row['nombre'].'</li>';
-			echo '<li onClick="vistaProyecto('.$row['id'].')">'.$row['nombre'].'</li>';
+			echo '<li onClick="proyecto('.$row['id'].')">'.$row['nombre'].'</li>';
 		}
-		echo '<li><button id="botonNuevoProyecto" onClick="proyecto();">Crear Nuevo</button>';
+		echo '<li><button id="botonNuevoProyecto" onClick="proyectoNuevo();">Crear Nuevo</button>';
 
 	}
 }
 
 /*
-	VISTA DE PROYECTOS
+	PROYECTOS
 */
+
 function vistaProyectos(){
 	$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'];
 	$result = mysql_query($sql);
 
 	echo '<ul>';
 	while( $row = mysql_fetch_array($result)){
-		echo '<li id="menu'.$row['id'].'" onClick="muestraProyecto('.$row['id'].')"> 
+		echo '<li id="'.$row['id'].'" onClick="muestraProyecto('.$row['id'].')"> 
 		<img src="images/es.png"><br/>'.$row['nombre'].'
 		</li>';
 	}
@@ -433,11 +433,11 @@ function vistaProyectosId($id){
 	while( $row = mysql_fetch_array($result)){
 
 		if($row['id'] == $id){
-			echo '<li id="menu'.$row['id'].'" class="seleccionada" onClick="muestraProyecto('.$row['id'].')"> 
+			echo '<li id="'.$row['id'].'" class="seleccionada" onClick="proyecto('.$row['id'].')"> 
 			<img src="images/es.png"><br/>'.$row['nombre'].'
 			</li>';
 		}else{
-			echo '<li id="menu'.$row['id'].'" onClick="muestraProyecto('.$row['id'].')"> 
+			echo '<li id="'.$row['id'].'" onClick="proyecto('.$row['id'].')"> 
 			<img src="images/es.png"><br/>'.$row['nombre'].'
 			</li>';
 		}
@@ -451,6 +451,12 @@ function proyectoControls($id){
 
 	echo '<div id="proyectoControls" >';
 	
+	//resumen -> seleccionado por defecto
+	echo '<input type="radio" id="resumenProyecto" checked="checked" name="radio"/>
+		<label for="resumenProyecto" onClick="resumenProyecto('.$id.')">
+		Resumen
+		</label>';
+
 	//editar
 	echo '<input type="radio" id="editarProyecto" name="radio"/>
 		<label for="editarProyecto" onClick="editarProyecto('.$id.')">
@@ -463,7 +469,7 @@ function proyectoControls($id){
 		</label>';
 	//crear
 	echo '<input type="radio" id="nuevoProyecto" name="radio"/>
-		<label for="nuevoProyecto" onClick="proyecto()">
+		<label for="nuevoProyecto" onClick="proyectoNuevo()">
 		Crear
 		</label>';
 	
@@ -682,7 +688,7 @@ function menuDatos($proyecto){
 				$c++;
 			}
 
-			echo 'onClick="menuDatos('.$row2['id'].')"> <img src="images/es.png"><br/>'.$row2['nombre'].'</li>';
+			echo 'onClick="menu('.$row2['id'].')"> <img src="images/es.png"><br/>'.$row2['nombre'].'</li>';
 		}
 		echo '</ul>';
 	}
@@ -703,6 +709,43 @@ function listaNormasDatos($id){
 
 	echo '</select>
 	</div>';
+}
+
+function cargarCategorias($categorias){
+	foreach ($categorias as $key => $value) {
+		$sql = 'SELECT * FROM categorias WHERE id = '.$value;
+		$result = mysql_query($sql);
+		$row = mysql_fetch_array($result);
+		
+		echo '<li id="'.$row['id'].'" ';
+
+		echo 'onClick="menu('.$row['id'].')"> <img src="images/es.png"><br/>'.$row['nombre'].'</li>';
+	}
+}
+
+//categorias para el lista de seleccion
+function categorias(){
+	$sql = 'SELECT * FROM categorias WHERE parentId = 0';
+	$result = mysql_query($sql);
+		
+	while($row = mysql_fetch_array($result)){
+		echo '<div class="seleccion-option" id="seleccion'.$row['id'].'" onClick="selecciona('.$row['id'].')" >'.$row['nombre'].'</div>';
+	}
+}
+
+function buscarCategoriasSeleccion($buscar){
+	$sql = "SELECT * FROM categorias WHERE parentId = 0 AND nombre LIKE '%".$buscar."%' LIMIT 0, 30";
+	$result = mysql_query($sql);
+	
+	$c = 0;
+
+	while($row = mysql_fetch_array($result)){
+		echo '<div class="seleccion-option" id="seleccion'.$row['id'].'" onClick="selecciona('.$row['id'].')" >'.$row['nombre'].'</div>';
+		$c++;
+	}
+	if($c == 0){
+		echo 'No hay resultados para:<br/>'.$buscar;
+	}
 }
 
 ?>

@@ -1,6 +1,6 @@
 var Categoria;
 var Norma;
-var Proyecto = 1;
+var Proyecto;
 var box = 0;
 
 $(document).ready(function(){
@@ -45,6 +45,16 @@ $(document).ready(function(){
     //oculta dialogo
     $('#dialogo').hide();
 
+    //categorias
+    $('#nuevaCategoria').click(function (){
+    	nuevaCategoria();
+    });
+
+    $('#borrarCategoria').click(function (){
+    	borrarCategoria();
+    });
+
+    $('#mensajeInicial button').button();
 });
 
 //menu
@@ -52,8 +62,9 @@ function menu(id){
 	$('#mensajeInicial').hide();
 	$('#resultadoBusqueda').hide();
 
-	var menu = $('#menu'+id);
-	
+	var menu = $('#'+id);
+	//notifica(menu);
+
 	$('#menu ul').children('li').removeClass('seleccionada');
 	menu.css({
 		'opacity':'0',
@@ -64,7 +75,7 @@ function menu(id){
 
 	Categoria = id;
 	listaNormas(id);
-	reset();
+	//reset();
 }
 
 /*
@@ -73,7 +84,7 @@ function menu(id){
 
 //normas de la categoria
 function listaNormas(parentId){
-	accion1('listaNormas','listaNormas',parentId);
+	//accion1('listaNormas','listaNormas',parentId);
 }
 
 //carga la descripcion de la norma seleccionada
@@ -122,66 +133,29 @@ function seleccionaGeneralidad(id){
 //limpia y resetea muestras de ajax
 function reset(){
 	generalidades();
+	//remueve consultas de generalidades
 	$('.box').remove();
 }
 
 /*
-	DATOS CARGADOS
+	DATOS proyecto creado
 */
 
 //se encarga de cargar los datos almacenados del proyecto seleccionado
-function datos(id){
+function resumenProyecto(id){
 
-	//menu con las categorias agregadas del proyecto
-	var queryParams = { "func" : 'menuDatos', "proyecto" : id};
+	//muestra un resumen del proyecto con la info de este
+	/*var queryParams = {'func' : 'resumenProyecto', 'proyecto' : proyecto}
 	$.ajax({
-		data:  queryParams,
-		url:   'ajax.php',
-		type:  'post',
-		success:  function (response) { 
-			
-			if(response.length > 0){
-				notifica('Cargando Datos del Proyecto.');
-				$('#menu').html(response);
-				var gene = $('.seleccionada').attr('id');
-				notifica(gene);
-				menuDatos(gene);
-			}else{
-				//no tiene menu, es nuevo
-				var queryParams = { 'func' : 'menu'};
-				$.ajax({
-					data: queryParams,
-					url: 'ajax.php',
-					type: 'post',
-					success: function(response){
-						notificaAtencion('Proyecto sin datos guardados.<br/>Seleccione alguna categoria<br/>para iniciar el llenado del proyecto.');
-						$('#menu').html(response);
-					}
-				});
-			}
+		data : queryParams,
+		url: 'ajax.php',
+		type: 'post',
+		success: function(response){
+			$('#content').append(response);
 		}
 	});
-
-}
-
-//muestra las generalidades, y el estado en el que se guardaron
-function menuDatos(id){
-	$('#mensajeInicial').hide();
-	$('#resultadoBusqueda').hide();
-
-	var menu = $('#'+id);
-	
-	$('#menu ul').children('li').removeClass('seleccionada');
-	menu.css({
-		'opacity':'0',
-	});
-	menu.addClass('seleccionada').animate({
-		'opacity':1,
-	},1000);
-
-	Categoria = id;
-	listaNormasDatos(id);
-	reset();
+	*/
+	notificaError('resumen');
 }
 
 function listaNormasDatos(id){
@@ -208,7 +182,7 @@ function buscar(busqueda){
 }
 
 /*
-	EDITAR DATOS usuarios
+	EDITAR DATOS USUARIO
 */
 
 function editar(){
@@ -249,14 +223,17 @@ function editarUsuario(){
 
 
 /*
-	EDITAR proyectos
+	EDITAR PROYECTOS
 */
-function proyecto(){
+
+//proyecto nuevo
+function proyectoNuevo(){
 	$( "#dialogoContenido" ).load('ajax/nuevoProyecto.php');
 	$('#dialogo').hide();
 	$('#dialogo').slideDown();
 }
 
+//formulario nuevo proyecto
 function nuevoProyecto(){
 	//validacion datos
 	if ($('#formularioNuevoProyecto').validationEngine('validate')){
@@ -332,39 +309,25 @@ function resetMenuProyectos(){
 
 
 /*
-	VISTA PROYECTO
+	PROYECTOS
 */
-
-//carga la vista de proyectos
-function vistaProyecto(id){
-	notifica('Vista de proyectos.');
-
-	/*var queryParams = { "func" : 'vistaProyecto', "id": id};
-	  	$.ajax({
-	        data:  queryParams,
-	        url:   'ajax.php',
-	        type:  'post',
-	        success:  function (response) { 
-	        	$('#main').load(response);
-	        }
-		});*/
-	top.location.href = 'index.php?id='+id;
+function setProyecto(proyecto){
+	Proyecto = proyecto;
+	console.log(Proyecto);
 }
 
-function muestraProyecto(id){
+//carga el proyecto
+function proyecto(id){
+	notifica('Proyecto seleccionado.');
+
+	top.location.href = 'index.php?proyecto='+id;
+}
+
+//carga los controles del proyecto
+function proyectoControls(id){
 
 	$('#mensajeInicial').hide();
 	$('#resultadoBusqueda').hide();
-
-	var menu = $('#menu'+id);
-	
-	$('#menu ul').children('li').removeClass('seleccionada');
-	menu.css({
-		'opacity':'0',
-	});
-	menu.addClass('seleccionada').animate({
-		'opacity':1,
-	},1000);
 	
 	var queryParams = { "func" : 'proyectoControls', "id": id};
 	  	$.ajax({
@@ -381,18 +344,74 @@ function muestraProyecto(id){
 
 //editar proyecto
 function editarProyecto(id){
-	top.location.href = 'index.php?id='+id;
+	//top.location.href = 'index.php?id='+id;
 }
 
 //exportar proyecto seleccionado
 function exportarProyecto(id){
-	
 	notificaAtencion('Exportando Proyecto.<br/>Asegurese de guardar el archivo en su disco duro.');
 	top.location.href = 'exportar.php?id='+id;
 }
 
+//muestra la lista de proyectos en un dialogo
+function verProyectos(){
+	$( "#dialogoContenido" ).load('ajax/listaProyectos.php');
+	$('#dialogo').hide();
+	$('#dialogo').slideDown();
+}
+
+//cierra el dialogo
 function closeDialogo(){
 	$('#dialogo').slideUp();
+}
+
+
+/*
+	CATEGORIAS
+*/
+
+function nuevaCategoria(){
+	if(Proyecto != 0 && Proyecto != null){
+		$( "#dialogoContenido" ).load('ajax/nuevaCategoria.php');
+		$('#dialogo').hide();
+		$('#dialogo').slideDown();
+	}else{
+		notificaError('Error:<br/>Debe crear o seleccionar un proyecto.')
+	}
+}
+
+function borrarCategoria(){
+	//notifica('borrar categoria');
+	var borra = $('#menu .menu .seleccionada :first').attr('id');
+	console.log(borra);
+}
+
+//resive el array con todas las selecciones
+function cargarCategorias(categorias){
+
+	$('#menu .menu span').hide();
+
+	for(var i = 0; i <= categorias.length; i++){
+		if($('#'+categorias[i]).length > 0){
+			$('#'+categorias[i]).remove();
+		}
+	}
+
+	var queryParams = {"func" : 'cargarCategorias', 'categorias': categorias};
+	$.ajax({
+		data: queryParams,
+		url: 'ajax.php',
+		type: 'post',
+		success: function(response){
+			$('#menu .menu ul').append(response);
+		}
+	});
+
+}
+
+//muestra el resumen del prpoyecto
+function resumenProyecto(id){
+	$('#content #nivel1, #content #nivel2').remove();
 }
 
 /*
