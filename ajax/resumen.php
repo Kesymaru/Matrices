@@ -1,7 +1,7 @@
-<?php 
+<?php
 	require_once("../db.php"); 
 /*
-	muestra el resumen del proyecto y sus notas
+	muestra una lista en el dialogo, con todas las categorias disponibles para agregar al proyecto
 */
 
 //logueo
@@ -11,150 +11,113 @@ if( !isset($_SESSION['logueado']) ){
 	exit;
 }
 
+//obtiene id
+if(isset($_GET['proyecto'])){
+	exportarProyecto($_GET['proyecto']);
+}
+
 ?>
-
 <script type="text/javascript">
-
-	$('#resumenProyecto button, input:reset, .controls button').button();
-
-	$('input[placeholder]').placeholder();
-	$('textarea[placeholder]').placeholder();
-
-	$('#notaNuevaProyectos').hide();
-	$('#edicionResumenProyecto').hide();
-	$('#edicionNotaProyecto').hide();
-
-	$('#editarResumenProyecto').click(function (){
-		cambiaControlesResumenProyecto();
-	});
-
-	$('#enviarResumenProyecto').click(function (){
-		//funcion para enviar y actualizar
-	});
-
-	$('#cancelarEditarResumenProyecto').click(function(){
-		cambiaControlesResumenProyecto();
-	})
-
-	cargarResumenProyecto()
-
-	function mostrarAgregarNota(){
-
-		desactivaEdicionProyecto();
-
-		if($('#notaNuevaProyectos').is(':visible')){
-			$('#notaNuevaProyectos').slideUp(500, function (){
-				$('#edicionResumenProyecto').hide();
-				$('#edicionNotaProyecto').fadeOut(500, function(){
-					$('#edicionNotaProyecto').hide();
-					$('#editarResumenProyecto').fadeIn();
-				});
-
-			});
-		}else{
-			
-			$('#notaNuevaProyectos').slideDown(500, function (){
-				console.log('muestra');
-				$('#edicionResumenProyecto').hide();
-				$('#editarResumenProyecto').fadeOut(500,function(){
-					$('#editarResumenProyecto').hide();
-					$('#edicionNotaProyecto').fadeIn(500);
-				})
-				
-			});
-		}
-
-	}
-
-	function cambiaControlesResumenProyecto(){
-
-		if($('#editarResumenProyecto').is(':visible')){
-			//activa la edicion
-			activaEdicionResumenProyecto()
-			$('#editarResumenProyecto').fadeOut(500, function (){
-				$('#editarResumenProyecto').hide();
-				$('#edicionResumenProyecto').fadeIn(500);
-			});
-		}
-		else{
-			//desactiva la edicion
-			desactivaEdicionProyecto();
-			$('#edicionResumenProyecto').fadeOut(500, function (){
-				$('#edicionResumenProyecto').hide();
-				$('#editarResumenProyecto').fadeIn(500);
-			});
-		}
-		
-	}
-
-	//activa edicion
-	function activaEdicionResumenProyecto(){
-		$('.editable').attr('disabled', false);
-	}
-
-	function desactivaEdicionProyecto(){
-		$('.editable').attr('disabled', true);
-	}
-
-	function cargarResumenProyecto(){
-		query = {'func': 'resumenProyecto', 'id': Proyecto};
-		$.ajax({
-			data: query,
-			url: 'ajax.php',
-			type: 'post',
-			success: function(response){
-				$('#cargaResumenProyecto').html(response);
-				$("#fechaResumenProyecto").datepicker();
-		        $("#fechaResumenProyecto").datepicker( "option", "showAnim", "slideDown");
-			}
-		});
-	}
-
-	function cargarNotasProyecto(){
-		query = {'func': 'notasProyecto', 'id': Proyecto};
-		$.ajax({
-			data: query,
-			url: 'ajax.php',
-			type: 'post',
-			success: function(response){
-				$('#notaNuevaProyectos').html(response);
-			}
-		});
-	}
-
+	$('#nuevaNota').button();
 </script>
-
-	<div id="cargaResumenProyecto">
-
-	</div>
-	<div id="notasProyecto"
-		
-	</div>
-
-	<button id="agregarNota" onclick="mostrarAgregarNota();">Agregar Nota</button>
-
-	<div id="notaNuevaProyectos">
-		Nota:<br/>
-		<textarea nombre="nuevaNoteProyecto" id="nuevaNotaProyecto"></textarea>
-	</div>
-
-	<div class="controls">
-		<button id="editarResumenProyecto">Editar</button>
-		<div id="edicionResumenProyecto">
-			<button id="cancelarEditarResumenProyecto">Cancelar</button>
-			<button id="enviarResumenProyecto">Enviar</button>
-		</div>
-		<div id="edicionNotaProyecto">
-			<button id="cancelarEditarNotaProyecto" onclick="mostrarAgregarNota();">Cancelar</button>
-			<button id="enviarNuevaNotaProyecto">Agregar Nota</button>
-		</div>
-	</div>
-
-</div><!-- end resumen -->
-
-
 
 <?php
 
+//exporta un proyecto
+function exportarProyecto($id){
+	$tabla = 'class="tablaResumen"';
+	$titulo = 'class="tituloResumen"';
+	$columnaTitulo = 'class="columnaTituloResumen"';
+	$columna = 'class="columnaResumen"';
 	
+	//nombre por defecto, despues lo cambia
+	$nombre = 'proyecto'.$id;
+	$cuerpo = '';
+	$notas = '';
+
+	$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'].' AND id = '.$id;
+	$result = mysql_query($sql);
+
+	//crea el resumen del proyecto
+	while( $row = mysql_fetch_array($result) ){
+		$nombre = $row['nombre'];
+
+		$cuerpo .= '<tr>
+			<td '.$columna.'>'.$row['nombre'].'</td>
+			<td colspan="3"'.$columna.'>'.$row['descripcion'].'</td>
+			<td '.$columna.'>'.$row['fecha'].'</td>
+			<td '.$columna.'>';
+
+		if($row['status'] == 1){
+			$cuerpo .= 'Activo';
+		}else{
+			$cuerpo .= 'Finalizado';
+		}
+
+		$cuerpo .= '</td>
+		</tr>';
+	}
+
+	//encabezados del exell
+	$encabezado = '<table '.$tabla.'>
+		<tr>
+			<td colspan="6" '.$titulo.'>Resumen de '.$nombre.'</td>
+		</tr>
+		<tr>
+			<td '.$columnaTitulo.'>Nombre</td>
+			<td colspan="3"'.$columnaTitulo.'>Descripcion</td>
+			<td '.$columnaTitulo.'>Fecha</td>
+			<td '.$columnaTitulo.'>Estado</td>
+		</tr>';
+
+	//footer
+	$footer = '</table>';
+	
+	$notas = notas($id);
+	
+	//crea el resumen
+	echo $encabezado.$cuerpo.$notas.$footer;
+}
+
+
+function notas($id){
+	$titulo = 'class="tituloResumen"';
+	$columnaTitulo = 'class="columnaTituloResumen"';
+	$columnaNota = 'class="columnaNotaResumen"';
+	$columnaInfo = 'class="columnaInfoResumen"';
+	$columnaControls = 'class="colunmaControlsResumen"';
+
+	$sql = 'SELECT * FROM notas WHERE proyecto = '.$id;
+	$result = mysql_query($sql);
+
+	$notas = '';
+	$c = 0;
+	
+	$notas .= '<tr>
+			<td colspan="6" '.$titulo.'>
+				Notas
+			</td>
+		</tr>';
+
+	while($row = mysql_fetch_array($result)){
+		$notas .= '<tr>
+				<td colspan="4" '.$columnaNota.'>
+					'.$row['nota'].'
+				</td>
+				<td colspan="2" '.$columnaInfo.'>
+					DATOS USUARIO
+				</td>
+			</tr>';
+		$c++;
+	}
+
+	$notas .= '<tr>
+			<td colspan="6" '.$columnaControls.'>
+				<button id="nuevaNota" onClick="nota('.$id.')">Agregar Nota</button>
+			</td>
+			</tr>';
+
+	return $notas;
+}
+
 ?>

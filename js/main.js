@@ -142,20 +142,42 @@ function reset(){
 */
 
 //se encarga de cargar los datos almacenados del proyecto seleccionado
-function resumenProyecto(id){
+function resumenProyecto(){
+	$('#content #nivel1, #content #nivel2, #resumen').remove();
 
-	//muestra un resumen del proyecto con la info de este
-	/*var queryParams = {'func' : 'resumenProyecto', 'proyecto' : proyecto}
-	$.ajax({
-		data : queryParams,
-		url: 'ajax.php',
-		type: 'post',
-		success: function(response){
-			$('#content').append(response);
-		}
-	});
-	*/
-	notificaError('resumen');
+	$('#content').append($('<div id="resumen">').load('ajax/resumen.php?proyecto='+Proyecto));
+	
+	notifica('Resumen del proyecto.');
+}
+
+//dialogo de nota
+function nota(id){
+	$( "#dialogoContenido" ).load('ajax/nuevaNota.php');
+	$('#dialogo').hide();
+	$('#dialogo').slideDown();
+}
+
+function nuevaNota(id){
+	var nota = $('#nota').val();
+
+	if($("#formularioNuevaNota").validationEngine('validate')){
+		
+		queryParams = {'func' : 'nuevaNota', 'proyecto' : Proyecto, 'nota' : nota};
+
+		$.ajax({
+			data: queryParams,
+			url: 'ajax.php',
+			type: 'post',
+			success: function(response){
+				notifica('Nota agregada exitosamente.');
+				resumenProyecto();
+				closeDialogo();
+			}
+		});
+
+	}else{
+		notificaError('Por faveor escriba una nota.');
+	}
 }
 
 function listaNormasDatos(id){
@@ -407,11 +429,6 @@ function cargarCategorias(categorias){
 		}
 	});
 
-}
-
-//muestra el resumen del prpoyecto
-function resumenProyecto(id){
-	$('#content #nivel1, #content #nivel2').remove();
 }
 
 /*
