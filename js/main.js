@@ -132,7 +132,8 @@ function seleccionaGeneralidad(id){
 
 //limpia y resetea muestras de ajax
 function reset(){
-	generalidades();
+
+	$('#content #nivel1, #content #nivel2, #resumen').remove();
 	//remueve consultas de generalidades
 	$('.box').remove();
 }
@@ -143,7 +144,8 @@ function reset(){
 
 //se encarga de cargar los datos almacenados del proyecto seleccionado
 function resumenProyecto(){
-	$('#content #nivel1, #content #nivel2, #resumen').remove();
+	//limpia
+	reset();
 
 	$('#content').append($('<div id="resumen">').load('ajax/resumen.php?proyecto='+Proyecto));
 	
@@ -170,7 +172,7 @@ function nuevaNota(id){
 			type: 'post',
 			success: function(response){
 				notifica('Nota agregada exitosamente.');
-				resumenProyecto();
+				//resumenProyecto();
 				closeDialogo();
 			}
 		});
@@ -178,6 +180,31 @@ function nuevaNota(id){
 	}else{
 		notificaError('Por faveor escriba una nota.');
 	}
+}
+
+function removeNota(nota){
+
+	var queryParams = {'func' : 'removeNota', 'nota' : nota};
+	$.ajax({
+		data: queryParams,
+		url: 'ajax.php',
+		type: 'post',
+		success: function(response){
+			$('#nota'+nota).css({
+				'background-color' : '#6fa414',
+			});
+
+			$('#nota'+nota).animate({
+				height: 0,
+				width: 0,
+				fontSize: 0,
+			}, 700, function(){
+				$('#nota'+nota).remove();
+			});
+
+			notifica('Nota eleminada exitosamente.');
+		}
+	});
 }
 
 function listaNormasDatos(id){
@@ -366,6 +393,10 @@ function proyectoControls(id){
 
 //editar proyecto
 function editarProyecto(id){
+	//limpia
+	reset();
+
+	notificaAtencion('Edicion de proyecto.<br/>Seleccione categorias para mostrar informacion.')
 	//top.location.href = 'index.php?id='+id;
 }
 
@@ -442,14 +473,15 @@ function notifica(text) {
   		type: 'alert',
     	dismissQueue: true,
   		layout: 'topCenter',
-  		closeWith: ['click'], // ['click', 'button', 'hover']
+  		closeWith: ['button'], // ['click', 'button', 'hover']
   	});
   	console.log('html: '+n.options.id);
   	
   	//tiempo para desaparecerlo solo 
-  	setTimeout(function (){
+  	/*setTimeout(function (){
 		n.close();
 	},7000);
+*/
 }
 
 //notificaciones de maxima priridad
@@ -459,7 +491,7 @@ function notificaAtencion(text) {
   		type: 'information',
     	dismissQueue: true,
   		layout: 'topCenter',
-  		closeWith: ['click'], // ['click', 'button', 'hover']
+  		closeWith: ['button'], // ['click', 'button', 'hover']
   	});
   	console.log('html: '+n.options.id);
   	
@@ -477,7 +509,7 @@ function notificaError(text) {
   		type: 'error',
     	dismissQueue: true,
   		layout: 'topCenter',
-  		closeWith: ['click'], // ['click', 'button', 'hover']
+  		closeWith: ['button'], // ['click', 'button', 'hover']
   	});
   	console.log('html: '+n.options.id);
   	

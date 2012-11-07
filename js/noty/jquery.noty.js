@@ -50,6 +50,7 @@ if (typeof Object.create !== 'function') {
 
             // Generating noty bar
             var $bar = $('<div class="noty_bar"></div>').attr('id', this.options.id);
+            $bar.append('<div class="noty_close"><img class="close-image" src="images/close.png"></div>');
             $bar.append(this.options.template).find('.noty_text').html(this.options.text);
 
             this.$bar = (this.options.layout.parent.object !== null) ? $(this.options.layout.parent.object).css(this.options.layout.parent.css).append($bar) : $bar;
@@ -383,7 +384,7 @@ if (typeof Object.create !== 'function') {
         type:'alert',
         text:'',
         dismissQueue:true,
-        template:'<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+        template:'<div class="noty_message"><span class="noty_text"></span></div>',
         animation:{
             open:{height:'toggle'},
             close:{height:'toggle'},
