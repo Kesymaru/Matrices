@@ -19,6 +19,43 @@ if( !isset($_SESSION['logueado']) ){
 
 	$('input[placeholder]').placeholder();
 	$('textarea[placeholder]').placeholder();
+	$('#resetearBuscarProyecto').hide();
+
+	lista();
+
+	function lista(){
+		var query = {'func' : 'menuProyectos'};
+		$.ajax({
+			data: query,
+			url: 'ajax.php',
+			type: 'post',
+			success: function(response){
+				$('#listaProyectos').html(response);
+				$('#listaProyectos #botonNuevoProyecto').hide();
+
+				var alto = $('#content').height() * 0.4;
+				$('#listaProyectos').css('height' , alto);
+
+				$('#resetearBuscarProyecto').fadeOut();
+			}
+		});
+	}
+
+	function buscarProyecto(){
+		notifica('Buscando proyectos.');
+		var buscar = $('#buscarProyecto').val();
+
+		var query = {'func' : 'buscarProyecto', 'buscar' : buscar};
+		$.ajax({
+			data: query,
+			url: 'ajax.php',
+			type: 'post',
+			success: function(response){
+				$('#listaProyectos').html(response);
+				$('#resetearBuscarProyecto').fadeIn();
+			}
+		});
+	}
 
 </script>
 
@@ -30,12 +67,17 @@ if( !isset($_SESSION['logueado']) ){
 
 
 	<div class="center">
+		<p>Seleccione un proyecto</p>
+		<br/>
+		<input type="text" id="buscarProyecto" name="buscarProyecto" placeholder="buscar"><button onClick="buscarProyecto()">Buscar</button>
+		
+		<ul id="listaProyectos">
+		</ul>
 
 	</div>
 
 </div> 
 
 <div class="controls">
-	<button onclick="resetea();">Limpiar</button>
-	<button onclick="enviarCategorias();">Seleccionar</button>
+	<button id="resetearBuscarProyecto" onclick="lista();">Limpiar</button>
 </div>

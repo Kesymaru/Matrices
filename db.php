@@ -252,7 +252,7 @@ function buscarCategorias($busqueda){
 	return $resultado;
 }
 
-//nusca en proyectos, presenta solo los del cliente logueado
+//busca en proyectos, presenta solo los del cliente logueado
 function buscarProyectos($busqueda){
 	$contador = 0;
 	$resultadoTemp = '';
@@ -403,7 +403,6 @@ function menuProyectos(){
 			echo '<li onClick="proyecto('.$row['id'].')">'.$row['nombre'].'</li>';
 		}
 		echo '<li><button id="botonNuevoProyecto" onClick="proyectoNuevo();">Crear Nuevo</button>';
-
 	}
 }
 
@@ -411,40 +410,22 @@ function menuProyectos(){
 	PROYECTOS
 */
 
-function vistaProyectos(){
-	$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'];
+//busca proyecto
+function buscarProyecto($buscar){
+	$sql = "SELECT * FROM proyectos WHERE cliente = ".$_SESSION['id']." AND nombre LIKE '%".$buscar."%' LIMIT 0, 30";
 	$result = mysql_query($sql);
+	$c = 0;
 
-	echo '<ul>';
-	while( $row = mysql_fetch_array($result)){
-		echo '<li id="'.$row['id'].'" onClick="muestraProyecto('.$row['id'].')"> 
-		<img src="images/es.png"><br/>'.$row['nombre'].'
-		</li>';
+	while($row = mysql_fetch_array($result)){
+		echo '<li onClick="proyecto('.$row['id'].')">'.$row['nombre'].'</li>';
+		$c++;
 	}
-	echo '</ul>';
+
+	if($c == 0){
+		echo 'No hay resultados para:<br/>'.$buscar;
+	}
 }
 
-//muestra la lista y selecciona el proyecto
-function vistaProyectosId($id){
-	$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'];
-	$result = mysql_query($sql);
-
-	echo '<ul>';
-	while( $row = mysql_fetch_array($result)){
-
-		if($row['id'] == $id){
-			echo '<li id="'.$row['id'].'" class="seleccionada" onClick="proyecto('.$row['id'].')"> 
-			<img src="images/es.png"><br/>'.$row['nombre'].'
-			</li>';
-		}else{
-			echo '<li id="'.$row['id'].'" onClick="proyecto('.$row['id'].')"> 
-			<img src="images/es.png"><br/>'.$row['nombre'].'
-			</li>';
-		}
-
-	}
-	echo '</ul>';
-}
 
 //muestra el toolbar del los proyectos
 function proyectoControls($id){

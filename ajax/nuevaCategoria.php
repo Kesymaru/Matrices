@@ -114,7 +114,7 @@ if( !isset($_SESSION['logueado']) ){
 
 
 	<div class="center">
-		<p>Puede seleccionar mas de una</p>
+		<p>Puede seleccionar mas de una opción</p>
 		<br/>
 
 		<input type="text" id="buscarCategoria" name="buscarCategoria" placeholder="buscar">

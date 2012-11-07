@@ -826,6 +826,18 @@ header{
 	color: #fff !important;
 }
 
+/* lista de proyectos */
+#listaProyectos{
+	overflow-y: auto; 
+	overflow-x: hidden; 
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+#listaProyectos li{
+	padding: 10px;
+}
+
 input::placeholder{
 	color: #fff !important;
 }

@@ -100,7 +100,9 @@ switch ($_POST['func']){
 		}
 		break;
 
-	/* PROYECTOS */
+	/* 
+		PROYECTOS 
+	*/
 	case 'getProyectos':
 		echo json_encode(getProyectos());
 		break;
@@ -115,29 +117,12 @@ switch ($_POST['func']){
 		echo menuProyectos();
 		break;
 
-	/*
-		VISTA DE PROYECTOS
-	
-	//vista proyecto	
-	case 'vistaProyecto':
-		if(isset($_POST['id'])){
-			echo 'ajax/proyecto.php?id='.$_POST['id'];
-		}else{
-			echo 'ajax/proyecto.php';
+	case 'buscarProyecto':
+		if(isset($_POST['buscar'])){
+			echo buscarProyecto($_POST['buscar']);
 		}
 		break;
 
-	case 'proyectoControls':
-		if(isset($_POST['id'])){
-			echo proyectoControls($_POST['id']);
-		}
-		break;
-	case 'getProyectoNombre':
-		if(isset($_POST['id'])){
-			echo getProyectoNombre($_POST['id']);
-		}
-		break;
-	*/
 	/*
 		AUTOGUARDADO DE ACTIVIDAD O CONSULTA DEL PROYECTO
 	*/
