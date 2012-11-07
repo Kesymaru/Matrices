@@ -172,7 +172,13 @@ function nuevaNota(id){
 			type: 'post',
 			success: function(response){
 				notifica('Nota agregada exitosamente.');
-				//resumenProyecto();
+
+				//recarga el resumen con la nueva nota
+				$('#content #nivel1, #content #nivel2, #resumen').fadeOut(500, function(){
+					$('#content #nivel1, #content #nivel2, #resumen').remove();
+					$('#content').append($('<div id="resumen">').load('ajax/resumen.php?proyecto='+Proyecto));
+				})
+				
 				closeDialogo();
 			}
 		});
@@ -478,10 +484,9 @@ function notifica(text) {
   	console.log('html: '+n.options.id);
   	
   	//tiempo para desaparecerlo solo 
-  	/*setTimeout(function (){
+  	setTimeout(function (){
 		n.close();
-	},7000);
-*/
+	},5000);
 }
 
 //notificaciones de maxima priridad

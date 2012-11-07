@@ -836,6 +836,11 @@ header{
 
 #listaProyectos li{
 	padding: 10px;
+	cursor: pointer;	
+}
+
+#listaProyectos li:hover{
+	background-color: #a1ca4a;
 }
 
 input::placeholder{
@@ -852,4 +857,76 @@ input::-0-placeholder{
 .topControls {
 	display: block;
 	text-align: center;
+}
+
+
+/*
+	RESUMEN
+*/
+#resumen{
+	display: block;
+	font-size: 20px;
+	min-width: 500px;
+	width: 70%;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#resumen button{
+	font-size: 15px !important;
+}
+
+#resumen .tablaResumen{
+	width: 100%;
+	margin: 0 auto;
+	border: 1px solid #dedede;
+	border-collapse: collapse;
+	box-shadow: 0 0 0 2px #f4f4f4;
+	padding: 0;
+}
+
+#resumen .tablaResumen td{
+	padding: 5px;
+}
+
+.tituloResumen{
+	background-color: #6fa414;
+	color: #fff;
+	font-size: 22px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.columnaTituloResumen{
+	background-color: #a1ca4a;
+	color: #fff;
+	font-size: 20px;
+	text-align: center;
+}
+
+.columnaInfoResumen{
+	vertical-align: middle;
+	text-align: center;
+}
+
+.colunmaControlsResumen{
+	text-align: center;
+}
+
+.filaNotaResumen:hover{
+	background-color: #a1ca4a;
+}
+
+.filaNotaResumen:hover .removeNota{
+	display: inline-block;
+	float: right;
+}
+
+.removeNota {
+	z-index: 100;
+	display: none;
+	float: right;
+	margin-right: -20px;
+	margin-top: -15px;
 }

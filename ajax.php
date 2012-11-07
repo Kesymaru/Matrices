@@ -123,6 +123,18 @@ switch ($_POST['func']){
 		}
 		break;
 
+	case 'nuevaNota':
+		if(isset($_POST['proyecto']) && isset($_POST['nota'])){
+			nuevaNota($_POST['proyecto'], $_POST['nota']);
+		}
+		break;
+
+	case 'removeNota':
+		if(isset($_POST['nota'])){
+			removeNota($_POST['nota']);
+		}
+		break;
+
 	/*
 		AUTOGUARDADO DE ACTIVIDAD O CONSULTA DEL PROYECTO
 	*/

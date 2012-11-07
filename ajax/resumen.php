@@ -100,12 +100,14 @@ function notas($id){
 		</tr>';
 
 	while($row = mysql_fetch_array($result)){
-		$notas .= '<tr>
+		$notas .= '<tr class="filaNotaResumen" id="nota'.$row['id'].'">
 				<td colspan="4" '.$columnaNota.'>
 					'.$row['nota'].'
 				</td>
 				<td colspan="2" '.$columnaInfo.'>
-					DATOS USUARIO
+					';
+		$notas .= datosCliente($row['cliente']).'
+				<img src="images/close.png" class="removeNota" onClick="removeNota('.$row['id'].')">
 				</td>
 			</tr>';
 		$c++;
@@ -118,6 +120,17 @@ function notas($id){
 			</tr>';
 
 	return $notas;
+}
+
+function datosCliente($id){
+	$datos = '';
+	$sql = 'SELECT * FROM clientes WHERE id = '.$id;
+	$result = mysql_query($sql);
+	while($row = mysql_fetch_array($result)){
+		$datos.= $row['nombre'];
+	}
+
+	return $datos;
 }
 
 ?>

@@ -448,13 +448,31 @@ function proyectoControls($id){
 		<label for="exportarProyecto" onClick="exportarProyecto('.$id.')">
 		Exportar
 		</label>';
-	//crear
-	echo '<input type="radio" id="nuevoProyecto" name="radio"/>
-		<label for="nuevoProyecto" onClick="proyectoNuevo()">
-		Crear
-		</label>';
 	
 	echo '</div>';
+}
+
+function nuevaNota($proyecto, $nota){
+	$nota = nl2br($nota);
+	$fecha = date("d-m-Y - g:i a");
+	$sql = "INSERT INTO notas (nota, proyecto, fecha, cliente) VALUES ('".$nota."', '".$proyecto."', '".$fecha."', '".$_SESSION['id']."')";
+	mysql_query($sql) or die('Error al guardar nueva nota. '.mysql_error());
+}
+
+function removeNota($nota){
+	$sql = 'DELETE FROM notas WHERE id = '.$nota;
+	mysql_query($sql) or die( 'Error no se podo borrar la nota. '.mysql_error());
+}
+
+function proyectoNotas($id){
+
+	$sql = 'SELECT * FROM notas WHERE proyecto = '.$id;
+	$result = mysql_query($sql);
+	
+	while($row = mysql_fetch_array($result)){
+		echo '<div class="nota">'.$row['nota'].'</div>';
+	}
+
 }
 
 //menu usuario

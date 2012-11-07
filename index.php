@@ -179,7 +179,7 @@ if( !isset($_SESSION['logueado']) ){
 							//fija el proyecto seleccionado
 							setProyecto('.$_GET['proyecto'].');
 							proyectoControls('.$_GET['proyecto'].');
-							resumenProyecto('.$_GET['proyecto'].');
+							resumenProyecto();
 						</script>';
 				}
 
