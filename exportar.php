@@ -10,12 +10,12 @@ if( !isset($_SESSION['logueado']) ){
 }
 
 $host      =    "localhost";
-$user      =    "root";
-//$pass      =    "password";
+$user      =    "matrizroot";
+$pass      =    "Matriz159!!";
 $tablename =    "matriz";
 
 //$conecta = mysql_connect($host,$user,$pass);
-$conecta = mysql_connect($host,$user);
+$conecta = mysql_connect($host,$user,$pass);
 
 mysql_select_db($tablename, $conecta) or die (mysql_error ());
 
