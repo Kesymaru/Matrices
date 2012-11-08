@@ -4,8 +4,8 @@ session_start();
 
 //logueo
 if( !isset($_SESSION['logueado']) ){
-	$home = "login.php";
-	echo "<script type='text/javascript'>top.location.href = '$home';</script>";
+	$redireccion = "login.php";
+	echo "<script type='text/javascript'>top.location.href = '$redireccion';</script>";
 	exit;
 }
 
@@ -13,6 +13,8 @@ $host      =    "localhost";
 $user      =    "matrizroot";
 $pass      =    "Matriz159!!";
 $tablename =    "matriz";
+
+$_SESSION['home'] = 'http://'.$_SERVER['HTTP_HOST'].'/Consilio';
 
 //$conecta = mysql_connect($host,$user,$pass);
 $conecta = mysql_connect($host,$user,$pass);
@@ -39,12 +41,13 @@ function exportarProyecto($id){
 	$nombre = 'proyecto'.$id;
 	$cuerpo = '';
 	$detalles = '';//informacion detallada de las categorias, normas y sus detalles
-	$home = 'http://'.$_SERVER['HTTP_HOST'].'/Consilio';
 
 	$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'].' AND id = '.$id;
 	$result = mysql_query($sql);
 
 	header("Content-Type: application/vnd.ms-excel");
+	//descarga el archivo
+	header("Content-disposition: attachment; filename=".$nombre.".xls");
 
 	//crea el resumen del proyecto
 	while( $row = mysql_fetch_array($result) ){
@@ -78,7 +81,7 @@ function exportarProyecto($id){
 			<td '.$columnaTitulo.'>Estado</td>
 		</tr>';
 
-	$imagen = $home.'/images/logoExcel.png';
+	$imagen = $_SESSION['home'].'/images/logoExcel.png';
 
 	//informacion del informe
 	$footer = '<tr>
@@ -87,36 +90,34 @@ function exportarProyecto($id){
 
 	$footer .= '<tr>
 				<td '.$columnanInfo.'>Fecha:</td>
-				<td colspan="4" '.$columnanInfo.'>'.date("F j Y - g:i a").'</td>
-				<td rowspan="3" colspan="1" '.$logo.'>
+				<td colspan="3" '.$columnanInfo.'>'.date("F j Y - g:i a").'</td>
+				<td rowspan="3" colspan="2" '.$logo.'>
 					<img style="text-align: center; vertical-align: center; margin: 0 auto;" src="'.$imagen.'">
 				</td>';
 
 	$footer .= '<tr>
 				<td '.$columnanInfo.'>Por:</td>
-				<td colspan="5" '.$columnanInfo.'>'.$_SESSION['nombre'].'</td>
+				<td colspan="3" '.$columnanInfo.'>'.$_SESSION['nombre'].'</td>
 				</tr>';
 
 	$footer .= '<tr>
 			<td '.$columnanInfo.'>Generado en:</td>
-			<td colspan="5" '.$columnanInfo.'> 
-				<a href="'.$home.'">Escala.com</a>
+			<td colspan="3" '.$columnanInfo.'> 
+				<a href="'.$_SESSION['home'].'">Escala.com</a>
 			</td>
 			</tr>
 		</table>';
 
 	//crea detalles del proyecto
 	$detalles = detalles($id);
-	
-	//imprime el archivo 
-	echo $encabezado.$cuerpo.$detalles.$footer;
+	$notas = notas($id);
 
-	//descarga el archivo
-	header("Content-disposition: attachment; filename=".$nombre.".xls");
+	//imprime el archivo 
+	echo $encabezado.$cuerpo.$notas.$detalles.$footer;
 }
 
 /*
-	crea la tabla de detalles
+	detalles del informe
 	@param return $detalle 
 */
 
@@ -189,5 +190,67 @@ function infoNorma($id){
 
 	return $info;
 }
+
+function notas($id){
+	$titulo = 'style="background-color: #6fa414; font-bold: bold; color: #fff; font-size: 18pt; text-align: center;"';
+
+	$sql = 'SELECT * FROM notas WHERE proyecto = '.$id;
+	$result = mysql_query($sql);
+
+	$notas = '';
+	$c = 0;
+	
+	$notas .= '<tr>
+			<td colspan="6" '.$titulo.'>
+				Notas
+			</td>
+		</tr>';
+
+	$a = 0;
+	while($row = mysql_fetch_array($result)){
+		//intercala los colores de la fila
+		if($a == 0){
+			$columnaNota = 'style="background-color: #f4f4f4; color: #757374; text-align: left; font-size: 14pt;  vertical-align: middle;"';
+			$a++;
+		}else{
+			$a = 0;
+			$columnaNota = 'style="background-color: #fff; color: #757374; text-align: left; font-size: 14pt;  vertical-align: middle;"';
+		}
+
+		$notas .= '<tr class="filaNotaResumen" id="nota'.$row['id'].' ">
+				<td colspan="4" '.$columnaNota.'>
+					'.$row['nota'].'
+				</td>
+				<td '.$columnaNota.'>
+				';
+		$notas .= datosCliente($row['cliente']).'
+				</td>
+				<td '.$columnaNota.'>';
+		$notas .= imagenCliente($row['cliente']).'
+				</td>
+			</tr>';
+		$c++;
+	}
+
+	return $notas;
+}
+
+function datosCliente($id){
+	$datos = '';
+	$sql = 'SELECT * FROM clientes WHERE id = '.$id;
+	$result = mysql_query($sql);
+	
+	while($row = mysql_fetch_array($result)){
+
+		$datos .= $row['nombre'].'<br/>'.$row['fecha'];
+	}
+	return $datos;
+}
+
+function imagenCliente($id){
+	$datos = '<img src="'.$_SESSION['home'].'/images/users/user.png" >';
+	return $datos;
+}
+
 
 ?>
