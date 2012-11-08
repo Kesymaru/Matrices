@@ -366,6 +366,13 @@ function registro($usuario, $email, $password){
 
 		$sql = "INSERT INTO clientes (email, usuario, contrasena, fecha, status) VALUES ('".$email."', '".$usuario."', '".$password."', '".$fecha."', 1)";
 		mysql_query($sql) or die('Error no se pudo crear nuevo usuario '.mysql_error());
+		
+		//envia correo
+		$password = encripta($password);
+		$mensaje = "Se ha realizado exitosamente el registro:\nUsuario:\t".$usuario."\nPassword:\t".$password;
+		$mensaje .= "\nPuede hacerder en: <a href='http://admin.77digital.com/Consilio'>Matriz</a>\n <hr>Gracias por su tiempo.";
+
+		correo($email, 'Registro Matricez', $mensaje);
 	}else{
 		echo 'Error el usuario o el email ya estan en usu.';
 	}
@@ -387,6 +394,19 @@ function existeUsuario($usuario, $email){
 	if($row = mysql_fetch_array($result)){
 		return true;
 	}
+}
+
+/*
+	ENVIA CORREOS
+*/
+
+//TODO: plantilla para el envio de correos
+function correo($para, $asunto, $mensaje){
+	$headers = 'From: webmaster@matricez.com' . "\r\n" .
+	    'Reply-To: webmaster@matricez.com' . "\r\n" .
+	    'X-Mailer: Matricez PHP /' . phpversion();
+
+	mail($para, $asunto, $mensaje, $headers);
 }
 
 /*

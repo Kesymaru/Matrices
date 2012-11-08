@@ -23,63 +23,6 @@ mysql_query("SET NAMES 'utf8'");
 
 if(isset($_GET['id'])){
 	exportarProyecto($_GET['id']);
-}else{
-	//exporta todos los proyectos del usuario
-	exportar();
-}
-
-//exporta todos los proyectos del usuario, informacion general
-function exportar(){
-	$titulo = 'style="background-color: yellow; font-bold: bold; text-align: center;"';
-	$columnaTitulo = 'style="background-color: blue; color: #fff; font-bold: bold; text-align: center;"';
-	$columna = 'style="text-align: left;"';
-	$reporteInfo = 'style="background-color: red; color: #fff;"';
-	$logo = 'style="width: 200px;"';
-
-	$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'];
-	$result = mysql_query($sql);
-
-	header("Content-Type: application/vnd.ms-excel");
-
-	//rellena exell
-	echo '<table>
-		<tr>
-			<td colspan="6" '.$titulo.'>Proyectos</td>
-		</tr>
-		<tr>
-			<td '.$columnaTitulo.'>Nombre</td>
-			<td colspan="3"'.$columnaTitulo.'>Descripcion</td>
-			<td '.$columnaTitulo.'>Fecha</td>
-			<td '.$columnaTitulo.'>Estado</td>
-		</tr>';
-
-	while( $row = mysql_fetch_array($result) ){
-		
-		echo '<tr>
-			<td '.$columna.'>'.$row['nombre'].'</td>
-			<td colspan="3"'.$columna.'>'.$row['descripcion'].'</td>
-			<td '.$columna.'>'.$row['fecha'].'</td>
-			<td '.$columna.'>';
-
-		if($row['status'] == 0){
-			echo 'Activo';
-		}else{
-			echo 'Finalizado';
-		}
-
-		echo '</td>
-		</tr>';
-	}
-
-	echo '
-		<tr>
-			<td colspan="6" '.$reporteInfo.'> Generado Automaticamente el '.date("d-m-Y").'
-			</td>
-		</tr>
-		</table>';
-
-	//descarga el archivo
-	header("Content-disposition: attachment; filename=proyectos.xls");
 }
 
 //exporta un proyecto
@@ -96,7 +39,7 @@ function exportarProyecto($id){
 	$nombre = 'proyecto'.$id;
 	$cuerpo = '';
 	$detalles = '';//informacion detallada de las categorias, normas y sus detalles
-	$home = 'http://localhost/Matrices/';
+	$home = 'http://'.$_SERVER['HTTP_HOST'].'/Consilio';
 
 	$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'].' AND id = '.$id;
 	$result = mysql_query($sql);
@@ -135,6 +78,8 @@ function exportarProyecto($id){
 			<td '.$columnaTitulo.'>Estado</td>
 		</tr>';
 
+	$imagen = $home.'/images/logoExcel.png';
+
 	//informacion del informe
 	$footer = '<tr>
 			<td colspan="6" '.$tituloInfo.'> Generado Automaticamente</td>
@@ -144,7 +89,7 @@ function exportarProyecto($id){
 				<td '.$columnanInfo.'>Fecha:</td>
 				<td colspan="4" '.$columnanInfo.'>'.date("F j Y - g:i a").'</td>
 				<td rowspan="3" colspan="1" '.$logo.'>
-					<img style="text-align: center; vertical-align: center; margin: 0 auto;" src="http://localhost/Matrices/images/logoExcel.png">
+					<img style="text-align: center; vertical-align: center; margin: 0 auto;" src="'.$imagen.'">
 				</td>';
 
 	$footer .= '<tr>

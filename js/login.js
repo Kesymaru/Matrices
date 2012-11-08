@@ -149,6 +149,7 @@ function registro(){
 					}, 4000);
 
 					notifica('Se ha registrado exitosamente.');
+					notifica(response);
 				}else{
 				    notificaError(response);
 				}
