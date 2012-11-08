@@ -125,7 +125,7 @@ if( isset($_SESSION['logueado']) ){
 			//si no esta reseteando el password
 				if( !isset($_GET['reset'])){	
 			?>
-					<span style="float:right;" onClick="loginbox(1)">Registrarse</span>
+					<span id="registrarse" onClick="loginbox(1)">Registrarse</span>
 			<?php
 				}
 			?>
@@ -158,8 +158,8 @@ if( isset($_SESSION['logueado']) ){
 			</div>
 
 			<div class="controls">
-				<span style="margin-right:-112px;" onClick="registro()" id="registrar">Registrarse</span>
-				<span style="float:right;" onClick="loginbox(2)">Usuarios</span>
+				<span onClick="registro()" id="registrar">Registrarse</span>
+				<span onClick="loginbox(2)">Usuarios</span>
 			</div>
 
 		</div><!-- end registroUsuario -->

@@ -39,9 +39,7 @@ html, body{
 }
 
 #menu .menu{
-	overflow: scroll;
-	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow: auto;
 	height: 70%;
 }
 
@@ -123,6 +121,7 @@ html, body{
 	background-color: #fff;
 	border: 1px solid #dedede;
 	height: 80%;
+	overflow: auto;
 }
 
 /* header */
@@ -507,6 +506,10 @@ header{
 	padding-top: 10px;
 }
 
+.loginbox .ui-button{
+	font-size: 17px !important;
+}
+
 .loginbox input[type="text"], 
 .loginbox input[type="password"], 
 .loginbox input[type="email"]{
@@ -887,7 +890,7 @@ input::-0-placeholder{
 }
 
 #resumen .tablaResumen td{
-	padding: 5px;
+	padding: 10px;
 }
 
 .tituloResumen{
@@ -906,8 +909,7 @@ input::-0-placeholder{
 }
 
 .columnaInfoResumen{
-	vertical-align: middle;
-	text-align: center;
+	text-align: left;
 }
 
 .colunmaControlsResumen{
@@ -918,15 +920,17 @@ input::-0-placeholder{
 	background-color: #a1ca4a;
 }
 
+.removeNota {
+	z-index: 100;
+	display: none;
+	float: right;
+	padding: 0;
+	margin-right: -25px;
+	margin-top: -20px;
+}
+
 .filaNotaResumen:hover .removeNota{
 	display: inline-block;
 	float: right;
 }
 
-.removeNota {
-	z-index: 100;
-	display: none;
-	float: right;
-	margin-right: -20px;
-	margin-top: -15px;
-}

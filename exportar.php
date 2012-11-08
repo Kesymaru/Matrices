@@ -14,8 +14,6 @@ $user      =    "matrizroot";
 $pass      =    "Matriz159!!";
 $tablename =    "matriz";
 
-$_SESSION['home'] = 'http://'.$_SERVER['HTTP_HOST'].'/Consilio';
-
 //$conecta = mysql_connect($host,$user,$pass);
 $conecta = mysql_connect($host,$user,$pass);
 
@@ -45,6 +43,7 @@ function exportarProyecto($id){
 	$sql = 'SELECT * FROM proyectos WHERE cliente = '.$_SESSION['id'].' AND id = '.$id;
 	$result = mysql_query($sql);
 
+	header('Content-Description: File Transfer'); 
 	header("Content-Type: application/vnd.ms-excel");
 	//descarga el archivo
 	header("Content-disposition: attachment; filename=".$nombre.".xls");

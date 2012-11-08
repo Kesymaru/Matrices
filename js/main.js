@@ -200,12 +200,16 @@ function removeNota(nota){
 				'background-color' : '#6fa414',
 			});
 
-			$('#nota'+nota).animate({
+			$('#removeNota'+nota).fadeOut();
+
+			$('#nota'+nota+', '+'#nota'+nota+' img').animate({
 				height: 0,
 				width: 0,
-				fontSize: 0,
+				fontSize: 0
 			}, 700, function(){
-				$('#nota'+nota).remove();
+				$('#nota'+nota).fadeOut(200,function(){
+					$('#nota'+nota).remove();
+				});
 			});
 
 			notifica('Nota eleminada exitosamente.');

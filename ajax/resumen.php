@@ -105,9 +105,8 @@ function notas($id){
 					'.$row['nota'].'
 				</td>
 				<td colspan="2" '.$columnaInfo.'>
-					';
+				<img src="images/close.png" class="removeNota" id="removeNota'.$row['id'].'" onClick="removeNota('.$row['id'].')">';
 		$notas .= datosCliente($row['cliente']).'
-				<img src="images/close.png" class="removeNota" onClick="removeNota('.$row['id'].')">
 				</td>
 			</tr>';
 		$c++;
@@ -126,8 +125,10 @@ function datosCliente($id){
 	$datos = '';
 	$sql = 'SELECT * FROM clientes WHERE id = '.$id;
 	$result = mysql_query($sql);
+
 	while($row = mysql_fetch_array($result)){
-		$datos.= $row['nombre'];
+		$datos .= '<img src="'.$_SESSION['home'].'/images/users/user.png" style="float: left; height: 50px;">';
+		$datos .= $row['nombre'].'<br/>'.$row['fecha'];
 	}
 
 	return $datos;

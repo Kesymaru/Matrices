@@ -14,6 +14,9 @@ mysql_select_db($tablename, $conecta) or die (mysql_error ());
 
 mysql_query("SET NAMES 'utf8'");
 
+//direccion de home
+$_SESSION['home'] = 'http://'.$_SERVER['HTTP_HOST'].'/Consilio';
+
 //muestra el menu de categorias padre
 //TODO agregar imagenes en ves de texto para cada una
 function menu($id){
