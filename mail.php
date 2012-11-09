@@ -1,26 +1,18 @@
 <?php
-	session_start();
+
 /*
-	muestra una lista en el dialogo, con todas las categorias disponibles para agregar al proyecto
+	functiones de envio de correo con plantilla
 */
 
-//logueo
-if( !isset($_SESSION['logueado']) ){
-	$home = $_SESSION['home']."/login.php";
-	header('Location: '.$home);
-	exit;
-}
-
-
 function mailRegistro($para, $usuario, $password){
-	$headers .= 'From: andreyalfaro@gmail.com' . "\r\n";
+	$headers .= 'From: webmaster@matricez.com' . "\r\n";
 	$headers .= 'Reply-To: webmaster@matricez.com' . "\r\n";
 	$headers .= 'X-Mailer: Matricez' . "\r\n";
-	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+	$headers .= "Content-Type: text/html; charset=utf-8\r\n";
 
 	$tema = "Registro Matriz";
 
-	$mensaje = '<!doctype html public>
+	$mensaje = '<!doctype html>
 <head>
 	<meta charset="utf-8">
 	<style type="text/css">
@@ -56,7 +48,24 @@ function mailRegistro($para, $usuario, $password){
 		float: right;
 		height: 80px;
 	}
-
+	.footer{
+		font-size: 12px;
+		width: 100%;
+		display: block;
+		vertical-align: middle;
+	}
+	.footer div{
+		font-size: 12px;
+		border: 0;
+		margin: 0 auto;
+		display: table;
+		text-align: center;
+	}
+	.footer div hr{
+		min-width: 350px;
+		border: 1px solid #747273;
+		vertical-align: middle;
+	}
 	</style>
 </head>
 
@@ -88,7 +97,7 @@ function mailRegistro($para, $usuario, $password){
 	</tr>
 	<tr>
 		<td colspan="2" class="link">
-			<a href="'.$_SESSION['home'].'/login.php?user=USER" >
+			<a href="'.$_SESSION['home'].'/login.php??usuario='.$usuario.'&reset=1" >
 				<img scr="'.$_SESSION['home'].'/images/mailIngresarBoton.png" title="Ingresar" alt="Ingresar">
 			</a>
 			<img class="logo" src="http://admin.77digital.com/Consilio/images/logoMail.png" title="Matriz" alt="Matriz">
@@ -98,6 +107,19 @@ function mailRegistro($para, $usuario, $password){
 <br/>
 <br/>
 <br/>
+<div class="footer">
+	<div>
+		Este mail fue generado automaticamente.<br/>
+		Para mayor informacion y ayuda:
+		<hr>
+		email: webmaster@matricez.com
+		<br/>
+		website: <a href="'.$_SESSION['home'].'">matricez.com</a>
+		<br/>
+		tel: (506)123456
+	</div>
+	<br/>
+</div>
 </body>
 </html>';
 
@@ -106,15 +128,16 @@ function mailRegistro($para, $usuario, $password){
 	}
 }
 
-function mailResetPassword($para, $usuario, $password){
-	$headers .= 'From: andreyalfaro@gmail.com' . "\r\n";
+//envia mail para reseteo de password
+function mailResetPassword($para, $nombre, $usuario, $password){
+	$headers .= 'From: webmaster@matricez.com' . "\r\n";
 	$headers .= 'Reply-To: webmaster@matricez.com' . "\r\n";
 	$headers .= 'X-Mailer: Matricez' . "\r\n";
-	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+	$headers .= "Content-Type: text/html; charset=utf-8\r\n";
 
-	$tema = "Registro Matriz";
+	$tema = "Nueva Contraseña Matricez";
 
-	$mensaje = '<!doctype html public>
+	$mensaje = '<!doctype html>
 <head>
 	<meta charset="utf-8">
 	<style type="text/css">
@@ -150,7 +173,24 @@ function mailResetPassword($para, $usuario, $password){
 		float: right;
 		height: 80px;
 	}
-
+	.footer{
+		font-size: 12px;
+		width: 100%;
+		display: block;
+		vertical-align: middle;
+	}
+	.footer div{
+		font-size: 12px;
+		border: 0;
+		margin: 0 auto;
+		display: table;
+		text-align: center;
+	}
+	.footer div hr{
+		min-width: 350px;
+		border: 1px solid #747273;
+		vertical-align: middle;
+	}
 	</style>
 </head>
 
@@ -161,7 +201,13 @@ function mailResetPassword($para, $usuario, $password){
 <table class="tabla">
 	<tr class="titulo">
 		<td colspan="2">
-			Registro Exitoso
+			Nueva Contraseña
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			Hola, '.$nombre.':<br/>
+			Hace poco has pedido cambiar tu contraseña de Matricez.
 		</td>
 	</tr>
 	<tr class="fila">
@@ -182,7 +228,7 @@ function mailResetPassword($para, $usuario, $password){
 	</tr>
 	<tr>
 		<td colspan="2" class="link">
-			<a href="'.$_SESSION['home'].'/login.php?user=USER" >
+			<a href="'.$_SESSION['home'].'/login.php?usuario='.$usuario.'&reset=1" >
 				<img scr="'.$_SESSION['home'].'/images/mailIngresarBoton.png" title="Ingresar" alt="Ingresar">
 			</a>
 			<img class="logo" src="http://admin.77digital.com/Consilio/images/logoMail.png" title="Matriz" alt="Matriz">
@@ -192,6 +238,19 @@ function mailResetPassword($para, $usuario, $password){
 <br/>
 <br/>
 <br/>
+<div class="footer">
+	<div>
+		Este mail fue generado automaticamente.<br/>
+		Para mayor informacion y ayuda:
+		<hr>
+		email: webmaster@matricez.com
+		<br/>
+		website: <a href="'.$_SESSION['home'].'">matricez.com</a>
+		<br/>
+		tel: (506)123456
+	</div>
+	<br/>
+</div>
 </body>
 </html>';
 

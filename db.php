@@ -1,5 +1,5 @@
 <?php
-	//require_once("mail.php"); 
+	require_once("mail.php"); 
 
 /* Conexion y funcionalidades de la base de datos */
 session_start();
@@ -306,7 +306,6 @@ function logIn($usuario, $password){
 		$_SESSION['skype'] = $row['skype'];
 		$_SESSION['logueado'] = true;
 		$_SESSION['bienvenida'] = false;
-
 	}else{
 		//no es un usuario valido -> mensaje mostrado con notificacion en login.js
 		echo 'El usuario o la contraseña es incorrecta';
@@ -320,44 +319,54 @@ function logOut(){
 	echo 'true';
 }
 
-//resetea password
+//resetea password con el usuario
 function resetPasswordUsuario($usuario){
-	$nuevoPassword = nuevoPassword();
 	$sql = 'SELECT * FROM clientes WHERE usuario = \''.$usuario.'\'';
 	$result = mysql_query($sql);
 
 	if($row = mysql_fetch_array($result)){
 		$password = resetPassword();
-		echo 'Se ha enviado el nuevo password al email. '.$password;
+
+		//envia email con datos
+		mailResetPassword($row['email'], $row['nombre'], $usuario, $password);
+
+		//mensaje mostrado en login.php
+		echo 'Se ha enviado el nuevo password a tu email.';
 
 		//lo guarda en la base de datos
 		$password = encripta($password);
 		$sql = 'UPDATE clientes SET contrasena = \''.$password.'\' WHERE usuario = \''.$usuario.'\'';
-		mysql_query($sql) or die('Error no se pudo resetaer el password.');
+		mysql_query($sql) or die('Error no se pudo resetear el password.');
 	}
 }
 
+//resetea con el email
 function resetPasswordEmail($email){
-	$nuevoPassword = nuevoPassword();
 	$sql = 'SELECT * FROM clientes WHERE email = \''.$email.'\'';
 	$result = mysql_query($sql);
 
 	if($row = mysql_fetch_array($result)){
 		$password = resetPassword();
-		echo 'Se ha enviado el nuevo password al email. '.$password;
 		
+		//envia email con datos
+		mailResetPassword($row['email'], $row['nombre'], $usuario, $password);
+
+		//mensaje mostrado en login.php
+		echo 'Se ha enviado el nuevo password a tu email.';
+
 		//lo guarda en la base de datos
 		$password = encripta($password);
 		$sql = 'UPDATE clientes SET contrasena = \''.$password.'\' WHERE email = \''.$email.'\'';
-		mysql_query($sql) or die('Error no se pudo resetaer el password.');
+		mysql_query($sql) or die('Error no se pudo resetear el password.');
 	}
 }
 
 //resetea el password por uno aleatoria
 function resetPassword(){
+
 	$passwordAleatorio = md5(uniqid(rand()));
  
-	//toma los primeros 8 digitas
+	//toma los primeros 8 digitos
 	$password = substr($passwordAleatorio, 0, 8);
 
 	return $password;
@@ -370,13 +379,13 @@ function registro($usuario, $email, $password){
 		$password = encripta($password);
 		$fecha = date("d-m-Y");
 
-		$sql = "INSERT INTO clientes (email, usuario, contrasena, fecha, status) VALUES ('".$email."', '".$usuario."', '".$password."', '".$fecha."', 1)";
+		$sql = "INSERT INTO clientes (nombre, email, usuario, contrasena, fecha, status) VALUES ('".$usuario."', '".$email."', '".$usuario."', '".$password."', '".$fecha."', 1)";
 		mysql_query($sql) or die('Error no se pudo crear nuevo usuario '.mysql_error());
 		
-		//envia correo
+		//password sin encriptar para email
 		$password = encripta($password);
-
-		//mailRegistro($email, $usuario, $password);
+		//envia correo
+		mailRegistro($email, $usuario, $password);
 	}else{
 		echo 'Error el usuario o el email ya estan en usu.';
 	}
@@ -614,9 +623,6 @@ function encripta($text){
 	return $text;
 }
 
-function nuevoPassword(){
-	return 'temporal';
-}
 
 /*
 	REGISTRA LA ACTIVIDAD DEL PROYECTO AUTOGUARDADO

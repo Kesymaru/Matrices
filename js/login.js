@@ -66,18 +66,17 @@ function logIn(){
 			success:  function (response) { 
 
 				if(response.length > 0){
-					notificaError(response);
 					console.log('no logueado');
+					notificaError(response);
 				}else{
 					console.log('logueado');
 				    top.location.href = 'index.php';
 				}
-				$('html').append(response);
 			}
 		});
 	}else{
-		notificaError('Datos no validos.')
 		console.log('Datos no validos');
+		notificaError('Datos no validos.')
 	}
 }
 
@@ -98,6 +97,7 @@ function resetar(){
 				success:  function (response) { 
 					if(response.length > 0){
 						notifica(response);
+						console.log(response);
 						reseteado = true;
 						return;
 					}
@@ -116,6 +116,7 @@ function resetar(){
 			success:  function (response) { 
 				if(response.length > 0){
 					notifica(response);
+					console.log(response);
 					reseteado = true;
 					return;
 				}
@@ -123,6 +124,7 @@ function resetar(){
 		});
 	}
 
+	//muestra errores
 	if(usuario != '' && email != '' && !reseteado ){
 		notificaError('Error usuario y email no registrados.');
 	}else if(usuario != '' && !reseteado ){
@@ -155,13 +157,11 @@ function registro(){
 
 				if(response.length == 0){
 
-				    
 				    setTimeout(function() {
-  						window.location.href = "login.php?usuario="+usuario;
+  						window.location.href = "login.php?usuario="+usuario+"&reset=2";
 					}, 4000);
 
-					notifica('Se ha registrado exitosamente.');
-					notifica(response);
+					notificaAtencion('Se ha registrado exitosamente.<br/>Ya pudes entrar a Matricez.');
 				}else{
 				    notificaError(response);
 				}
@@ -179,39 +179,52 @@ function registro(){
 
 //usa noty (jquery plugin) para notificar 
 function notifica(text) {
-	  	var n = noty({
-	  		text: text,
-	  		type: 'alert',
-	    	dismissQueue: true,
-	  		layout: 'topCenter',
-	  		closeWith: ['click'], // ['click', 'button', 'hover']
-	  	});
-	  	console.log('html: '+n.options.id);
+	var n = noty({
+	  	text: text,
+	  	type: 'alert',
+	    dismissQueue: true,
+	  	layout: 'topCenter',
+	  	closeWith: ['button'], // ['click', 'button', 'hover']
+	});
+	console.log('html: '+n.options.id);
 	  	
-	  	//tiempo para desaparecerlo solo 
-	  	/*
-	  	setTimeout(function (){
-			n.close();
-		},3000);
-	*/
+	//tiempo para desaparecerlo solo 
+	setTimeout(function (){
+		n.close();
+	},5000);
 }
 
 //notifica errores
 function notificaError(text) {
-	  	var n = noty({
-	  		text: text,
-	  		type: 'error',
-	    	dismissQueue: true,
-	  		layout: 'topCenter',
-	  		closeWith: ['click'], // ['click', 'button', 'hover']
-	  	});
-	  	console.log('html: '+n.options.id);
+	var n = noty({
+	  	text: text,
+	  	type: 'error',
+	    dismissQueue: true,
+	  	layout: 'topCenter',
+	  	closeWith: ['button'], // ['click', 'button', 'hover']
+	});
+	console.log('html: '+n.options.id);
 	  	
-	  	//tiempo para desaparecerlo solo 
-	  	/*
-	  	setTimeout(function (){
-			n.close();
-		},3000);
-	*/
+	//tiempo para desaparecerlo solo 
+	setTimeout(function (){
+		n.close();
+	},7000);
+}
+
+//notificaciones de maxima priridad
+function notificaAtencion(text) {
+  	var n = noty({
+  		text: text,
+  		type: 'information',
+    	dismissQueue: true,
+  		layout: 'topCenter',
+  		closeWith: ['button'], // ['click', 'button', 'hover']
+  	});
+  	console.log('html: '+n.options.id);
+  	
+  	//tiempo para desaparecerlo solo 
+  	setTimeout(function (){
+		n.close();
+	},10000);
 }
 

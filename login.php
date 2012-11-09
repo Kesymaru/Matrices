@@ -1,5 +1,5 @@
 <?php 
-//require_once("db.php"); 
+	session_start();
 
 //logueo
 if( isset($_SESSION['logueado']) ){

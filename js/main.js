@@ -275,6 +275,7 @@ function editarUsuario(){
 			notifica('Se ha cambiado el password exitosamente.');
 		}
 		notifica('Datos actualizados exitosamente.');
+		closeDialogo();
     }else{
     	notificaError('Error datos invalidos.')
     }
