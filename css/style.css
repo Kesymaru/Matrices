@@ -250,7 +250,7 @@ header{
 }
 
 /* search */
-#search{
+#search {
 	width: 250px;
 	margin-left: 10px;
 	background-color: #a1ca4a;
@@ -263,17 +263,34 @@ header{
 	font-size: 20px;
 }
 
-#search input, #search button{
+.search{
+	background-color: #a1ca4a;
+	border: 0;
+	margin: 0;
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+	font-size: 20px;
+	padding: 8px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+
+#search input, 
+#search button,
+.search input,
+.search button{
 	display: inline-block;
 }
 
-#search input[type="text"]{
+#search input[type="text"],
+.search input[type="text"]{
 	width: 200px;
 	border: 0 solid transparent !important;
-	padding: 0;
-	margin-right: 0;
-	color: #fff;
-	background-color: #a1ca4a;
+	padding: 0 !important;
+	margin-right: 0 !important;
+	color: #fff !important;
+	background-color: #a1ca4a !important;
 	font-size: 20px;
 
 		-o-box-shadow: none; /* Opera */
@@ -281,9 +298,15 @@ header{
 		-moz-box-shadow: none; /* Firefox */
 		-webkit-box-shadow: none; /* Safari and Chrome */
 	box-shadow: none;
+	text-align: left !important;
 }
 
-#search ::-webkit-input-placeholder {
+.search input{
+	margin:  0 !important;
+}
+
+#search ::-webkit-input-placeholder, 
+.search ::-webkit-input-placeholder{
    	color: #fff !important;  
    	border: 0 !important;
 
@@ -294,7 +317,8 @@ header{
 	box-shadow: none;
 }
 
-#search input:-moz-placeholder {  
+#search input:-moz-placeholder,
+.search input:-moz-placeholder{  
    	color: #fff !important;  
    	border: 0 !important;
    		-ms-box-shadow: none; /* IE 9 */
@@ -305,7 +329,11 @@ header{
 }
 
 #search input[type="submit"],
-#search input[type="submit"]:active{
+#search input[type="submit"]:active,
+.search input[type="submit"],
+.search input[type="submit"]:active,
+.search button,
+.search button:active{
 	width: 40px;
 	height: 20px;
 	border: 0 solid transparent !important;
@@ -313,6 +341,25 @@ header{
 	color: transparent !important; 
 	background-color: transparent !important;
 	padding: 0;
+}
+
+.search img{
+	height: 25px;
+	border: 0 solid transparent !important;
+	border-left: 1px solid #fff !important;
+	color: transparent !important; 
+	background-color: transparent !important;
+	padding: 0;
+	float: right;
+}
+
+.search input[type="submit"],
+.search input[type="submit"]:active,
+.search button,
+.search button:active{
+	border: none !important;
+	border-radius:  none !important;
+	margin-bottom: 8px !important; 
 }
 
 /* 
@@ -822,6 +869,7 @@ header{
 	font-size: 20px;
 	font-weight: bold;
 	padding: 10px;
+	cursor: pointer;
 }
 
 .seleccion .seleccionada{
@@ -833,7 +881,6 @@ header{
 #listaProyectos{
 	overflow-y: auto; 
 	overflow-x: hidden; 
-	margin-top: 10px;
 	margin-bottom: 20px;
 }
 

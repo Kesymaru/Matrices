@@ -1,13 +1,12 @@
 <?php 
-	require_once("db.php"); 
+//require_once("db.php"); 
 
 //logueo
 if( isset($_SESSION['logueado']) ){
-	$home = "index.php";
+	$home = "/index.php";
 	echo "<script type='text/javascript'>top.location.href = '$home';</script>";
 	exit;
 }
-
 
 ?>
 <!doctype html public>
@@ -33,19 +32,19 @@ if( isset($_SESSION['logueado']) ){
 	<script src="js/jquery-ui-1.9.0.custom.js"></script>
 	
 	<!-- validacion de form -->
-	<script src="js/languages/jquery.validationEngine-es.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/languages/jquery.validationEngine-es.js" ></script>
+	<script src="js/jquery.validationEngine.js" ></script>
 
 	<!-- placeholder para ie -->
-	<script src="js/jquery.placeholder.js" type="text/javascript"></script>
+	<script src="js/jquery.placeholder.js" ></script>
 
 	<!-- notificaciones -->
-	<script src="js/noty/jquery.noty.js" type="text/javascript"></script>
-	<script type="text/javascript" src="js/noty/layouts/topCenter.js"></script>
-	<script type="text/javascript" src="js/noty/themes/default.js"></script>
+	<script src="js/noty/jquery.noty.js"></script>
+	<script src="js/noty/layouts/topCenter.js"></script>
+	<script src="js/noty/themes/default.js"></script>
 	
 	<!-- login -->
-	<script src="js/login.js" type="text/javascript"></script>
+	<script src="js/login.js"></script>
 
 </head>
 
@@ -78,7 +77,7 @@ if( isset($_SESSION['logueado']) ){
 			<div class="contenido" id="login">
 
 				<div class="etiquetas">Usuario</div>
-				<input type="text" class="validate[required,custom[onlyLetterSp]]" placeholder="Usuario" id="usuario" name="usuario"
+				<input type="text" class="validate[required]" placeholder="Usuario" id="usuario" name="usuario"
 				<?php
 					if(isset($_GET['usuario'])){
 						echo 'value="'.$_GET['usuario'].'"';
@@ -133,7 +132,7 @@ if( isset($_SESSION['logueado']) ){
 		</div>
 		<!-- end usuarios -->
 <?php
-	//si no bien de reset
+	//si no biene de reset
 	if(!isset($_GET['reset'])){
 ?>
 		<div id="registroUsuarios" >

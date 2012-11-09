@@ -15,6 +15,8 @@ $(document).ready(function(){
     	$('.etiquetas').show();
     }
 
+    notifica('Hola');
+
 });
 
 function loginbox(cambio){

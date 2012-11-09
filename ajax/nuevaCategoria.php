@@ -43,6 +43,8 @@ if( !isset($_SESSION['logueado']) ){
 		selecciones = [];
 		c = 0;
 
+		$('#buscarCategoria').val('');
+		
 		//resetea cualquier busqueda
 		categorias();
 	}
@@ -117,9 +119,11 @@ if( !isset($_SESSION['logueado']) ){
 		<p>Puede seleccionar mas de una opción</p>
 		<br/>
 
-		<input type="text" id="buscarCategoria" name="buscarCategoria" placeholder="buscar">
-		
-		<button onClick="buscarCategoriasSeleccion();">Buscar</button>
+
+		<div class="search">
+			<input type="text" id="buscarCategoria" name="buscarCategoria" placeholder="buscar">
+			<img src="images/search.png" onClick="buscarCategoriasSeleccion();" title="Buscar">
+		</div>
 
 		<div class="seleccion" id="categorias">
 

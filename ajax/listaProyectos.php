@@ -6,7 +6,7 @@
 
 //logueo
 if( !isset($_SESSION['logueado']) ){
-	$home = "/Matrices/login.php";
+	$home = $_SESSION['home']."/login.php";
 	echo "<script type='text/javascript'>top.location.href = '$home';</script>";
 	exit;
 }
@@ -23,6 +23,7 @@ if( !isset($_SESSION['logueado']) ){
 
 	lista();
 
+	//muestra la lista
 	function lista(){
 		var query = {'func' : 'menuProyectos'};
 		$.ajax({
@@ -39,6 +40,8 @@ if( !isset($_SESSION['logueado']) ){
 				$('#resetearBuscarProyecto').fadeOut();
 			}
 		});
+
+		$('#buscarProyecto').val('');
 	}
 
 	function buscarProyecto(){
@@ -69,8 +72,11 @@ if( !isset($_SESSION['logueado']) ){
 	<div class="center">
 		<p>Seleccione un proyecto</p>
 		<br/>
-		<input type="text" id="buscarProyecto" name="buscarProyecto" placeholder="buscar"><button onClick="buscarProyecto()">Buscar</button>
 		
+		<div class="search">
+			<input type="text" id="buscarProyecto" name="buscarProyecto" placeholder="buscar"><img src="images/search.png" onClick="buscarProyecto()" title="Buscar">
+		</div>
+
 		<ul id="listaProyectos">
 		</ul>
 

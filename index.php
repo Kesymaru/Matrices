@@ -3,11 +3,13 @@
 
 
 //logueo
+/*
 if( !isset($_SESSION['logueado']) ){
-	$home = "login.php";
+	$home = $_SESSION['home']."/login.php";
 	echo "<script type='text/javascript'>top.location.href = '$home';</script>";
 	exit;
 }
+*/
 
 ?>
 <!doctype html public>
@@ -27,23 +29,23 @@ if( !isset($_SESSION['logueado']) ){
 	<link rel="stylesheet" href="css/jquery-ui-1.9.0.custom.css" type="text/css">
 	<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css">
 
-	<script src="js/jquery-1.8.2.js"></script>
-	<script src="js/jquery-ui-1.9.0.custom.js"></script>
+	<script type="text/javascript" src="js/jquery-1.8.2.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.9.0.custom.js"></script>
 	
 	<!-- validacion de form -->
-	<script src="js/languages/jquery.validationEngine-es.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="js/languages/jquery.validationEngine-es.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/jquery.validationEngine.js" charset="utf-8"></script>
 
 	<!-- placeholder para ie -->
 	<script src="js/jquery.placeholder.js" type="text/javascript"></script>
 
 	<!-- notificaciones -->
-	<script src="js/noty/jquery.noty.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/noty/jquery.noty.js" ></script>
 	<script type="text/javascript" src="js/noty/layouts/topCenter.js"></script>
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 
-	<script src="js/main.js" type="text/javascript"></script>
-	<script src="js/style.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/style.js"></script>
 	
 </head>
 

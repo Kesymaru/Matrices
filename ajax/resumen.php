@@ -6,7 +6,7 @@
 
 //logueo
 if( !isset($_SESSION['logueado']) ){
-	$home = "/Matrices/login.php";
+	$home = $_SESSION['home']."/login.php";
 	echo "<script type='text/javascript'>top.location.href = '$home';</script>";
 	exit;
 }

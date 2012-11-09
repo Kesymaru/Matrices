@@ -372,10 +372,8 @@ function registro($usuario, $email, $password){
 		
 		//envia correo
 		$password = encripta($password);
-		$mensaje = "Se ha realizado exitosamente el registro:\nUsuario:\t".$usuario."\nPassword:\t".$password;
-		$mensaje .= "\nPuede hacerder en: <a href='http://admin.77digital.com/Consilio'>Matriz</a>\n <hr>Gracias por su tiempo.";
 
-		correo($email, 'Registro Matricez', $mensaje);
+		//mailRegistro($email, $usuario, $password);
 	}else{
 		echo 'Error el usuario o el email ya estan en usu.';
 	}
@@ -397,19 +395,6 @@ function existeUsuario($usuario, $email){
 	if($row = mysql_fetch_array($result)){
 		return true;
 	}
-}
-
-/*
-	ENVIA CORREOS
-*/
-
-//TODO: plantilla para el envio de correos
-function correo($para, $asunto, $mensaje){
-	$headers = 'From: webmaster@matricez.com' . "\r\n" .
-	    'Reply-To: webmaster@matricez.com' . "\r\n" .
-	    'X-Mailer: Matricez PHP /' . phpversion();
-
-	mail($para, $asunto, $mensaje, $headers);
 }
 
 /*
@@ -628,30 +613,6 @@ function encripta($text){
 
 function nuevoPassword(){
 	return 'temporal';
-}
-
-/*
-	ENVIA EMAILS DEL SISTEMA
-*/
-
-function mailResetPassword($para, $password){
-
-$admin = 'andreyalfaro@gmail.com';
-$tema = "Contraseña Nueva";
-$mensaje = "Su contraseña nueva es:
-<br/>
-Contraseña: $emailpassword
-<br/><br/>
-Para incresar http://localhost/Matrices/
-<br/><br/>
-Este correo ha sido generado automaticamente."; 
- 
-	if(!mail($para, $tema, $mensaje,  "FROM: $admin")){
-		die ("Sending Email Failed, Please Contact Site Admin! ($admin)");
-	}else{
-		error('New Password Sent!.');
-	} 
-
 }
 
 /*
