@@ -1,4 +1,6 @@
 <?php
+	//require_once("mail.php"); 
+
 /* Conexion y funcionalidades de la base de datos */
 session_start();
 
@@ -304,8 +306,9 @@ function logIn($usuario, $password){
 		$_SESSION['skype'] = $row['skype'];
 		$_SESSION['logueado'] = true;
 		$_SESSION['bienvenida'] = false;
+
 	}else{
-		//no es un usuario valido
+		//no es un usuario valido -> mensaje mostrado con notificacion en login.js
 		echo 'El usuario o la contraseña es incorrecta';
 	}
 }

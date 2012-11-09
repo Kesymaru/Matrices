@@ -1,15 +1,12 @@
 <?php 
 	require_once("db.php"); 
 
-
 //logueo
-/*
 if( !isset($_SESSION['logueado']) ){
 	$home = $_SESSION['home']."/login.php";
-	echo "<script type='text/javascript'>top.location.href = '$home';</script>";
+	header('Location: '.$home);
 	exit;
 }
-*/
 
 ?>
 <!doctype html public>
@@ -28,6 +25,7 @@ if( !isset($_SESSION['logueado']) ){
 	<link rel="stylesheet" href="css/style.css" type="text/css">
 	<link rel="stylesheet" href="css/jquery-ui-1.9.0.custom.css" type="text/css">
 	<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800italic,800,600,400italic,600italic,700italic' rel='stylesheet' type='text/css'>
 
 	<script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.9.0.custom.js"></script>

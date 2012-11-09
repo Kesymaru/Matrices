@@ -3,8 +3,8 @@
 
 //logueo
 if( isset($_SESSION['logueado']) ){
-	$home = "/index.php";
-	echo "<script type='text/javascript'>top.location.href = '$home';</script>";
+	$home = $_SESSION['home']."/index.php";
+	header('Location: '.$home);
 	exit;
 }
 
@@ -27,27 +27,26 @@ if( isset($_SESSION['logueado']) ){
 	<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css">
 
 	<!-- jquery -->
-	<script src="js/jquery-1.8.2.js"></script> 
+	<script type="text/javascript" src="js/jquery-1.8.2.js"></script> 
 	<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
-	<script src="js/jquery-ui-1.9.0.custom.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.9.0.custom.js"></script>
 	
 	<!-- validacion de form -->
-	<script src="js/languages/jquery.validationEngine-es.js" ></script>
-	<script src="js/jquery.validationEngine.js" ></script>
+	<script type="text/javascript" src="js/languages/jquery.validationEngine-es.js" ></script>
+	<script type="text/javascript" src="js/jquery.validationEngine.js" ></script>
 
 	<!-- placeholder para ie -->
-	<script src="js/jquery.placeholder.js" ></script>
+	<script type="text/javascript" src="js/jquery.placeholder.js" ></script>
 
 	<!-- notificaciones -->
-	<script src="js/noty/jquery.noty.js"></script>
-	<script src="js/noty/layouts/topCenter.js"></script>
-	<script src="js/noty/themes/default.js"></script>
+	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
+	<script type="text/javascript" src="js/noty/layouts/topCenter.js"></script>
+	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 	
 	<!-- login -->
 	<script src="js/login.js"></script>
 
 </head>
-
 <body>
 
 	<header>

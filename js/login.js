@@ -15,8 +15,10 @@ $(document).ready(function(){
     	$('.etiquetas').show();
     }
 
-    notifica('Hola');
-
+    //logIn
+    $('#formID').submit(function() {
+		return false;
+	});
 });
 
 function loginbox(cambio){
@@ -47,8 +49,11 @@ function formRecuperacion(){
 
 //loguear
 function logIn(){
+	console.log('llamada logIn');
+
 	//si son validos los datos
 	if ( $('#formID').validationEngine('validate') ){
+		console.log('Datos validos');
 
 		var usuario = $('#usuario').val();
 		var password = $('#password').val();
@@ -62,13 +67,18 @@ function logIn(){
 
 				if(response.length > 0){
 					notificaError(response);
+					console.log('no logueado');
 				}else{
+					console.log('logueado');
 				    top.location.href = 'index.php';
 				}
+				$('html').append(response);
 			}
 		});
+	}else{
+		notificaError('Datos no validos.')
+		console.log('Datos no validos');
 	}
-
 }
 
 //resetea password
@@ -179,9 +189,11 @@ function notifica(text) {
 	  	console.log('html: '+n.options.id);
 	  	
 	  	//tiempo para desaparecerlo solo 
+	  	/*
 	  	setTimeout(function (){
 			n.close();
 		},3000);
+	*/
 }
 
 //notifica errores
@@ -196,8 +208,10 @@ function notificaError(text) {
 	  	console.log('html: '+n.options.id);
 	  	
 	  	//tiempo para desaparecerlo solo 
+	  	/*
 	  	setTimeout(function (){
 			n.close();
 		},3000);
+	*/
 }
 

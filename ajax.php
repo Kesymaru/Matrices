@@ -35,6 +35,7 @@ switch ($_POST['func']){
 	/*
 		USUARIOS
 	*/
+
 	//para loguear usuarios
 	case 'logIn':
 		if(isset($_POST['usuario']) && isset($_POST['password'])){

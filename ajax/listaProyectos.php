@@ -7,7 +7,7 @@
 //logueo
 if( !isset($_SESSION['logueado']) ){
 	$home = $_SESSION['home']."/login.php";
-	echo "<script type='text/javascript'>top.location.href = '$home';</script>";
+	header('Location: '.$home);
 	exit;
 }
 

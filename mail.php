@@ -1,10 +1,16 @@
 <?php
-	//require_once("db.php"); 
+	session_start();
 /*
 	muestra una lista en el dialogo, con todas las categorias disponibles para agregar al proyecto
 */
 
 //logueo
+if( !isset($_SESSION['logueado']) ){
+	$home = $_SESSION['home']."/login.php";
+	header('Location: '.$home);
+	exit;
+}
+
 
 function mailRegistro($para, $usuario, $password){
 	$headers .= 'From: andreyalfaro@gmail.com' . "\r\n";
