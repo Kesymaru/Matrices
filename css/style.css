@@ -1006,4 +1006,17 @@ input::-0-placeholder{
 #compartir .box{
 	float: none !important;
 	display: inline-block;
+	width: 70% !important;
+}
+
+#compartir hr{
+	display: inline-block;
+	border: 1px solid #dedede;
+	margin: 0 auto;
+	width: 25%;
+	vertical-align: middle;
+}
+
+.icon{
+	cursor: pointer;
 }
