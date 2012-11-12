@@ -251,5 +251,4 @@ function imagenCliente($id){
 	return $datos;
 }
 
-
 ?>
