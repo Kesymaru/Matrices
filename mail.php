@@ -4,6 +4,7 @@
 	functiones de envio de correo con plantilla
 */
 
+//mail de registro
 function mailRegistro($para, $usuario, $password){
 	$headers .= 'From: webmaster@matricez.com' . "\r\n";
 	$headers .= 'Reply-To: webmaster@matricez.com' . "\r\n";
