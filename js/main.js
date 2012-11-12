@@ -57,7 +57,7 @@ $(document).ready(function(){
     $('#mensajeInicial button').button();
 });
 
-//menu
+//menu de categorias
 function menu(id){
 	$('#mensajeInicial').hide();
 	$('#resultadoBusqueda').hide();
@@ -133,7 +133,7 @@ function seleccionaGeneralidad(id){
 //limpia y resetea muestras de ajax
 function reset(){
 
-	$('#content #nivel1, #content #nivel2, #resumen').remove();
+	$('#content #nivel1, #content #nivel2, #resumen, #edicion').remove();
 	//remueve consultas de generalidades
 	$('.box').remove();
 }
@@ -323,6 +323,8 @@ function nuevoProyecto(){
 				        success:  function (response) { 
 				        	resetMenuProyectos();
 				        	notifica('Proyecto creado exitosamente.');
+				        	//cierra el dialogo
+				        	closeDialogo();
 				        }
 					});
 				}else{
@@ -371,6 +373,7 @@ function resetMenuProyectos(){
 /*
 	PROYECTOS
 */
+//actualiza el Proyecto seleccionado
 function setProyecto(proyecto){
 	Proyecto = proyecto;
 	console.log(Proyecto);
@@ -402,19 +405,29 @@ function proyectoControls(id){
 
 }
 
-//editar proyecto
+//Activa la edicion del proyecto
 function editarProyecto(id){
-	//limpia
+	//limpia cargas anteriores
 	reset();
+	$('#nivel1').fadeIn();
+	$('#nivel2').fadeIn();
 
+	//resetea categoria en caso de que no haya una seleccionada
+	if(Categoria == null || Categoria == ''){
+		Categoria = 0;
+	}
+
+	//carga con ajax
+	$('#content').append($('<div id="edicion">').load('ajax/editar.php?proyecto='+Proyecto+'&categoria='+Categoria));
+	
 	notificaAtencion('Edicion de proyecto.<br/>Seleccione categorias para mostrar informacion.')
-	//top.location.href = 'index.php?id='+id;
 }
 
 //exportar proyecto seleccionado
 function exportarProyecto(id){
 	notificaAtencion('Exportando Proyecto.<br/>Asegurese de guardar el archivo en su disco duro.');
 	top.location.href = 'exportar.php?id='+id;
+	//TODO mas opciones de exportar ->PDF y excel
 }
 
 //muestra la lista de proyectos en un dialogo
@@ -448,6 +461,8 @@ function borrarCategoria(){
 	//notifica('borrar categoria');
 	var borra = $('#menu .menu .seleccionada :first').attr('id');
 	console.log(borra);
+
+	$('#'+borra).remove();
 }
 
 //resive el array con todas las selecciones

@@ -352,6 +352,7 @@ header{
 	background-color: transparent !important;
 	padding: 0;
 	float: right;
+	cursor: pointer;
 }
 
 .search input[type="submit"],
@@ -909,7 +910,17 @@ input::-0-placeholder{
 	display: block;
 	text-align: center;
 }
-
+/*
+	EDICION
+*/
+#edicion{
+	display: block;
+	font-size: 20px;
+	width: 100%;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
 
 /*
 	RESUMEN
