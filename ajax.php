@@ -1,4 +1,5 @@
 <?php
+
 //base de datos
 require_once("db.php");
 
