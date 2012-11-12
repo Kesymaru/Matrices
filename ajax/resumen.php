@@ -1,7 +1,8 @@
 <?php
 	require_once("../db.php"); 
 /*
-	muestra una lista en el dialogo, con todas las categorias disponibles para agregar al proyecto
+	Crea el resumen del proyecto
+	resive el id del proyecto 
 */
 
 //logueo
@@ -13,7 +14,7 @@ if( !isset($_SESSION['logueado']) ){
 
 //obtiene id
 if(isset($_GET['proyecto'])){
-	exportarProyecto($_GET['proyecto']);
+	resumenProyecto($_GET['proyecto']);
 }
 
 ?>
@@ -23,8 +24,9 @@ if(isset($_GET['proyecto'])){
 
 <?php
 
-//exporta un proyecto
-function exportarProyecto($id){
+//crea el resumen del proyecto
+// @param id -> id del proyecto
+function resumenProyecto($id){
 	$tabla = 'class="tablaResumen"';
 	$titulo = 'class="tituloResumen"';
 	$columnaTitulo = 'class="columnaTituloResumen"';
@@ -79,7 +81,8 @@ function exportarProyecto($id){
 	echo $encabezado.$cuerpo.$notas.$footer;
 }
 
-
+//muestra todas las notas del proyecto
+// @param id -> id del proyecto
 function notas($id){
 	$titulo = 'class="tituloResumen"';
 	$columnaTitulo = 'class="columnaTituloResumen"';
@@ -121,6 +124,8 @@ function notas($id){
 	return $notas;
 }
 
+//muestra nombre e imagen del usuario para la nota
+// @param id -> id del cliente 
 function datosCliente($id){
 	$datos = '';
 	$sql = 'SELECT * FROM clientes WHERE id = '.$id;
