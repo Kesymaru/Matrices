@@ -34,32 +34,25 @@ function editar($proyecto, $categoria){
 		<div id="nivel1">
 
 				<div id="listaNormas">
-					
+					<?php 
+					$norma = listaNormas($categoria); 
+					?>
 				</div>
 				<div id="generalidades">
-					
+					<?php generalidades(); ?>
 				</div>
 
-			</div><!-- end nivel 1-->
+		</div><!-- end nivel 1-->
 
 			<div id="nivel2">
 				<div id="columna1">
 					<!-- -->
-					<div id="descripcionNorma">
-						
-						<div class="nombreNorma">
-							TODO titulo ajax categoria
-						</div>
-						<div>
-							TODO descripcion
-						</div>
-						
-					</div>
+					<?php descripcionNorma($norma); ?>
 					<!-- -->
 				</div> <!-- end columna1-->
 
 				<div id="columna2">
-					<!-- -->
+					<!-- 
 					<div class="box">
 						TODO ajax para mostrar informacion de subcategorias<br/>
 						TODO mansory para acomodar las columnas
@@ -82,7 +75,7 @@ function editar($proyecto, $categoria){
 						TODO ajax para mostrar informacion de subcategorias<br/>
 						TODO mansory para acomodar las columnas
 					</div>
-					<!-- MODELO PARA BOX -->
+					 MODELO PARA BOX -->
 					
 				</div><!--end columna2 -->
 
