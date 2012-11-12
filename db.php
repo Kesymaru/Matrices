@@ -41,8 +41,9 @@ function menu($id){
 }
 
 //MUESTRA LA LISTA DE NORMAS
+// @param $id -> id de la categoria a la que pertenese
 function listaNormas($id){
-
+	$norma = 0;
 	$sql = 'SELECT * FROM categorias WHERE parentId = '.$id;
 	$result = mysql_query($sql) or die( $sql.mysql_error() );
 
@@ -50,11 +51,17 @@ function listaNormas($id){
 	<select id="seleccionaNorma" onChange="seleccionaNorma()">';
 
 	while( $row = mysql_fetch_array($result) ){
+		if($norma == 0){
+			$norma = $row['id'];
+		}
 		echo '<option id="'.$row['id'].'">'.$row['nombre'].'</option>';	
 	}
 
 	echo '</select>
 	</div>';
+
+	//el id de la seleccionado por defecto
+	return $norma;
 }
 
 //muestra las generalidades disponible
@@ -83,6 +90,7 @@ function generalidades(){
 }
 
 //carag la descripcion de la norma seleccionada
+// @param $id -> id de la categoria
 function descripcionNorma($id){
 	$sql = 'SELECT * FROM categorias WHERE id ='.$id;
 	$result = mysql_query($sql);
