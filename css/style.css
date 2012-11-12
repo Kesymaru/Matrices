@@ -1017,6 +1017,20 @@ input::-0-placeholder{
 	vertical-align: middle;
 }
 
+#compartir #iconsExportar{
+	display: inline-block;
+	margin: 0 auto;
+	width: 20%;
+}
+
+#compartir #iconsExportar img:first-child{
+	float: left;
+}
+
+#compartir #iconsExportar img:last-child{
+	float: right;
+}
+
 .icon{
 	cursor: pointer;
 }

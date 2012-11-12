@@ -79,7 +79,7 @@ function menu(id){
 	//opciones
 	$( ".opciones" ).buttonset();
 	editarProyecto();
-	
+
 	//reset();
 }
 
@@ -166,7 +166,7 @@ function seleccionaGeneralidad(id){
 //limpia y resetea muestras de ajax
 function reset(){
 
-	$('#content #nivel1, #content #nivel2, #resumen, #edicion').remove();
+	$('#content #nivel1, #content #nivel2, #resumen, #edicion, #compartir').remove();
 	//remueve consultas de generalidades
 	$('.box').remove();
 }

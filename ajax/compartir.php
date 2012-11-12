@@ -28,13 +28,15 @@ function compartirMenu($proyecto){
 		 Seleccione un formato para exportar.
 		<br/><br/>
 
-		<img class="icon" src="images/excel.png" alt="Excel" title="Excel" onClick="exportarProyecto('.$proyecto.')">
-		<img class="icon" src="images/pdf.png" alt="PDF" title="PDF" onClick="exportarProyectoPdf('.$proyecto.')">
+		<div id="iconsExportar">
+			<img class="icon" src="images/excel.png" alt="Excel" title="Excel" onClick="exportarProyecto('.$proyecto.')">
+			<img class="icon" src="images/pdf.png" alt="PDF" title="PDF" onClick="exportarProyectoPdf('.$proyecto.')">
+		</div>
 
 		<br/><br/>
 		<hr> o <hr>
 		<br/><br/>
-		
+
 		Puedes compartir el informe por medio de un enlace.
 		 Las personas podran ver y descargar el informe pero no editarlo.
 		<br/><br/>
