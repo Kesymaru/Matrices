@@ -13,37 +13,40 @@ if( !isset($_SESSION['logueado']) ){
 	exit;
 }
 
-if(isset($_SESSION['proyecto'])){
-	exportar($_SESSION['proyecto']);
+if(isset($_GET['proyecto'])){
+	compartirMenu($_GET['proyecto']);
 }
 
 //muestra el dashboard
 // @param $proyecto -> id del proyecto
-function exportar($proyecto){
-	echo '<div id="exportar">';
+function compartirMenu($proyecto){
 
 	echo '<div class="box">
 			<div class="titulo">Exportar</div>
-		
-		Seleccione un formato para exportar.<br/>
-		Formatos:<br/>
+		<br/>
+		Puedes exportar el informe en archivo excel o pdf.
+		<br/><br/>
+		Seleccione un formato para exportar.
+		<br/><br/>
 
 		<button onClick="exportarProyecto('.$proyecto.')" >Excel</button>
-		<button>PDF</button>
+		<button onClick="exportarProyectoPdf('.$proyecto.')">PDF</button>
 
+		<br/><br/>
 	</div>';
 
 	echo '<div class="box">
 		<div class="titulo">Compartir</div>
-		Puedes compartir el informe por medio de un email o link.<br/>
-		Las personas podran ver y descargar el informe pero no editarlo.<br/>
+		<br/>
+		Puedes compartir el informe por medio de un enlace.
+		<br/><br/>
+		Las personas podran ver y descargar el informe pero no editarlo.
+		<br/><br/>
 
 		<button>Compartir con link</button>
-		<button>Enviar por email</button>
-
+		
+		<br/><br/>
 	</div>';
-
-	echo '</div><!-- end exportar -->';
 }
 
 
