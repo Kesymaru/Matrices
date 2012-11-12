@@ -472,11 +472,16 @@ function proyectoControls($id){
 		Editar
 		</label>';
 	//exportar
-	echo '<input type="radio" id="exportarProyecto" name="radio"/>
+	/*echo '<input type="radio" id="exportarProyecto" name="radio"/>
 		<label for="exportarProyecto" onClick="exportarProyecto('.$id.')">
 		Exportar
 		</label>';
-	
+	*/
+	echo '<input type="radio" id="exportarProyecto" name="radio"/>
+		<label for="exportarProyecto" onClick="compartirProyecto('.$id.')">
+		Exportar
+		</label>';
+
 	echo '</div>';
 }
 

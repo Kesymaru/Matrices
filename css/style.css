@@ -451,7 +451,7 @@ header{
 }
 
 /* DATOS CARGADOS */
-#columna2 .box{
+.box{
 	margin: 0 auto;
 	border: 1px solid #dedede;
 	border-radius: 5px;
@@ -461,18 +461,18 @@ header{
 	margin-bottom: 20px !important;
 }
 
-#columna2 .box div{
+.box div{
 	width: 100%;
 	text-align: left;
 	word-wrap: break-word;
 }
 
-#columna2 .box .content{
+.box .content{
 	width: 90%;
 	margin: 10px auto;
 }
 
-#columna2 .box .titulo{
+.box .titulo{
 	border-bottom: 1px solid #dedede;
 	color: #757374;
 	text-align: center;
@@ -993,3 +993,17 @@ input::-0-placeholder{
 	float: right;
 }
 
+
+/* COMPARTIR */
+#compartir{
+	width: auto;
+	display: block;
+	margin-top: 20px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#compartir .box{
+	float: none !important;
+	display: inline-block;
+}
