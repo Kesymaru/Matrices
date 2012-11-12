@@ -409,8 +409,6 @@ function proyectoControls(id){
 function editarProyecto(id){
 	//limpia cargas anteriores
 	reset();
-	$('#nivel1').fadeIn();
-	$('#nivel2').fadeIn();
 
 	//resetea categoria en caso de que no haya una seleccionada
 	if(Categoria == null || Categoria == ''){
@@ -423,11 +421,30 @@ function editarProyecto(id){
 	notificaAtencion('Edicion de proyecto.<br/>Seleccione categorias para mostrar informacion.')
 }
 
-//exportar proyecto seleccionado
+//muestra vista de compartir
+// @param id -> id del proyecto
+function compartirProyecto(id){
+	//limpia cargas anteriores
+	reset();
+
+	notifica('Opciones para exportar y compartir el proyecto.');
+
+	$('#content').append($('<div id="compartir">').load('ajax/compartir.php?proyecto='+id));
+}
+
+//exportar proyecto seleccionado en formato excel
+// @param id -> id del proyecto
 function exportarProyecto(id){
 	notificaAtencion('Exportando Proyecto.<br/>Asegurese de guardar el archivo en su disco duro.');
 	top.location.href = 'exportar.php?id='+id;
-	//TODO mas opciones de exportar ->PDF y excel
+}
+
+//exportar proyecto seleccionado en formato PDF
+// @param id -> id del proyecto
+function exportarProyectoPdf(id){
+	notificaAtencion('Exportando Proyecto.<br/>Asegurese de guardar el archivo en su disco duro.');
+	var url = 'exportarPdf.php?id='+id;
+	window.open(url,'_blank');
 }
 
 //muestra la lista de proyectos en un dialogo
