@@ -22,6 +22,7 @@ if( !isset($_SESSION['logueado']) ){
 	$('#formularioNuevaCategoria button, input:reset, .controls button').button();
 
 	$('input[placeholder]').placeholder();
+	$('#limpiarCategoriasBusqueda').hide();
 
 	function categorias(){
 		//carga las categorias
@@ -47,6 +48,7 @@ if( !isset($_SESSION['logueado']) ){
 		
 		//resetea cualquier busqueda
 		categorias();
+		$('#limpiarCategoriasBusqueda').fadeOut();
 	}
 
 	//guarda en el array las selecciones
@@ -91,9 +93,11 @@ if( !isset($_SESSION['logueado']) ){
 		}
 	}
 
+	//busca categorias
 	function buscarCategoriasSeleccion(){
 		var buscar = $('#buscarCategoria').val();
 		notifica('Buscando Categorias.');
+		$('#limpiarCategoriasBusqueda').fadeIn();
 
 		var query = {'func' : 'buscarCategoriasSeleccion', 'buscar' : buscar};
 		$.ajax({
@@ -134,6 +138,6 @@ if( !isset($_SESSION['logueado']) ){
 </div> 
 
 <div class="controls">
-	<button onclick="resetea();">Limpiar</button>
+	<button id="limpiarCategoriasBusqueda" onclick="resetea();">Limpiar</button>
 	<button onclick="enviarCategorias();">Seleccionar</button>
 </div>
