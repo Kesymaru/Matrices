@@ -75,6 +75,11 @@ function menu(id){
 
 	Categoria = id;
 	listaNormas(id);
+
+	//opciones
+	$( ".opciones" ).buttonset();
+	editarProyecto();
+	
 	//reset();
 }
 
@@ -89,12 +94,40 @@ function listaNormas(parentId){
 
 //carga la descripcion de la norma seleccionada
 function descripcionNorma(normaId){
-	accion1('columna1','descripcionNorma', normaId);
+	//accion1('columna1','descripcionNorma', normaId);
+	
+	var queryParams = { "func" : 'descripcionNorma', "id" : normaId};
+	var cont = $("#columna1");
+	  	$.ajax({
+	        data:  queryParams,
+	        url:   'ajax.php',
+	        type:  'post',
+	        success:  function (response) { 
+	        	cont.hide().html(response).fadeIn(1000);
+	        }
+		});
 }
 
 //carga generalidades
 function generalidades(){
-	accion1('generalidades','generalidades');
+	//accion1('generalidades','generalidades');
+
+	var queryParams = { "func" : 'generalidades', "id" : id};
+	var cont = $("#generalidades");
+	  	$.ajax({
+	        data:  queryParams,
+	        url:   'ajax.php',
+	        type:  'post',
+	        beforeSend: function () {
+	                cont.html('<img class="loader" src="http://77digital.com/Desarrollo/dipo/images/loader.gif" alt="cargando" />');
+	        },
+	        success:  function (response) { 
+	        	cont.hide().html(response).fadeIn(1000);
+	        	
+	        	$( ".opciones" ).buttonset();
+	        	$( "#opcion" ).click(seleccionaGeneralidad());
+	        }
+		});
 }
 
 //para seleccionar una norma
@@ -105,7 +138,7 @@ function seleccionaNorma(){
 
 	descripcionNorma(normaId);
 
-	reset();
+	//reset();
 }
 
 //registra la seleccion o deseleccion, autoguardado en la base de datos
@@ -406,7 +439,7 @@ function proyectoControls(id){
 }
 
 //Activa la edicion del proyecto
-function editarProyecto(id){
+function editarProyecto(){
 	//limpia cargas anteriores
 	reset();
 
