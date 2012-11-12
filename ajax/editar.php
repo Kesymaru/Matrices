@@ -40,6 +40,11 @@ function editar($proyecto, $categoria){
 				</div>
 				<div id="generalidades">
 					<?php generalidades(); ?>
+					<script type="text/javascript">
+						//inicializa opciones
+						$( ".opciones" ).buttonset();
+						$( "#opcion" ).click(seleccionaGeneralidad());
+					</script>
 				</div>
 
 		</div><!-- end nivel 1-->
