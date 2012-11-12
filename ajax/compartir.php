@@ -22,28 +22,24 @@ if(isset($_GET['proyecto'])){
 function compartirMenu($proyecto){
 
 	echo '<div class="box">
-			<div class="titulo">Exportar</div>
+		<div class="titulo">Exportar o Compartir</div>
 		<br/>
 		Puedes exportar el informe en archivo excel o pdf.
-		<br/><br/>
-		Seleccione un formato para exportar.
+		 Seleccione un formato para exportar.
 		<br/><br/>
 
-		<button onClick="exportarProyecto('.$proyecto.')" >Excel</button>
-		<button onClick="exportarProyectoPdf('.$proyecto.')">PDF</button>
+		<img class="icon" src="images/excel.png" alt="Excel" title="Excel" onClick="exportarProyecto('.$proyecto.')">
+		<img class="icon" src="images/pdf.png" alt="PDF" title="PDF" onClick="exportarProyectoPdf('.$proyecto.')">
 
 		<br/><br/>
-	</div>';
-
-	echo '<div class="box">
-		<div class="titulo">Compartir</div>
-		<br/>
+		<hr> o <hr>
+		<br/><br/>
+		
 		Puedes compartir el informe por medio de un enlace.
-		<br/><br/>
-		Las personas podran ver y descargar el informe pero no editarlo.
+		 Las personas podran ver y descargar el informe pero no editarlo.
 		<br/><br/>
 
-		<button>Compartir con link</button>
+		<img class="icon" title="Compartir con enlace" alt="Compartir con enlace" src="images/link.png">
 		
 		<br/><br/>
 	</div>';
