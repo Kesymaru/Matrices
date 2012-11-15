@@ -336,7 +336,8 @@ function resetPasswordUsuario($usuario){
 		$password = resetPassword();
 
 		//envia email con datos
-		mailResetPassword($row['email'], $row['nombre'], $usuario, $password);
+		$enviar = new Mail();
+		$enviar->mailResetPassword($row['email'], $row['nombre'], $usuario, $password);
 
 		//mensaje mostrado en login.php
 		echo 'Se ha enviado el nuevo password a tu email.';
@@ -357,7 +358,8 @@ function resetPasswordEmail($email){
 		$password = resetPassword();
 		
 		//envia email con datos
-		mailResetPassword($row['email'], $row['nombre'], $usuario, $password);
+		$enviar =  new Mail();
+		$enviar->mailResetPassword($row['email'], $row['nombre'], $usuario, $password);
 
 		//mensaje mostrado en login.php
 		echo 'Se ha enviado el nuevo password a tu email.';
@@ -392,8 +394,11 @@ function registro($usuario, $email, $password){
 		
 		//password sin encriptar para email
 		$password = encripta($password);
+		
 		//envia correo
-		mailRegistro($email, $usuario, $password);
+		$enviar = new Mail();
+		$enviar -> mailRegistro($email, $usuario, $password);
+
 	}else{
 		echo 'Error el usuario o el email ya estan en usu.';
 	}
