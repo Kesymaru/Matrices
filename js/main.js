@@ -658,13 +658,19 @@ function actualizar(func, nuevo){
 
 //logOut
 function logOut(){
+	
 	var queryParams = { "func" : 'logOut'};
 	  	$.ajax({
 	        data:  queryParams,
 	        url:   'ajax.php',
 	        type:  'post',
 	        success:  function (response) { 
-	        	top.location.href = 'login.php';
+	        	notifica('Hasta la proxima.');
+	        	setTimeout(function (){
+					$('body').fadeOut(1500, function(){
+	        			top.location.href = 'login.php';
+	        		});
+				},2000);
 	        }
 		});
 }
