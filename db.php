@@ -1,5 +1,6 @@
 <?php
 	require_once("mail.php"); 
+	require_once('session.php');
 
 /* Conexion y funcionalidades de la base de datos */
 session_start();
@@ -300,7 +301,7 @@ function buscarProyectos($busqueda){
 /*
 	autentificaciones de usuarios
 */
-
+/*
 function logIn($usuario, $password){
 	$password = encripta($password);
 	$sql = 'SELECT * FROM clientes WHERE usuario = \''.$usuario.'\' AND contrasena = \''.$password.'\' AND status = 1';
@@ -318,7 +319,7 @@ function logIn($usuario, $password){
 		//no es un usuario valido -> mensaje mostrado con notificacion en login.js
 		echo 'El usuario o la contraseña es incorrecta';
 	}
-}
+}*/
 
 //cierra session
 function logOut(){
