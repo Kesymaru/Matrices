@@ -2,6 +2,7 @@
 
 //base de datos
 require_once("db.php");
+require_once("session.php");
 
 switch ($_POST['func']){
 
@@ -41,13 +42,18 @@ switch ($_POST['func']){
 	case 'logIn':
 		if(isset($_POST['usuario']) && isset($_POST['password'])){
 			//se encarga de la autentificacion del usuario
-			logIn($_POST['usuario'], $_POST['password']);
+			//logIn($_POST['usuario'], $_POST['password']);
+
+			$login = new Session();
+			$login->login($_POST['usuario'], $_POST['password']);
 		}
 		break;
 
 	//desloguear
 	case 'logOut':
-		logOut();
+		//logOut();
+		$logout = new Session();
+		$logout->logout();
 		break;
 
 	//resetPassword -> via usuario
